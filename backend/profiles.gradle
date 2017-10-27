@@ -1,0 +1,17 @@
+environments{
+    development {
+        hostname = 'localhost'
+        portnumber = 8080
+        username = 'tomcat'
+        password = 'spiral'
+        curlpath = '../curl/curl.exe'
+    }
+
+    jenkins{
+        hostname = 'localhost'
+        portnumber = 8080
+        username = 'tomcat'
+        password = 'spiral'
+        curlpath = 'curl'
+    }
+}
