@@ -4,7 +4,7 @@
 
 ## How to use
 
-`api-doc.html` を適当なブラウザで開いてください．
+`api-docs.html` を適当なブラウザで開いてください．
 
 ## Contributing
 
@@ -20,10 +20,10 @@
 	$ npm install -g aglio
 	```
 
-1. `api-doc.md` を編集する
+1. `api-docs.md` を編集する
 
 1. aglio でレンダリングする
 
 	```sh
-	$ aglio -i api-doc.md -o api-doc.html
+	$ aglio -i api-docs.md -o api-docs.html
 	```
