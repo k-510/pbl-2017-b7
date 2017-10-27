@@ -1,11 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 
 <head>
-    <title>文書のタイトル</title>
+	<meta charset="utf-8">
+	<title>alpaca</title>
+	<link rel="stylesheet" href="css/default.css" />
+	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
-    body
+	<input id="like" type="button" value="いいね">
+	<input id="message" type="text" placeholder="コメント">
+	<input id="submit" type="button" value="投稿">
+	<p>
+		総いいね回数： <span id="total">0</span>
+	</p>
+
+	<div id="board"></div>
+
+	<script src="js/jquery-3.2.1.js"></script>
+	<script src="js/alpaca.js"></script>
 </body>
 
 </html>
