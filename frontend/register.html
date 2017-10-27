@@ -1,11 +1,25 @@
 <html>
 
 <head>
-    <title>文書のタイトル</title>
+    <title>依頼作成ページ</title>
 </head>
 
 <body>
-    body
+	<h1>依頼内容の入力</h1>
+    <form action="tmp.php" method="post">
+
+    	<!-- <input type="hidden" name="user_id" value="1"> -->
+        <!-- <input type="hidden" name="store_id" value="1"> --> 
+    	<p>店舗名：<input type="text" name="store_name"></p>
+    	<p>
+    		応募条件：
+    		<textarea name="application_conditions" cols="60" rows="5"></textarea>
+    	</p>
+    	<p>予算：<input type="number" name="cost" max="100000" min="0" step="100">円</p>
+    	<p>到着時刻：<input type="datetime-local" name="arrival_time" step="300"></p>
+    	<p>締切時刻：<input type="datetime-local" name="deadline" step="300"></p>
+    	<p><input type="submit" value="送信"></p>
+    </form>
 </body>
 
 </html>
