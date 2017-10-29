@@ -21,16 +21,16 @@ HOST: https://team2017-7.spiral.cloud/api
 
 # Group 非ユーザ依存リソース
 
-セッション管理を必要としない，ログインユーザに依存しないリソースです。
-どのユーザがリクセストしても同じレスポンスが返ります。
+セッション管理を必要としない，ログインユーザに依存しないリソースです．
+どのユーザがリクセストしても同じレスポンスが返ります．
 
 
 ## すべての依頼情報リソース [/requests]
 
 ### 依頼情報一覧の取得 [GET]
 
-サービスに登録されているすべての依頼情報を取得します。
-代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
+サービスに登録されているすべての依頼情報を取得します．
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Request
 
@@ -55,8 +55,8 @@ HOST: https://team2017-7.spiral.cloud/api
 
 ### 指定した依頼情報の取得 [GET]
 
-サービスに登録されている依頼情報のうち，`{id}` で指定した依頼情報を取得します。
-代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
+サービスに登録されている依頼情報のうち，`{id}` で指定した依頼情報を取得します．
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Parameters
 
@@ -80,7 +80,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 404 (application/json)
 
-  指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合．
 
   + Attributes
 
@@ -89,12 +89,12 @@ HOST: https://team2017-7.spiral.cloud/api
 
 # Group ユーザ依存リソース
 
-セッション管理を必要とする，ログインユーザに依存したリソースです。
-リクエストを送るユーザにより，レスポンスの内容が変化します。
+セッション管理を必要とする，ログインユーザに依存したリソースです．
+リクエストを送るユーザにより，レスポンスの内容が変化します．
 
-以下のリクエストでは，`Authorization` ヘッダに次の形式でセッションのトークンを付与しなければなりません。
-トークンは[ログイン](#セッション-ログイン)処理で取得します。
-トークンがない場合は `403 Forbidden` が返ります。
+以下のリクエストでは，`Authorization` ヘッダに次の形式でセッションのトークンを付与しなければなりません．
+トークンは[ログイン](#セッション-ログイン)処理で取得します．
+トークンがない場合は `403 Forbidden` が返ります．
 
 ```
 Authorization: Session {token}
@@ -105,7 +105,7 @@ Authorization: Session {token}
 
 ### 依頼情報の登録 [POST]
 
-ログインユーザとして，サービスに依頼情報を新しく登録します。
+ログインユーザとして，サービスに依頼情報を新しく登録します．
 
 + Request (application/json)
 
@@ -131,7 +131,7 @@ Authorization: Session {token}
 
 + Response 400 (application/json)
 
-  リクエストに必要なパラメータが含まれていなかった場合。
+  リクエストに必要なパラメータが含まれていなかった場合．
 
   + Attributes
 
@@ -139,8 +139,8 @@ Authorization: Session {token}
 
 ### 登録した依頼情報一覧の取得 [GET]
 
-ログインユーザが依頼人として登録した，すべての依頼情報を取得します。
-代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
+ログインユーザが依頼人として登録した，すべての依頼情報を取得します．
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Parameters
 
@@ -168,7 +168,7 @@ Authorization: Session {token}
 
 + Response 400 (application/json)
 
-  リクエストに不正なパラメータが含まれていた場合。
+  リクエストに不正なパラメータが含まれていた場合．
 
   + Attributes
 
@@ -176,7 +176,7 @@ Authorization: Session {token}
 
 ### 受諾した依頼情報一覧の取得 [GET]
 
-ログインユーザが代行人として受諾した，すべての依頼情報を取得します。
+ログインユーザが代行人として受諾した，すべての依頼情報を取得します．
 
 + Parameters
 
@@ -204,7 +204,7 @@ Authorization: Session {token}
 
 + Response 400 (application/json)
 
-  リクエストに不正なパラメータが含まれていた場合。
+  リクエストに不正なパラメータが含まれていた場合．
 
   + Attributes
 
@@ -215,7 +215,7 @@ Authorization: Session {token}
 
 ### 指定した依頼を受諾する [PUT]
 
-ログインユーザが代行人として，`{id}` で指定した依頼を受諾します。
+ログインユーザが代行人として，`{id}` で指定した依頼を受諾します．
 
 + Parameters
 
@@ -231,7 +231,7 @@ Authorization: Session {token}
 
 + Response 404 (application/json)
 
-  指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合．
 
   + Attributes
 
@@ -239,7 +239,7 @@ Authorization: Session {token}
 
 + Response 409 (application/json)
 
-  指定した `{id}` の依頼にすでに他の代行人が登録されていた場合。
+  指定した `{id}` の依頼にすでに他の代行人が登録されていた場合．
 
   + Attributes
 
@@ -250,7 +250,7 @@ Authorization: Session {token}
 
 ### 指定した依頼を完了させる [PUT]
 
-ログインユーザが依頼人として，`{id}` で指定した依頼を完了させます。
+ログインユーザが依頼人として，`{id}` で指定した依頼を完了させます．
 
 + Parameters
 
@@ -266,7 +266,7 @@ Authorization: Session {token}
 
 + Response 403 (application/json)
 
-  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合。
+  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合．
 
   + Attributes
 
@@ -274,7 +274,7 @@ Authorization: Session {token}
 
 + Response 404 (application/json)
 
-  指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合．
 
   + Attributes
 
@@ -283,10 +283,10 @@ Authorization: Session {token}
 
 # Group セッション
 
-セッション周りの API です。
-以下の API を用いてセッション管理を行います。
+セッション周りの API です．
+以下の API を用いてセッション管理を行います．
 
-**仕様の詳細は策定中。pending...**
+**仕様の詳細は策定中．pending...**
 
 ## ログイン [/login]
 
@@ -299,4 +299,4 @@ Authorization: Session {token}
 
 # Group サーバエラー発生時
 
-すべての API について，サーバ側でエラーが発生した場合，`500 Internal Server Error` を返します。
+すべての API について，サーバ側でエラーが発生した場合，`500 Internal Server Error` を返します．

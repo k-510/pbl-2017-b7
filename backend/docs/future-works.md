@@ -4,15 +4,15 @@ HOST: https://team2017-7.spiral.cloud/api
 
 # Group Future works
 
-時間があれば実装したい API。
-サービス動作に必須ではないため，優先順位は低め。
+時間があれば実装したい API．
+サービス動作に必須ではないため，優先順位は低め．
 
 
 ## ユーザの依頼情報リソース [/user/requests/{id}]
 
 ### 依頼情報の削除 [DELETE]
 
-`{id}` で指定した依頼情報を削除します。
+`{id}` で指定した依頼情報を削除します．
 
 + Parameters
 
@@ -28,7 +28,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 403 (application/json)
 
-  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合。
+  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合．
 
   + Attributes
 
@@ -36,7 +36,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 404 (application/json)
 
-  指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合．
 
   + Attributes
 
@@ -47,6 +47,6 @@ HOST: https://team2017-7.spiral.cloud/api
 
 ### ユーザ情報の登録 [POST]
 
-サービスに新しくユーザを登録します。
+サービスに新しくユーザを登録します．
 
-詳細はまだ考えてません。
+詳細はまだ考えてません．
