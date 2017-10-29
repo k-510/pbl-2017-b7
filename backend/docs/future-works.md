@@ -16,31 +16,31 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Parameters
 
-  + id: 1 (number, required) - 依頼情報 ID
+    + id: 1 (number, required) - 依頼情報 ID
 
 + Request
 
-  + Headers
+    + Headers
 
-      Authorization: Session {token}
+            Authorization: Session {token}
 
 + Response 204
 
 + Response 403 (application/json)
 
-  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合．
+    指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合．
 
-  + Attributes
+    + Attributes
 
-    + error: `The request is not yours.` (string)
+        + error: `The request is not yours.` (string)
 
 + Response 404 (application/json)
 
-  指定した `{id}` の依頼情報が存在しなかった場合．
+    指定した `{id}` の依頼情報が存在しなかった場合．
 
-  + Attributes
+    + Attributes
 
-    + error: `The resource you were looking for could not be found.` (string)
+        + error: `The resource you were looking for could not be found.` (string)
 
 
 ## ユーザ登録リソース [/users/signin]
