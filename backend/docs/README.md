@@ -5,7 +5,7 @@
 
 ## How to use
 
-`api-docs.html` を適当なブラウザで開いてください．
+`api.html` を適当なブラウザで開いてください．
 
 
 ## Contributing
@@ -42,10 +42,10 @@
 
 ### レンダリング
 
-1. `api-docs.md` を編集する
+1. `api.md` を編集する
 
 1. aglio でレンダリングする
 
 	```sh
-	$ aglio -i api-docs.md -o api-docs.html
+	$ aglio -i api.md -o api.html
 	```
