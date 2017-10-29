@@ -2,9 +2,19 @@
 どのユーザがリクセストしても同じレスポンスが返ります．</p>
 <div id="非ユーザ依存リソース-すべての依頼情報リソース" class="resource"><h3 class="resource-heading">すべての依頼情報リソース <a href="#非ユーザ依存リソース-すべての依頼情報リソース" class="permalink">&nbsp;&para;</a></h3><div id="非ユーザ依存リソース-すべての依頼情報リソース-get" class="action get"><h4 class="action-heading"><div class="name">依頼情報一覧の取得</div><a href="#非ユーザ依存リソース-すべての依頼情報リソース-get" class="method get">GET</a><code class="uri">/requests</code></h4><p>サービスに登録されているすべての依頼情報を取得します．
 代行人がまだ存在しない場合，レスポンスの <code>surrogate_id</code> は <code>null</code> となります．</p>
-<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/requests</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/requests</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
+    "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">condition</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
+    "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">surrogate_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
+  </span>}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span>
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="非ユーザ依存リソース-単一の依頼情報リソース" class="resource"><h3 class="resource-heading">単一の依頼情報リソース <a href="#非ユーザ依存リソース-単一の依頼情報リソース" class="permalink">&nbsp;&para;</a></h3><div id="非ユーザ依存リソース-単一の依頼情報リソース-get" class="action get"><h4 class="action-heading"><div class="name">指定した依頼情報の取得</div><a href="#非ユーザ依存リソース-単一の依頼情報リソース-get" class="method get">GET</a><code class="uri">/requests/{id}</code></h4><p>サービスに登録されている依頼情報のうち，<code>{id}</code> で指定した依頼情報を取得します．
 代行人がまだ存在しない場合，レスポンスの <code>surrogate_id</code> は <code>null</code> となります．</p>
 <h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/requests/<span class="hljs-attribute" title="id">1</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>依頼情報 ID</p>
@@ -12,7 +22,10 @@
   "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
   "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
   "<span class="hljs-attribute">condition</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
-  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span>
+  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
+  "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">surrogate_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -32,10 +45,35 @@
     "<span class="hljs-attribute">deadline</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"代行人の募集期限"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼情報 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼人のユーザ ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">surrogate_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value">[
+        <span class="hljs-string">"number"</span>,
+        <span class="hljs-string">"null"</span>
+      ]</span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"代行人のユーザ ID"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>404</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼情報が存在しなかった場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="ユーザ依存リソース" class="resource-group"><h2 class="group-heading">ユーザ依存リソース <a href="#ユーザ依存リソース" class="permalink">&para;</a></h2><p>セッション管理を必要とする，ログインユーザに依存したリソースです．
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The resource you were looking for could not be found."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="ユーザ依存リソース" class="resource-group"><h2 class="group-heading">ユーザ依存リソース <a href="#ユーザ依存リソース" class="permalink">&para;</a></h2><p>セッション管理を必要とする，ログインユーザに依存したリソースです．
 リクエストを送るユーザにより，レスポンスの内容が変化します．</p>
 <p>以下のリクエストでは，<code>Authorization</code> ヘッダに次の形式でセッションのトークンを付与しなければなりません．
 トークンは<a href="#%E3%82%BB%E3%83%83%E3%82%B7%E3%83%A7%E3%83%B3-%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3">ログイン</a>処理で取得します．
@@ -72,7 +110,9 @@
   "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
   "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
   "<span class="hljs-attribute">condition</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
-  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span>
+  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
+  "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
@@ -92,29 +132,127 @@
     "<span class="hljs-attribute">deadline</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"代行人の募集期限"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼情報 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼人のユーザ ID"</span>
     </span>}
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>400</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>リクエストに必要なパラメータが含まれていなかった場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div><div id="ユーザ依存リソース-ユーザの依頼情報リソース-get" class="action get"><h4 class="action-heading"><div class="name">登録した依頼情報一覧の取得</div><a href="#ユーザ依存リソース-ユーザの依頼情報リソース-get" class="method get">GET</a><code class="uri">/user/requests{?type}</code></h4><p>ログインユーザが依頼人として登録した，すべての依頼情報を取得します．
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The request you sent lacks a requied parameter."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="ユーザ依存リソース-ユーザの依頼情報リソース-get" class="action get"><h4 class="action-heading"><div class="name">登録した依頼情報一覧の取得</div><a href="#ユーザ依存リソース-ユーザの依頼情報リソース-get" class="method get">GET</a><code class="uri">/user/requests{?type}</code></h4><p>ログインユーザが依頼人として登録した，すべての依頼情報を取得します．
 代行人がまだ存在しない場合，レスポンスの <code>surrogate_id</code> は <code>null</code> となります．</p>
-<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests?<span class="hljs-attribute">type=</span><span class="hljs-literal">registered</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>type</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>registered</span></span></dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests?<span class="hljs-attribute">type=</span><span class="hljs-literal">registered</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>type</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>registered</span></span></dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
+    "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">condition</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
+    "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">surrogate_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
+  </span>}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span>
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>400</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>リクエストに不正なパラメータが含まれていた場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div><div id="ユーザ依存リソース-ユーザの依頼情報リソース-get-1" class="action get"><h4 class="action-heading"><div class="name">受諾した依頼情報一覧の取得</div><a href="#ユーザ依存リソース-ユーザの依頼情報リソース-get-1" class="method get">GET</a><code class="uri">/user/requests{?type}</code></h4><p>ログインユーザが代行人として受諾した，すべての依頼情報を取得します．</p>
-<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests?<span class="hljs-attribute">type=</span><span class="hljs-literal">accepted</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>type</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>accepted</span></span></dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The request you sent contents an invalid parameter."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span>
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div><div id="ユーザ依存リソース-ユーザの依頼情報リソース-get-1" class="action get"><h4 class="action-heading"><div class="name">受諾した依頼情報一覧の取得</div><a href="#ユーザ依存リソース-ユーザの依頼情報リソース-get-1" class="method get">GET</a><code class="uri">/user/requests{?type}</code></h4><p>ログインユーザが代行人として受諾した，すべての依頼情報を取得します．</p>
+<h4>Example URI</h4><div class="definition"><span class="method get">GET</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests?<span class="hljs-attribute">type=</span><span class="hljs-literal">accepted</span></span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>type</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>accepted</span></span></dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>200</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
+    "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">condition</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
+    "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">surrogate_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
+  </span>}
+]</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span>
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>400</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>リクエストに不正なパラメータが含まれていた場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div><div id="ユーザ依存リソース-依頼の受諾リソース" class="resource"><h3 class="resource-heading">依頼の受諾リソース <a href="#ユーザ依存リソース-依頼の受諾リソース" class="permalink">&nbsp;&para;</a></h3><div id="ユーザ依存リソース-依頼の受諾リソース-put" class="action put"><h4 class="action-heading"><div class="name">指定した依頼を受諾する</div><a href="#ユーザ依存リソース-依頼の受諾リソース-put" class="method put">PUT</a><code class="uri">/user/requests/{id}/acceptance</code></h4><p>ログインユーザが代行人として，<code>{id}</code> で指定した依頼を受諾します．</p>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The request you sent contents an invalid parameter."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="ユーザ依存リソース-依頼の受諾リソース" class="resource"><h3 class="resource-heading">依頼の受諾リソース <a href="#ユーザ依存リソース-依頼の受諾リソース" class="permalink">&nbsp;&para;</a></h3><div id="ユーザ依存リソース-依頼の受諾リソース-put" class="action put"><h4 class="action-heading"><div class="name">指定した依頼を受諾する</div><a href="#ユーザ依存リソース-依頼の受諾リソース-put" class="method put">PUT</a><code class="uri">/user/requests/{id}/acceptance</code></h4><p>ログインユーザが代行人として，<code>{id}</code> で指定した依頼を受諾します．</p>
 <h4>Example URI</h4><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests/<span class="hljs-attribute" title="id">1</span>/acceptance</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>依頼情報 ID</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div><div class="title"><strong>Response&nbsp;&nbsp;<code>404</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼情報が存在しなかった場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>409</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼にすでに他の代行人が登録されていた場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div><div id="ユーザ依存リソース-依頼の完了リソース" class="resource"><h3 class="resource-heading">依頼の完了リソース <a href="#ユーザ依存リソース-依頼の完了リソース" class="permalink">&nbsp;&para;</a></h3><div id="ユーザ依存リソース-依頼の完了リソース-put" class="action put"><h4 class="action-heading"><div class="name">指定した依頼を完了させる</div><a href="#ユーザ依存リソース-依頼の完了リソース-put" class="method put">PUT</a><code class="uri">/user/requests/{id}/completion</code></h4><p>ログインユーザが依頼人として，<code>{id}</code> で指定した依頼を完了させます．</p>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The resource you were looking for could not be found."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>409</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼にすでに他の代行人が登録されていた場合．</p>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The request you want to accept has another surrogate already."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="ユーザ依存リソース-依頼の完了リソース" class="resource"><h3 class="resource-heading">依頼の完了リソース <a href="#ユーザ依存リソース-依頼の完了リソース" class="permalink">&nbsp;&para;</a></h3><div id="ユーザ依存リソース-依頼の完了リソース-put" class="action put"><h4 class="action-heading"><div class="name">指定した依頼を完了させる</div><a href="#ユーザ依存リソース-依頼の完了リソース-put" class="method put">PUT</a><code class="uri">/user/requests/{id}/completion</code></h4><p>ログインユーザが依頼人として，<code>{id}</code> で指定した依頼を完了させます．</p>
 <h4>Example URI</h4><div class="definition"><span class="method put">PUT</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests/<span class="hljs-attribute" title="id">1</span>/completion</span></div><div class="title"><strong>URI Parameters</strong><div class="collapse-button show"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><dl class="inner"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>依頼情報 ID</p>
 </dd></dl></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div><div class="title"><strong>Response&nbsp;&nbsp;<code>403</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼情報を登録したユーザがログインユーザではない場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>404</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼情報が存在しなかった場合．</p>
-</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="セッション" class="resource-group"><h2 class="group-heading">セッション <a href="#セッション" class="permalink">&para;</a></h2><p>セッション周りの API です．
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The request you want to make complete is not registered by you."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>404</code></strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><div class="description"><p>指定した <code>{id}</code> の依頼情報が存在しなかった場合．</p>
+</div><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">error</span>": <span class="hljs-value"><span class="hljs-string">"The resource you were looking for could not be found."</span>
+</span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
+  "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
+  "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">error</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}
+  </span>}
+</span>}</code></pre><div style="height: 1px;"></div></div></div></div></div></section><section id="セッション" class="resource-group"><h2 class="group-heading">セッション <a href="#セッション" class="permalink">&para;</a></h2><p>セッション周りの API です．
 以下の API を用いてセッション管理を行います．</p>
 <p><strong>仕様の詳細は策定中．pending…</strong></p>
 <div id="セッション-ログイン" class="resource"><h3 class="resource-heading">ログイン <a href="#セッション-ログイン" class="permalink">&nbsp;&para;</a></h3><p><strong>TODO</strong></p>

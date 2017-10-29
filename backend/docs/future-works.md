@@ -32,7 +32,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
     + Attributes
 
-        + error: `The request is not yours.` (string)
+        + error: `The request you want to make complete is not registered by you.` (string)
 
 + Response 404 (application/json)
 

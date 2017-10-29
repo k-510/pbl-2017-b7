@@ -270,7 +270,7 @@ Authorization: Session {token}
 
     + Attributes
 
-        + error: `The request is not yours.` (string)
+        + error: `The request you want to make complete is not registered by you.` (string)
 
 + Response 404 (application/json)
 
