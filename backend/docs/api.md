@@ -34,21 +34,21 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Request
 
-	+ Headers
+  + Headers
 
-			Accept: application/json
+      Accept: application/json
 
 + Response 200 (application/json)
 
-	+ Attributes (array)
+  + Attributes (array)
 
-		+ (RequestBase)
+    + (RequestBase)
 
-			+ request_id: 1 (number) - 依頼情報 ID
+      + request_id: 1 (number) - 依頼情報 ID
 
-			+ client_id: 1 (number) - 依頼人のユーザ ID
+      + client_id: 1 (number) - 依頼人のユーザ ID
 
-			+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+      + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
 
 ## 単一の依頼情報リソース [/requests/{id}]
@@ -60,31 +60,31 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Parameters
 
-	+ id: 1 (number, required) - 依頼情報 ID
+  + id: 1 (number, required) - 依頼情報 ID
 
 + Requests
 
-	+ Headers
+  + Headers
 
-			Accept: application/json
+      Accept: application/json
 
 + Response 200 (application/json)
 
-	+ Attributes (RequestBase)
+  + Attributes (RequestBase)
 
-		+ request_id: 1 (number) - 依頼情報 ID
+    + request_id: 1 (number) - 依頼情報 ID
 
-		+ client_id: 1 (number) - 依頼人のユーザ ID
+    + client_id: 1 (number) - 依頼人のユーザ ID
 
-		+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+    + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
 + Response 404 (application/json)
 
-	指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The resource you were looking for could not be found.` (string)
+    + error: `The resource you were looking for could not be found.` (string)
 
 
 # Group ユーザ依存リソース
@@ -109,33 +109,33 @@ Authorization: Session {token}
 
 + Request (application/json)
 
-	+ Headers
+  + Headers
 
-			Accept: application/json
+      Accept: application/json
 
-			Authorization: Session {token}
+      Authorization: Session {token}
 
-	+ Attributes (RequestBase)
+  + Attributes (RequestBase)
 
 + Response 201 (application/json)
 
-	+ Headers
+  + Headers
 
-			Location: /api/requests/1
+      Location: /api/requests/1
 
-	+ Attributes (RequestBase)
+  + Attributes (RequestBase)
 
-		+ request_id: 1 (number) - 依頼情報 ID
+    + request_id: 1 (number) - 依頼情報 ID
 
-		+ client_id: 1 (number) - 依頼人のユーザ ID
+    + client_id: 1 (number) - 依頼人のユーザ ID
 
 + Response 400 (application/json)
 
-	リクエストに必要なパラメータが含まれていなかった場合。
+  リクエストに必要なパラメータが含まれていなかった場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The request you sent lacks a requied parameter.` (string)
+    + error: `The request you sent lacks a requied parameter.` (string)
 
 ### 登録した依頼情報一覧の取得 [GET]
 
@@ -144,35 +144,35 @@ Authorization: Session {token}
 
 + Parameters
 
-	+ type: `registered` (string, required)
+  + type: `registered` (string, required)
 
 + Request
 
-	+ Headers
+  + Headers
 
-			Accept: application/json
+      Accept: application/json
 
-			Authorization: Session {token}
+      Authorization: Session {token}
 
 + Response 200 (application/json)
 
-	+ Attributes (array)
+  + Attributes (array)
 
-		+ (RequestBase)
+    + (RequestBase)
 
-			+ request_id: 1 (number) - 依頼情報 ID
+      + request_id: 1 (number) - 依頼情報 ID
 
-			+ client_id: 1 (number) - 依頼人のユーザ ID
+      + client_id: 1 (number) - 依頼人のユーザ ID
 
-			+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+      + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
 + Response 400 (application/json)
 
-	リクエストに不正なパラメータが含まれていた場合。
+  リクエストに不正なパラメータが含まれていた場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The request you sent contents an invalid parameter.` (string)
+    + error: `The request you sent contents an invalid parameter.` (string)
 
 ### 受諾した依頼情報一覧の取得 [GET]
 
@@ -180,35 +180,35 @@ Authorization: Session {token}
 
 + Parameters
 
-	+ type: `accepted` (string, required)
+  + type: `accepted` (string, required)
 
 + Request
 
-	+ Headers
+  + Headers
 
-			Accept: application/json
+      Accept: application/json
 
-			Authorization: Session {token}
+      Authorization: Session {token}
 
 + Response 200 (application/json)
 
-	+ Attributes (array)
+  + Attributes (array)
 
-		+ (RequestBase)
+    + (RequestBase)
 
-			+ request_id: 1 (number) - 依頼情報 ID
+      + request_id: 1 (number) - 依頼情報 ID
 
-			+ client_id: 1 (number) - 依頼人のユーザ ID
+      + client_id: 1 (number) - 依頼人のユーザ ID
 
-			+ surrogate_id: 2 (number) - 代行人のユーザ ID
+      + surrogate_id: 2 (number) - 代行人のユーザ ID
 
 + Response 400 (application/json)
 
-	リクエストに不正なパラメータが含まれていた場合。
+  リクエストに不正なパラメータが含まれていた場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The request you sent contents an invalid parameter.` (string)
+    + error: `The request you sent contents an invalid parameter.` (string)
 
 
 ## 依頼の受諾リソース [/user/requests/{id}/acceptance]
@@ -219,31 +219,31 @@ Authorization: Session {token}
 
 + Parameters
 
-	+ id: 1 (number, required) - 依頼情報 ID
+  + id: 1 (number, required) - 依頼情報 ID
 
 + Request
 
-	+ Headers
+  + Headers
 
-			Authorization: Session {token}
+      Authorization: Session {token}
 
 + Response 204
 
 + Response 404 (application/json)
 
-	指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The resource you were looking for could not be found.` (string)
+    + error: `The resource you were looking for could not be found.` (string)
 
 + Response 409 (application/json)
 
-	指定した `{id}` の依頼にすでに他の代行人が登録されていた場合。
+  指定した `{id}` の依頼にすでに他の代行人が登録されていた場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The request you want to accept has another surrogate already.` (string)
+    + error: `The request you want to accept has another surrogate already.` (string)
 
 
 ## 依頼の完了リソース [/user/requests/{id}/completion]
@@ -254,31 +254,31 @@ Authorization: Session {token}
 
 + Parameters
 
-	+ id: 1 (number, required) - 依頼情報 ID
+  + id: 1 (number, required) - 依頼情報 ID
 
 + Request
 
-	+ Headers
+  + Headers
 
-			Authorization: Session {token}
+      Authorization: Session {token}
 
 + Response 204
 
 + Response 403 (application/json)
 
-	指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合。
+  指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The request is not yours.` (string)
+    + error: `The request is not yours.` (string)
 
 + Response 404 (application/json)
 
-	指定した `{id}` の依頼情報が存在しなかった場合。
+  指定した `{id}` の依頼情報が存在しなかった場合。
 
-	+ Attributes
+  + Attributes
 
-		+ error: `The resource you were looking for could not be found.` (string)
+    + error: `The resource you were looking for could not be found.` (string)
 
 
 # Group セッション
