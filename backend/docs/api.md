@@ -2,53 +2,37 @@ FORMAT: 1A
 HOST: https://team2017-7.spiral.cloud/api
 
 
+<!-- JSON データの構造を定義 -->
 
-# Group 最低限の API
+# Data Structures
 
+## RequestBase (object)
 
-## 依頼情報リソース [/requests{?id}]
++ shop_id: `k682891` (string) - ぐるナビの店舗ID
 
++ datetime: `2017-10-27T15:00:00.000Z` (string) - 代行人に到着して欲しい時間
 
-### 依頼情報の登録 [POST]
++ condition: `テーブルマナーがある人` (string) - 募集する代行人の条件
 
-#### 処理概要
-
-データベースに依頼情報を新しく登録します．
-
-+ Request (application/json)
-
-	+ Headers
-
-			Accept: application/json
-
-	+ Attributes
-
-		+ session_id: agk4ea6vrf1v2kav32 (string, required) - セッションID
-
-		+ shop_id: k682891 (string, required) - ぐるナビの店舗ID
-
-		+ datetime: `2017-10-27T15:00:00.000Z` (string, required) - 代行人に到着して欲しい時間
-
-		+ condition: テーブルマナーがある人 (string, optional) - 募集する代行人の条件
-
-		+ deadline: `2017-11-01T12:00:00.000Z` (string, optional) - 代行人の募集期限
-
-+ Response 201
-
-	+ Headers
-
-			Location: /requests?id=1
-
-+ Response 400
++ deadline: `2017-11-01T12:00:00.000Z` (string) - 代行人の募集期限
 
 
-### 依頼情報の一覧の取得 [GET]
+<!-- 以下から API 仕様を定義 -->
 
-#### 処理概要
+# Group 非ユーザ依存リソース
 
-データベースに登録されている依頼情報の一覧を取得します．
+セッション管理を必要としない，ログインユーザに依存しないリソースです。
+どのユーザがリクセストしても同じレスポンスが返ります。
 
-+ Request (application/json)
+
+## すべての依頼情報リソース [/requests]
+
+### 依頼情報一覧の取得 [GET]
+
+サービスに登録されているすべての依頼情報を取得します。
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
+
++ Request
 
 	+ Headers
 
@@ -56,30 +40,27 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 200 (application/json)
 
-	+ Attributes
+	+ Attributes (array)
 
-		+ requests (array)
+		+ (RequestBase)
 
 			+ request_id: 1 (number) - 依頼情報 ID
 
-			+ shop_id: k682891 (string) - ぐるナビの店舗ID
+			+ client_id: 1 (number) - 依頼人のユーザ ID
 
-			+ datetime: `2017-10-27T15:00:00.000Z` (string) - 代行人に到着して欲しい時間
-
-			+ condition: テーブルマナーがある人 (string) - 募集する代行人の条件
-
-			+ deadline: `2017-11-01T12:00:00.000Z` (string) - 代行人の募集期限
+			+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
 
-### 依頼情報の取得 [GET]
+## 単一の依頼情報リソース [/requests/{id}]
 
-#### 処理概要
+### 指定した依頼情報の取得 [GET]
 
-データベースに登録されている依頼情報を取得します．
+サービスに登録されている依頼情報のうち，`{id}` で指定した依頼情報を取得します。
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
 
 + Parameters
 
-	+ id: 1 (number, required) - A path variable that is required for a valid URL
+	+ id: 1 (number, required) - 依頼情報 ID
 
 + Requests
 
@@ -89,14 +70,233 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 200 (application/json)
 
-	+ Attributes
+	+ Attributes (RequestBase)
 
 		+ request_id: 1 (number) - 依頼情報 ID
 
-		+ shop_id: k682891 (string) - ぐるナビの店舗ID
+		+ client_id: 1 (number) - 依頼人のユーザ ID
 
-		+ datetime: `2017-10-27T15:00:00.000Z` (string) - 代行人に到着して欲しい時間
+		+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
-		+ condition: テーブルマナーがある人 (string) - 募集する代行人の条件
++ Response 404 (application/json)
 
-		+ deadline: `2017-11-01T12:00:00.000Z` (string) - 代行人の募集期限
+	指定した `{id}` の依頼情報が存在しなかった場合。
+
+	+ Attributes
+
+		+ error: `The resource you were looking for could not be found.` (string)
+
+
+# Group ユーザ依存リソース
+
+セッション管理を必要とする，ログインユーザに依存したリソースです。
+リクエストを送るユーザにより，レスポンスの内容が変化します。
+
+以下のリクエストでは，`Authorization` ヘッダに次の形式でセッションのトークンを付与しなければなりません。
+トークンは[ログイン](#セッション-ログイン)処理で取得します。
+トークンがない場合は `403 Forbidden` が返ります。
+
+```
+Authorization: Session {token}
+```
+
+
+## ユーザの依頼情報リソース [/user/requests{?type}]
+
+### 依頼情報の登録 [POST]
+
+ログインユーザとして，サービスに依頼情報を新しく登録します。
+
++ Request (application/json)
+
+	+ Headers
+
+			Accept: application/json
+
+			Authorization: Session {token}
+
+	+ Attributes (RequestBase)
+
++ Response 201 (application/json)
+
+	+ Headers
+
+			Location: /api/requests/1
+
+	+ Attributes (RequestBase)
+
+		+ request_id: 1 (number) - 依頼情報 ID
+
+		+ client_id: 1 (number) - 依頼人のユーザ ID
+
++ Response 400 (application/json)
+
+	リクエストに必要なパラメータが含まれていなかった場合。
+
+	+ Attributes
+
+		+ error: `The request you sent lacks a requied parameter.` (string)
+
+### 登録した依頼情報一覧の取得 [GET]
+
+ログインユーザが依頼人として登録した，すべての依頼情報を取得します。
+代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります。
+
++ Parameters
+
+	+ type: `registered` (string, required)
+
++ Request
+
+	+ Headers
+
+			Accept: application/json
+
+			Authorization: Session {token}
+
++ Response 200 (application/json)
+
+	+ Attributes (array)
+
+		+ (RequestBase)
+
+			+ request_id: 1 (number) - 依頼情報 ID
+
+			+ client_id: 1 (number) - 依頼人のユーザ ID
+
+			+ surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+
++ Response 400 (application/json)
+
+	リクエストに不正なパラメータが含まれていた場合。
+
+	+ Attributes
+
+		+ error: `The request you sent contents an invalid parameter.` (string)
+
+### 受諾した依頼情報一覧の取得 [GET]
+
+ログインユーザが代行人として受諾した，すべての依頼情報を取得します。
+
++ Parameters
+
+	+ type: `accepted` (string, required)
+
++ Request
+
+	+ Headers
+
+			Accept: application/json
+
+			Authorization: Session {token}
+
++ Response 200 (application/json)
+
+	+ Attributes (array)
+
+		+ (RequestBase)
+
+			+ request_id: 1 (number) - 依頼情報 ID
+
+			+ client_id: 1 (number) - 依頼人のユーザ ID
+
+			+ surrogate_id: 2 (number) - 代行人のユーザ ID
+
++ Response 400 (application/json)
+
+	リクエストに不正なパラメータが含まれていた場合。
+
+	+ Attributes
+
+		+ error: `The request you sent contents an invalid parameter.` (string)
+
+
+## 依頼の受諾リソース [/user/requests/{id}/acceptance]
+
+### 指定した依頼を受諾する [PUT]
+
+ログインユーザが代行人として，`{id}` で指定した依頼を受諾します。
+
++ Parameters
+
+	+ id: 1 (number, required) - 依頼情報 ID
+
++ Request
+
+	+ Headers
+
+			Authorization: Session {token}
+
++ Response 204
+
++ Response 404 (application/json)
+
+	指定した `{id}` の依頼情報が存在しなかった場合。
+
+	+ Attributes
+
+		+ error: `The resource you were looking for could not be found.` (string)
+
++ Response 409 (application/json)
+
+	指定した `{id}` の依頼にすでに他の代行人が登録されていた場合。
+
+	+ Attributes
+
+		+ error: `The request you want to accept has another surrogate already.` (string)
+
+
+## 依頼の完了リソース [/user/requests/{id}/completion]
+
+### 指定した依頼を完了させる [PUT]
+
+ログインユーザが依頼人として，`{id}` で指定した依頼を完了させます。
+
++ Parameters
+
+	+ id: 1 (number, required) - 依頼情報 ID
+
++ Request
+
+	+ Headers
+
+			Authorization: Session {token}
+
++ Response 204
+
++ Response 403 (application/json)
+
+	指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合。
+
+	+ Attributes
+
+		+ error: `The request is not yours.` (string)
+
++ Response 404 (application/json)
+
+	指定した `{id}` の依頼情報が存在しなかった場合。
+
+	+ Attributes
+
+		+ error: `The resource you were looking for could not be found.` (string)
+
+
+# Group セッション
+
+セッション周りの API です。
+以下の API を用いてセッション管理を行います。
+
+**仕様の詳細は策定中。pending...**
+
+## ログイン [/login]
+
+**TODO**
+
+## ログアウト [/logout]
+
+**TODO**
+
+
+# Group サーバエラー発生時
+
+すべての API について，サーバ側でエラーが発生した場合，`500 Internal Server Error` を返します。
