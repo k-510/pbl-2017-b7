@@ -21,14 +21,10 @@
     最新の Node.js だと挙動がおかしくなります．
     **バージョン 4.x** をインストールしてください．
 
-    Node.js のバージョン管理は適宜 [nvm](https://github.com/creationix/nvm) などを利用すると良いでしょう．
-
 1. [Python](https://www.python.org/) のインストール
 
     こちらも，最新の Python だとエラーが出ます．
     **バージョン 2.7.x** をインストールしてください．
-
-    Python のバージョン管理は適宜 [pyenv](https://github.com/pyenv/pyenv) などを利用すると良いでしょう．
 
 1. [aglio](https://github.com/danielgtaylor/aglio) のインストール
 
