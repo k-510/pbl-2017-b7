@@ -12,7 +12,7 @@ public class HelloRest{
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response helloUser(@QueryParam("name") String name){
-    	String msg = "Conguratulations";
+    	String msg = "Hello,";
         if("".equals(name))
         	msg += "!";
         else
