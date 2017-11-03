@@ -25,11 +25,11 @@ HOST: https://team2017-7.spiral.cloud/api
 どのユーザがリクセストしても同じレスポンスが返ります．
 
 
-## すべての依頼情報リソース [/requests]
+## すべての依頼リソース [/requests]
 
-### 依頼情報一覧の取得 [GET]
+### 依頼一覧の取得 [GET]
 
-サービスに登録されているすべての依頼情報を取得します．
+サービスに登録されているすべての依頼を取得します．
 代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Request
@@ -44,23 +44,23 @@ HOST: https://team2017-7.spiral.cloud/api
 
         + (RequestBase)
 
-            + request_id: 1 (number) - 依頼情報 ID
+            + request_id: 1 (number) - 依頼 ID
 
             + client_id: 1 (number) - 依頼人のユーザ ID
 
             + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
 
 
-## 単一の依頼情報リソース [/requests/{id}]
+## 単一の依頼リソース [/requests/{id}]
 
-### 指定した依頼情報の取得 [GET]
+### 指定した依頼の取得 [GET]
 
-サービスに登録されている依頼情報のうち，`{id}` で指定した依頼情報を取得します．
+サービスに登録されている依頼のうち，`{id}` で指定した依頼を取得します．
 代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Parameters
 
-    + id: 1 (number, required) - 依頼情報 ID
+    + id: 1 (number, required) - 依頼 ID
 
 + Requests
 
@@ -72,7 +72,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
     + Attributes (RequestBase)
 
-        + request_id: 1 (number) - 依頼情報 ID
+        + request_id: 1 (number) - 依頼 ID
 
         + client_id: 1 (number) - 依頼人のユーザ ID
 
@@ -80,7 +80,7 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + Response 404 (application/json)
 
-    指定した `{id}` の依頼情報が存在しなかった場合．
+    指定した `{id}` の依頼が存在しなかった場合．
 
     + Attributes
 
@@ -101,11 +101,11 @@ Authorization: Session {token}
 ```
 
 
-## ユーザの依頼情報リソース [/user/requests{?type}]
+## ユーザの依頼リソース [/user/requests{?type}]
 
-### 依頼情報の登録 [POST]
+### 依頼の登録 [POST]
 
-ログインユーザとして，サービスに依頼情報を新しく登録します．
+ログインユーザとして，サービスに依頼を新しく登録します．
 
 + Request (application/json)
 
@@ -125,7 +125,7 @@ Authorization: Session {token}
 
     + Attributes (RequestBase)
 
-        + request_id: 1 (number) - 依頼情報 ID
+        + request_id: 1 (number) - 依頼 ID
 
         + client_id: 1 (number) - 依頼人のユーザ ID
 
@@ -137,9 +137,9 @@ Authorization: Session {token}
 
         + error: `The request you sent lacks a requied parameter.` (string)
 
-### 登録した依頼情報一覧の取得 [GET]
+### 登録した依頼一覧の取得 [GET]
 
-ログインユーザが依頼人として登録した，すべての依頼情報を取得します．
+ログインユーザが依頼人として登録した，すべての依頼を取得します．
 代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
 
 + Parameters
@@ -160,7 +160,7 @@ Authorization: Session {token}
 
         + (RequestBase)
 
-            + request_id: 1 (number) - 依頼情報 ID
+            + request_id: 1 (number) - 依頼 ID
 
             + client_id: 1 (number) - 依頼人のユーザ ID
 
@@ -174,9 +174,9 @@ Authorization: Session {token}
 
         + error: `The request you sent contents an invalid parameter.` (string)
 
-### 受諾した依頼情報一覧の取得 [GET]
+### 受諾した依頼一覧の取得 [GET]
 
-ログインユーザが代行人として受諾した，すべての依頼情報を取得します．
+ログインユーザが代行人として受諾した，すべての依頼を取得します．
 
 + Parameters
 
@@ -196,7 +196,7 @@ Authorization: Session {token}
 
         + (RequestBase)
 
-            + request_id: 1 (number) - 依頼情報 ID
+            + request_id: 1 (number) - 依頼 ID
 
             + client_id: 1 (number) - 依頼人のユーザ ID
 
@@ -219,7 +219,7 @@ Authorization: Session {token}
 
 + Parameters
 
-    + id: 1 (number, required) - 依頼情報 ID
+    + id: 1 (number, required) - 依頼 ID
 
 + Request
 
@@ -231,7 +231,7 @@ Authorization: Session {token}
 
 + Response 404 (application/json)
 
-    指定した `{id}` の依頼情報が存在しなかった場合．
+    指定した `{id}` の依頼が存在しなかった場合．
 
     + Attributes
 
@@ -254,7 +254,7 @@ Authorization: Session {token}
 
 + Parameters
 
-    + id: 1 (number, required) - 依頼情報 ID
+    + id: 1 (number, required) - 依頼 ID
 
 + Request
 
@@ -266,7 +266,7 @@ Authorization: Session {token}
 
 + Response 403 (application/json)
 
-    指定した `{id}` の依頼情報を登録したユーザがログインユーザではない場合．
+    ログインユーザが，`{id}` の依頼を登録したユーザではない場合．
 
     + Attributes
 
@@ -274,11 +274,103 @@ Authorization: Session {token}
 
 + Response 404 (application/json)
 
-    指定した `{id}` の依頼情報が存在しなかった場合．
+    指定した `{id}` の依頼が存在しなかった場合．
 
     + Attributes
 
         + error: `The resource you were looking for could not be found.` (string)
+
+
+## チャットリソース [/user/requests/{id}/chats]
+
+### 指定した依頼のチャットログを取得する [GET]
+
+`{id}` で指定した依頼のチャットログを取得します．
+
+ログインユーザは，この依頼を登録したユーザか，受諾したユーザでなければいけません．
+
++ Parameters
+
+    + id: 1 (number, required) - 依頼 ID
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+            Authorization: Session {token}
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+
+        + (object)
+
+            + user_id: 1 (number) - 発言したユーザのユーザ ID
+
+            + message: `Hello.` (string) - チャットメッセージ
+
++ Response 403 (application/json)
+
+    ログインユーザが，`{id}` の依頼を登録したユーザあるいは受諾したユーザのどちらでもない場合．
+
+    + Attributes
+
+        + error: `The request whose chat log you want to get is neither registered nor accepted by you.` (string)
+
++ Response 404 (application/json)
+
+    指定した `{id}` の依頼が存在しなかった場合．
+
+    + Attributes
+
+        + error: `The resource you were looking for could not be found.` (string)
+
+### 指定した依頼のチャットに投稿する [POST]
+
+`{id}` で指定した依頼のチャットに投稿します．
+
+ログインユーザは，この依頼を登録したユーザか，受諾したユーザでなければいけません．
+
++ Parameters
+
+    + id: 1 (number, required) - 依頼 ID
+
++ Request
+
+    + Headers
+
+            Accept: application/json
+
+            Authorization: Session {token}
+
+    + Attributes
+
+        + message: `Hello.` (string) - チャットメッセージ
+
++ Response 200 (application/json)
+
+    + Attributes
+
+        + message: `Hello.` (string) - チャットメッセージ
+
++ Response 403 (application/json)
+
+    ログインユーザが，`{id}` の依頼を登録したユーザあるいは受諾したユーザのどちらでもない場合．
+
+    + Attributes
+
+        + error: `The request whose chat log you want to get is neither registered nor accepted by you.` (string)
+
++ Response 404 (application/json)
+
+    指定した `{id}` の依頼が存在しなかった場合．
+
+    + Attributes
+
+        + error: `The resource you were looking for could not be found.` (string)
+
 
 
 # Group セッション
