@@ -399,6 +399,12 @@ Authorization: Session {token}
 
         + password: `my_password` (string) - パスワード
 
++ Response 201 (application/json)
+
+    + Attributes
+
+        + session_token: `1k5h10348dsaf5321...` (string) - セッショントークン
+
 + Response 400 (application/json)
 
     リクエストに必要なパラメータが含まれていなかった場合．
