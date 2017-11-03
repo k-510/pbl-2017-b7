@@ -93,7 +93,7 @@ HOST: https://team2017-7.spiral.cloud/api
 リクエストを送るユーザにより，レスポンスの内容が変化します．
 
 以下のリクエストでは，`Authorization` ヘッダに次の形式でセッションのトークンを付与しなければなりません．
-トークンは[ログイン](#セッション-ログイン)処理で取得します．
+トークンは[ログイン](#セッション管理リソース-ログインリソース)処理で取得します．
 トークンがない場合は `403 Forbidden` が返ります．
 
 ```
@@ -337,7 +337,7 @@ Authorization: Session {token}
 
     + id: 1 (number, required) - 依頼 ID
 
-+ Request
++ Request (application/json)
 
     + Headers
 
@@ -372,21 +372,63 @@ Authorization: Session {token}
         + error: `The resource you were looking for could not be found.` (string)
 
 
-
-# Group セッション
+# Group セッション管理リソース
 
 セッション周りの API です．
 以下の API を用いてセッション管理を行います．
 
-**仕様の詳細は策定中．pending...**
+ログインで発行したセッショントークンは，もう一度ログインするか，明示的にログアウトするまで有効です．
 
-## ログイン [/login]
+## ログインリソース [/login]
 
-**TODO**
+### ログインする [POST]
 
-## ログアウト [/logout]
+ログインし，ログインユーザ用のセッショントークンを発行します．
 
-**TODO**
+当該ユーザに発行済みのセッショントークンが存在する場合は，発行済みのトークンは無効となり，以降は新しく発行するトークンが有効になります．
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+
+        + user_id: 1 (number) - ユーザ ID
+
+        + password: `my_password` (string) - パスワード
+
++ Response 400 (application/json)
+
+    リクエストに必要なパラメータが含まれていなかった場合．
+
+    + Attributes
+
+        + error: `The request you sent lacks a requied parameter.` (string)
+
++ Response 403 (application/json)
+
+    ユーザ ID またはパスワードが一致しなかった場合．
+
+    + Attributes
+
+        + error: `Incorrect username or password.` (string)
+
+
+## ログアウトリソース [/logout]
+
+### ログアウトする [DELETE]
+
+明示的にログアウトし，セッションを破棄します．
+
++ Request
+
+    + Headers
+
+            Authorization: Session {token}
+
++ Response 204
 
 
 # Group サーバエラー発生時
