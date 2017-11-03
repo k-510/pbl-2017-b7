@@ -9,13 +9,13 @@
 	<h1>依頼内容の入力</h1>
     <form action="tmp.php" method="post">
     	<!-- <input type="hidden" name="user_id" value="1"> -->
-        <p>店舗ID：<input type="text" name="store_id"></p> 
+        <p>店舗ID：<input type="number" name="store_id"></p> 
     	<p>
     		応募条件：
     		<textarea name="application_conditions" cols="60" rows="5"></textarea>
     	</p>
     	<p>予算：<input type="number" name="cost" max="100000" min="0" step="100">円</p>
-       	<p>締切時刻：<input type="datetime-local" id="deadline" name="deadline" step="300"></p> 	
+    	<p>締切時刻：<input type="datetime-local" id="deadline" name="deadline" step="300"></p> 	
     	<p>到着時刻：<input type="datetime-local" id="arrival_time" name="arrival_time" step="300"></p>
     	<p><input type="submit" value="送信"></p>
     </form>
