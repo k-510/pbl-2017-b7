@@ -47,7 +47,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
  * @param {Dict[Arr[object: str]]} dictArr javascript data table
  * @return {Dict[Arr[str:str]]} dictArr html data table
  */
-var make4recReqHTMLTable = (dictArr) => {
+var makerecReqHTMLTable = (dictArr) => {
     let title = {
         'metTime': '集合時間',
         'restaurantName': 'お店',
@@ -106,6 +106,6 @@ $(() => {
         }
     ];
 
-    $("#recReqTable").html(make4recReqHTMLTable(sampleDictArr));
+    $("#recReqTable").html(makerecReqHTMLTable(sampleDictArr));
 }
 );
