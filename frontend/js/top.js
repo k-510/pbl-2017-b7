@@ -1,3 +1,13 @@
+function toLocaleString(date) {
+    console.log(date);
+    return [
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+    ].join('/') + ' '
+        + date.toLocaleTimeString();
+}
+
 /**
  * javascript array[dict(name: value)] -> HTML table style
  * @param {array[dict[str:str]]} dictArr name: value dictionary Array
@@ -9,7 +19,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
 
     res += '<tr>'
     $.each(order, (j) => {
-        res += '<th>' + title[order[j]] +'</th>';
+        res += '<th>' + title[order[j]] + '</th>';
     });
     res += '</tr>'
 
@@ -20,15 +30,30 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
         res += '<tr>';
         let dict = dictArr[i];
         $.each(order, (j) => {
-            res += '<td>' + dict[order[j]] +'</td>';
+            res += '<td>' + dict[order[j]] + '</td>';
         });
         res += '</tr>'
     });
     return res;
 };
 
+var formatStr4recReq = (dictArr) => {
+    $.each(dictArr, (i) => {
+        let dict = dictArr[i];
+        $.each(dict, (k, v) => {
+            if (k === 'metTime' || k === 'deadline') {
+                dict[k] = toLocaleString(v);
+            }
+            if (k === 'budget'){
+                dict[k] = '&yen; ' + v;
+            }
+        });
+    });
+    return dictArr;
+}
+
 // ready...
-$( () => {
+$(() => {
     let title = {
         'metTime': '集合時間',
         'restaurantName': 'お店',
@@ -38,16 +63,27 @@ $( () => {
         'budget': '予算',
         'cancel': '受けた依頼を取り消す'
     };
-    let sampleDictArr = [{
-        'metTime': '2017-10-27 12:00',
-        'restaurantName': '寿司',
-        'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
-        'partner': '相手のページへのリンク',
-        'deadline': '2017-10-25 12:00',
-        'budget': '&yen; 3000',
-        'cancel': '取り消すボタン'
-    }];
-    sampleDictArr.push(sampleDictArr[0]);
+    let sampleDictArr = [
+        {
+            'metTime': new Date(2017, 10, 27, 12, 0, 0),
+            'restaurantName': '寿司',
+            'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
+            'partner': '相手のページへのリンク',
+            'deadline': new Date(2017, 10, 25, 12, 0, 0),
+            'budget': 3000,
+            'cancel': '取り消すボタン'
+        },
+        {
+            'metTime': new Date(2017, 10, 27, 12, 0, 0),
+            'restaurantName': '寿司',
+            'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
+            'partner': '相手のページへのリンク',
+            'deadline': new Date(2017, 10, 25, 12, 0, 0),
+            'budget': 3000,
+            'cancel': '取り消すボタン'
+        }
+    ];
+
     let order = [
         'metTime',
         'restaurantName',
@@ -57,6 +93,6 @@ $( () => {
         'budget',
         'cancel',
     ];
-    $("#recReqTable").html(dictArrayToHTMLTable(title, sampleDictArr, order))
+    $("#recReqTable").html(dictArrayToHTMLTable(title, formatStr4recReq(sampleDictArr), order))
 }
 );
