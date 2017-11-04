@@ -1,3 +1,8 @@
+/**
+ * Date -> Str method
+ * @param {Date} date Date object
+ * @return {str} parsed string object (yyyy/MM/dd hh:mm:ss style)
+ */
 function toLocaleString(date) {
     console.log(date);
     return [
@@ -37,7 +42,22 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
     return res;
 };
 
-var formatStr4recReq = (dictArr) => {
+/**
+ * format table content (object -> str)
+ * @param {Dict[Arr[object: str]]} dictArr javascript data table
+ * @return {Dict[Arr[str:str]]} dictArr html data table
+ */
+var make4recReqHTMLTable = (dictArr) => {
+    let title = {
+        'metTime': '集合時間',
+        'restaurantName': 'お店',
+        'place': '場所',
+        'partner': '相手',
+        'deadline': '募集期限',
+        'budget': '予算',
+        'cancel': '受けた依頼を取り消す'
+    };
+
     $.each(dictArr, (i) => {
         let dict = dictArr[i];
         $.each(dict, (k, v) => {
@@ -49,20 +69,22 @@ var formatStr4recReq = (dictArr) => {
             }
         });
     });
-    return dictArr;
+
+    let order = [
+        'metTime',
+        'restaurantName',
+        'place',
+        'partner',
+        'deadline',
+        'budget',
+        'cancel',
+    ];
+
+    return dictArrayToHTMLTable(title, dictArr, order);
 }
 
 // ready...
 $(() => {
-    let title = {
-        'metTime': '集合時間',
-        'restaurantName': 'お店',
-        'place': '場所',
-        'partner': '相手',
-        'deadline': '募集期限',
-        'budget': '予算',
-        'cancel': '受けた依頼を取り消す'
-    };
     let sampleDictArr = [
         {
             'metTime': new Date(2017, 10, 27, 12, 0, 0),
@@ -84,15 +106,6 @@ $(() => {
         }
     ];
 
-    let order = [
-        'metTime',
-        'restaurantName',
-        'place',
-        'partner',
-        'deadline',
-        'budget',
-        'cancel',
-    ];
-    $("#recReqTable").html(dictArrayToHTMLTable(title, formatStr4recReq(sampleDictArr), order))
+    $("#recReqTable").html(make4recReqHTMLTable(sampleDictArr));
 }
 );
