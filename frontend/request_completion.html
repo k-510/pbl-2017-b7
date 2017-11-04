@@ -8,13 +8,49 @@
 </head>
 
 <body>
-	<input id="like" type="button" value="いいね">
-	<input id="submit" type="button" value="評価する">
+	<p>評価</p>
+	
+	<form>
+	<p>
+	<select name="evaluation">
+	<option value="1">1</option>
+	<option value="2">2</option>
+	<option value="3" selected>3</option>
+	<option value="4">4</option>
+	<option value="5">5</option>
+	</select>
+	</p>
+	</form>
+	
+	<p>タグをつける</p>
+	
+	<form>
+	<p>
+	<select name="tagging">
+	<option value="male">男性</option>
+	<option value="female">女性</option>
+	<option value="student">学生</option>
+	<option value="worker" selected>社会人</option>
+	<option value="vegetable">野菜ソムリエ</option>
+	<option value="meat">肉ソムリエ</option>
+	<option value="wine">ワインソムリエ</option>
+	<option value="distribute">取り分け上手</option>
+	<option value="goodTalker">話し上手</option>
+	<option value="badTalker">コミュ障</option>
+	<option value="noisy">クチャラー</option>
+	</select>
+	</p>
+	</form>
+	
+	<p><input type="submit" value="送信する"></p>
 	<br>
 	
 	<p>
 		総獲得点数： <span id="total">0</span>
 	</p>
+	
+	<script src="js/jquery.min.js"></script>
+	<script src="js/request_completion.js"></script>
 
 </body>
 
