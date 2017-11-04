@@ -4,12 +4,12 @@
  * @param {array[str]} order table title order
  * @return {str} html string
  */
-var dictArrayToHTMLTable = (dictArr, order) => {
+var dictArrayToHTMLTable = (title, dictArr, order) => {
     let res = '';
 
     res += '<tr>'
     $.each(order, (j) => {
-        res += '<th>' + order[j] +'</th>';
+        res += '<th>' + title[order[j]] +'</th>';
     });
     res += '</tr>'
 
@@ -29,7 +29,16 @@ var dictArrayToHTMLTable = (dictArr, order) => {
 
 // ready...
 $( () => {
-    let sampleDictArr = {
+    let title = {
+        'metTime': '集合時間',
+        'restaurantName': 'お店',
+        'place': '場所',
+        'partner': '相手',
+        'deadline': '募集期限',
+        'budget': '予算',
+        'cancel': '受けた依頼を取り消す'
+    };
+    let sampleDictArr = [{
         'metTime': '2017-10-27 12:00',
         'restaurantName': '寿司',
         'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
@@ -37,8 +46,9 @@ $( () => {
         'deadline': '2017-10-25 12:00',
         'budget': '&yen; 3000',
         'cancel': '取り消すボタン'
-    };
-    order = [
+    }];
+    sampleDictArr.push(sampleDictArr[0]);
+    let order = [
         'metTime',
         'restaurantName',
         'place',
@@ -47,6 +57,6 @@ $( () => {
         'budget',
         'cancel',
     ];
-    console.log(dictArrayToHTMLTable([sampleDictArr, sampleDictArr], order));
+    $("#recReqTable").html(dictArrayToHTMLTable(title, sampleDictArr, order))
 }
 );
