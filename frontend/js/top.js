@@ -1,3 +1,5 @@
+var loc = "192.168.119.129:3000"
+
 /**
  * Date -> Str method
  * @param {Date} date Date object
@@ -105,6 +107,23 @@ $(() => {
             'cancel': '取り消すボタン'
         }
     ];
+
+	$.ajax({
+        // url: loc+'/user/requests?type=registered',
+        url: 'http://192.168.119.129:3000/requests',
+        type: 'GET',
+        dataType : 'json',
+        headers: {
+            Accept: 'application/json',
+        },
+    }).done((data, textStatus, jqXHR) =>{
+        alert("success");
+    }).fail((jqXHR, textStatus, errorThrown) => {
+        alert("fail");
+        console.log(jqXHR.status);
+        console.log(textStatus);
+        console.log(errorThrown.message);
+    })
 
     $("#recReqTable").html(makerecReqHTMLTable(sampleDictArr));
 }
