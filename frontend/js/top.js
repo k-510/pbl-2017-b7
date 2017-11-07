@@ -1,4 +1,4 @@
-var loc = "192.168.119.129:3000"
+var loc = "http://192.168.119.131:3000"
 
 /**
  * Date -> Str method
@@ -94,7 +94,7 @@ $(() => {
             'condition': '相手のページへのリンク',
             'deadline': new Date(2017, 10, 25, 12, 0, 0),
             'budget': 3000,
-            'cancel': '取り消すボタン'
+            'cancel': 2
         },
         {
             'datetime': new Date(2017, 10, 27, 12, 0, 0),
@@ -103,20 +103,21 @@ $(() => {
             'condition': '相手のページへのリンク',
             'deadline': new Date(2017, 10, 25, 12, 0, 0),
             'budget': 3000,
-            'cancel': '取り消すボタン'
+            'cancel': 3
         }
     ];
 
-    let reqDictArr = [];
+    let reqDictArr = sampleDictArr;
 
+    // [TODO] ?type=registerdでするべきなのだが、うまくいかない requestsで仮実装
     $.ajax({
-        url: 'http://192.168.119.131:3000/requests',
+        url: loc+'/requests',
         type: 'GET',
         headers: {
             Accept: 'application/json',
         },
     }).done((data, textStatus, jqXHR) => {
-        temp = [];
+        dictArr = [];
         let promises = [];
         $.each(data, (index, reqDic) => {
             let dic = {};
@@ -125,7 +126,7 @@ $(() => {
             dic.deadline = new Date(reqDic.deadline);
             dic.cancel = reqDic.request_id;
             dic.budget = 3000;
-            temp.push(dic);
+            dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
                 url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=' + reqDic.shop_id,
@@ -138,15 +139,14 @@ $(() => {
 
         Promise.all(promises).then((results) => {
             $.each(results, (index, result) => {
-                temp[index].address = result.rest.address;
-                temp[index].restaurantName = result.rest.name;
+                dictArr[index].address = result.rest.address;
+                dictArr[index].restaurantName = result.rest.name;
             });
-            console.log(temp);
-            $("#recReqTable").html(makerecReqHTMLTable(temp));
+            // dummy data
+            dictArr.push(sampleDictArr[0]);
+            dictArr.push(sampleDictArr[1]);
+            console.log(dictArr);
+            $("#recReqTable").html(makerecReqHTMLTable(dictArr));
         });
-    }).fail((jqXHR, textStatus, errorThrown) => {
-        console.log(jqXHR.status);
-        console.log(textStatus);
-        console.log(errorThrown.message);
-    })
+    });
 });
