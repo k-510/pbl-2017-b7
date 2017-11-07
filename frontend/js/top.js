@@ -51,10 +51,10 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
  */
 var makerecReqHTMLTable = (dictArr) => {
     let title = {
-        'metTime': '集合時間',
+        'datetime': '集合時間',
         'restaurantName': 'お店',
-        'place': '場所',
-        'partner': '相手',
+        'address': '場所',
+        'condition': '相手',
         'deadline': '募集期限',
         'budget': '予算',
         'cancel': '受けた依頼を取り消す'
@@ -62,20 +62,20 @@ var makerecReqHTMLTable = (dictArr) => {
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
-            if (k === 'metTime' || k === 'deadline') {
+            if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
             }
-            if (k === 'budget'){
+            if (k === 'budget') {
                 dict[k] = '&yen; ' + v;
             }
         });
     });
 
     let order = [
-        'metTime',
+        'datetime',
         'restaurantName',
-        'place',
-        'partner',
+        'address',
+        'condition',
         'deadline',
         'budget',
         'cancel',
@@ -88,50 +88,65 @@ var makerecReqHTMLTable = (dictArr) => {
 $(() => {
     let sampleDictArr = [
         {
-            'metTime': new Date(2017, 10, 27, 12, 0, 0),
+            'datetime': new Date(2017, 10, 27, 12, 0, 0),
             'restaurantName': '寿司',
-            'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
-            'partner': '相手のページへのリンク',
+            'address': '<a href="https://www.google.co.jp/maps/address/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
+            'condition': '相手のページへのリンク',
             'deadline': new Date(2017, 10, 25, 12, 0, 0),
             'budget': 3000,
             'cancel': '取り消すボタン'
         },
         {
-            'metTime': new Date(2017, 10, 27, 12, 0, 0),
+            'datetime': new Date(2017, 10, 27, 12, 0, 0),
             'restaurantName': '寿司',
-            'place': '<a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
-            'partner': '相手のページへのリンク',
+            'address': '<a href="https://www.google.co.jp/maps/address/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
+            'condition': '相手のページへのリンク',
             'deadline': new Date(2017, 10, 25, 12, 0, 0),
             'budget': 3000,
             'cancel': '取り消すボタン'
         }
     ];
 
-	$.ajax({
+    let reqDictArr = [];
+
+    $.ajax({
         url: 'http://192.168.119.131:3000/requests',
         type: 'GET',
         headers: {
             Accept: 'application/json',
         },
-    }).done((data, textStatus, jqXHR) =>{
-        console.log(data);
-        $.each(data, (index, req_dic) => {
-            console.log("shopid:" + req_dic.shop_id);
+    }).done((data, textStatus, jqXHR) => {
+        temp = [];
+        let promises = [];
+        $.each(data, (index, reqDic) => {
+            let dic = {};
+            dic.datetime = new Date(reqDic.datetime);
+            dic.condition = reqDic.condition;
+            dic.deadline = new Date(reqDic.deadline);
+            dic.cancel = reqDic.request_id;
+            dic.budget = 3000;
+            temp.push(dic);
+            // Shop status
+            promises.push($.ajax({
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=' + reqDic.shop_id,
+                dataType: 'jsonp',
+                type: 'GET',
+                async: true,
+                context: { some: 'value' },
+            }));
+        });
+
+        Promise.all(promises).then((results) => {
+            $.each(results, (index, result) => {
+                temp[index].address = result.rest.address;
+                temp[index].restaurantName = result.rest.name;
+            });
+            console.log(temp);
+            $("#recReqTable").html(makerecReqHTMLTable(temp));
         });
     }).fail((jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR.status);
         console.log(textStatus);
         console.log(errorThrown.message);
     })
-
-    $.ajax({
-        url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=k682891',
-        dataType: 'jsonp',
-        type: 'GET'
-    }).done((data, textStatus, jqXHR) => {
-        console.log(data);
-    });
-
-    $("#recReqTable").html(makerecReqHTMLTable(sampleDictArr));
-}
-);
+});
