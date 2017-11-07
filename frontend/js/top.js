@@ -60,8 +60,7 @@ var makerecReqHTMLTable = (dictArr) => {
         'cancel': '受けた依頼を取り消す'
     };
 
-    $.each(dictArr, (i) => {
-        let dict = dictArr[i];
+    $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
             if (k === 'metTime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
@@ -109,21 +108,29 @@ $(() => {
     ];
 
 	$.ajax({
-        // url: loc+'/user/requests?type=registered',
-        url: 'http://192.168.119.129:3000/requests',
+        url: 'http://192.168.119.131:3000/requests',
         type: 'GET',
-        dataType : 'json',
         headers: {
             Accept: 'application/json',
         },
     }).done((data, textStatus, jqXHR) =>{
-        alert("success");
+        console.log(data);
+        $.each(data, (index, req_dic) => {
+            console.log("shopid:" + req_dic.shop_id);
+        });
     }).fail((jqXHR, textStatus, errorThrown) => {
-        alert("fail");
         console.log(jqXHR.status);
         console.log(textStatus);
         console.log(errorThrown.message);
     })
+
+    $.ajax({
+        url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=k682891',
+        dataType: 'jsonp',
+        type: 'GET'
+    }).done((data, textStatus, jqXHR) => {
+        console.log(data);
+    });
 
     $("#recReqTable").html(makerecReqHTMLTable(sampleDictArr));
 }
