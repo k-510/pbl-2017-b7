@@ -1,4 +1,4 @@
-var loc = "http://192.168.119.131:3000"
+var loc = "http://localhost:3000"
 
 /**
  * Date -> Str method
@@ -24,12 +24,15 @@ function toLocaleString(date) {
 var dictArrayToHTMLTable = (title, dictArr, order) => {
     let res = '';
 
+    res += '<thead>'
     res += '<tr>'
     $.each(order, (j) => {
         res += '<th>' + title[order[j]] + '</th>';
     });
     res += '</tr>'
+    res += '</thead>'
 
+    res += '<tbody>'
     $.each(dictArr, (i) => {
         //header
 
@@ -41,6 +44,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
         });
         res += '</tr>'
     });
+    res += '</tbody>'
     return res;
 };
 
@@ -84,8 +88,7 @@ var makerecReqHTMLTable = (dictArr) => {
     return dictArrayToHTMLTable(title, dictArr, order);
 }
 
-// ready...
-$(() => {
+var drawrecReqTable = () => {
     let sampleDictArr = [
         {
             'datetime': new Date(2017, 10, 27, 12, 0, 0),
@@ -106,9 +109,6 @@ $(() => {
             'cancel': 3
         }
     ];
-
-    let reqDictArr = sampleDictArr;
-
     // [TODO] ?type=registerdでするべきなのだが、うまくいかない requestsで仮実装
     $.ajax({
         url: loc+'/requests',
@@ -129,7 +129,7 @@ $(() => {
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
-                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=' + reqDic.shop_id,
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=ac8febbabfdd2ab10f7d0c907d688663&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
                 async: true,
@@ -139,6 +139,7 @@ $(() => {
 
         Promise.all(promises).then((results) => {
             $.each(results, (index, result) => {
+                console.log(result);
                 dictArr[index].address = result.rest.address;
                 dictArr[index].restaurantName = result.rest.name;
             });
@@ -147,6 +148,24 @@ $(() => {
             dictArr.push(sampleDictArr[1]);
             console.log(dictArr);
             $("#recReqTable").html(makerecReqHTMLTable(dictArr));
+        });
+    });
+}
+
+// ready...
+$(() => {
+    drawrecReqTable();
+
+    $('#recReqFilterButton').click((e) => {
+        let re = new RegExp($('#search').val());
+        $.each($('#recReqTable tbody tr'), (index, element) => {
+            let row_text = $(element).text();
+            if(row_text.match(re) != null){
+                $(element).css("display", "table-row");
+            }
+            else{
+                $(element).css("display", "none");
+            }
         });
     });
 });
