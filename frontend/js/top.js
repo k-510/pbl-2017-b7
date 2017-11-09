@@ -129,6 +129,7 @@ var drawrecReqTable = () => {
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
+                // temporary key id
                 url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=ac8febbabfdd2ab10f7d0c907d688663&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
@@ -156,6 +157,7 @@ var drawrecReqTable = () => {
 $(() => {
     drawrecReqTable();
 
+    // button action(search)
     $('#recReqFilterButton').click((e) => {
         let re = new RegExp($('#search').val());
         $.each($('#recReqTable tbody tr'), (index, element) => {
