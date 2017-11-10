@@ -1,92 +1,135 @@
 package jp.enpit.lama.entities;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class Request {
-
-	@XmlElement(name = "shop_id")
-	private String shop_id;
-	@XmlElement(name = "dateime")
-	private int datetime;
-	@XmlElement(name = "condition")
+	@XmlElement(name="id")
+	private int id;
+	@XmlElement(name="time")
+	private Date time;
+	@XmlElement(name="shop")
+	private String shop;
+	@XmlElement(name="condition")
 	private String condition;
-	@XmlElement(name = "deadline")
-	private int deadline;
-	@XmlElement(name = "request_id")
-	private int request_id;
-	@XmlElement(name = "client_id")
-	private int client_id;
-	@XmlElement(name = "surrogate_id")
-	private int surrogate_id;
-	
+	@XmlElement(name="due")
+	private Date due;
+	@XmlElement(name="clentID")
+	private int clentID;
+	@XmlElement(name="surrogateID")
+	private int surrogateID;
+	@XmlElement(name="status")
+	private String status;
 	
 	public Request(){
-	
+		time = new Date();
+		due = new Date();
+	}
+
+	public Request(int id){
+		this();
+		setId(id);
 	}
 	
-	public Request(String shopid, int datetime, String condition, int deadline, int requestid, int clientid, int surrogateid){
-		this.setShopId(shopid);
-		this.setDeadline(deadline);
-		this.setCondition(condition);
-		this.setDeadline(deadline);
-		this.setRequestId(requestid);
-		this.setClientId(clientid);
-		this.setSurrogateId(surrogateid);
+	public Request(String shop){
+		this();
+		setShop(shop);
 	}
-	public String shopid(){
-		return shop_id;
+
+	public Request(int id, String shop){
+		this(shop);
+		setId(id);
 	}
-	public void setShopId(String shopID){
-		this.shop_id = shopID;
+
+	public Request(int id, String shop, Date time){
+		this(id, shop);
+		this.time = time;
 	}
-	public int datetime(){
-		return datetime;
+	
+	public Request(int id, String shop, String condition){
+		this(id, shop);
+		setCondition(condition);
 	}
-	public void setDatetime(int datetime){
-		this.datetime = datetime;
+	
+	public Request(int id, String shop, String condition, Date due){
+		this(id, shop, condition);
+		this.due = due;
 	}
-	public String condition(){
-		return condition;
+	
+	public Request(int id, String shop, String condition, int clentID){
+		this(id, shop, condition);
+		setClentID(clentID);
 	}
+	
+	public Request(int id, String shop, String condition, int clentID, int surrogateID){
+		this(id, shop, condition, clentID);
+		setSurrogateID(surrogateID);
+	}
+	
+	public Request(int id, String shop, String condition, int clentID, int surrogateID, String status){
+		this(id, shop, condition, clentID, surrogateID);
+		setStatus(status);
+	}
+	public void setTime(Date time){
+		this.time = time;
+	}
+	
+	public Date time(){
+		return time;
+	}
+	
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int id(){
+		return id;
+	}
+	
+	public void setShop(String shop){
+		if(shop == null)
+			throw new NullPointerException();
+		this.shop = shop;
+	}
+	
+	public String shop(){
+		return shop;
+	}
+	
 	public void setCondition(String condition){
 		this.condition = condition;
 	}
-	public int deadLine(){
-		return deadline;
-	}
-	public void setDeadline(int deadline){
-		this.deadline = deadline;
-	}
-	public int requestId(){
-		return request_id;
-	}
-	public void setRequestId(int requestID){
-		this.request_id = requestID;
-	}
-	public int clientId(){
-		return client_id;
-	}
-	public void setClientId(int clientID){
-		this.client_id = clientID;
-	}
-	public int surrogateId(){
-		return surrogate_id;
-	}
-	public void setSurrogateId(int surrogateID){
-		this.surrogate_id = surrogateID;
+	
+	public String condition(){
+		return condition;
 	}
 
+	public void setClentID(int clentID){
+		this.clentID = clentID;
+	}
+	
+	public int clentID(){
+		return clentID;
+	}
+	
+	public void setSurrogateID(int surrogateID){
+		this.surrogateID = surrogateID;
+	}
+	
+	public int surrogateID(){
+		return surrogateID;
+	}
+	
+	public void setStatus(String status){
+		this.status = status;
+	}
+
+	public String status(){
+		return status;
+	}
 }	
 
 
-/*
 
-    "shop_id": "k682891",
-    "datetime": "2017-10-27T15:00:00.000Z",
-    "condition": "テーブルマナーがある人",
-    "deadline": "2017-11-01T12:00:00.000Z",
-    "request_id": 1,
-    "client_id": 1,
-    "surrogate_id": 2
 
-*/

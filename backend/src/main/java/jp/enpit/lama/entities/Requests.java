@@ -9,16 +9,16 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Requests {
 	@XmlElement(name = "request")
-	private List<Requests> list = new ArrayList<>();
+	private List<Request> list = new ArrayList<>();
 	
 	public Requests(){
 	}
 	
-	public Requests(List<Requests> RequestList){
+	public Requests(List<Request> RequestList){
 		list.addAll(RequestList);
 	}
 	
-	public List<Requests> request(){
+	public List<Request> request(){
 		return Collections.unmodifiableList(list);
 	}
 	
@@ -26,7 +26,7 @@ public class Requests {
 		return list.size();
 	}
 	
-	public Iterator<Requests> iterator(){
+	public Iterator<Request> iterator(){
 		return list.iterator();
 	}
 	
