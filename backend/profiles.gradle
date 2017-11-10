@@ -1,0 +1,21 @@
+environments{
+    development {
+        repourl = 'http://133.1.236.168/repository/maven-public/'
+        hostname = 'localhost'
+        portnumber = 8080
+        protocol = 'http'
+        username = 'tomcat'
+        password = 'spiral'
+        curlpath = '../curl/curl.exe'
+    }
+ 
+    jenkins{
+        repourl = 'http://nexus3:8081/repository/maven-public/'
+        hostname = 'staging0'
+        portnumber = 8080
+        protocol = 'http'
+        username = 'tomcat'
+        password = 'spiral'
+        curlpath = 'curl'
+    }
+}
