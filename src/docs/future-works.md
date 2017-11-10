@@ -43,7 +43,7 @@ HOST: https://team2017-7.spiral.cloud/api
         + error: `The resource you were looking for could not be found.` (string)
 
 
-## ユーザ登録リソース [/users/signin]
+## ユーザ登録リソース [/users/signup]
 
 ### ユーザ情報の登録 [POST]
 

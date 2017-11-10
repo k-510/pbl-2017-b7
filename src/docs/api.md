@@ -10,11 +10,13 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + shop_id: `k682891` (string) - ぐるナビの店舗ID
 
-+ datetime: `2017-10-27T15:00:00.000Z` (string) - 代行人に到着して欲しい時間
++ datetime: `2017-11-01T12:00:00.000Z` (string) - 代行人に到着して欲しい時間
 
 + condition: `テーブルマナーがある人` (string) - 募集する代行人の条件
 
-+ deadline: `2017-11-01T12:00:00.000Z` (string) - 代行人の募集期限
++ deadline: `2017-10-27T15:00:00.000Z` (string) - 代行人の募集期限
+
++ budget: 1000 (number) - 予算
 
 
 <!-- 以下から API 仕様を定義 -->
