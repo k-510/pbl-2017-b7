@@ -1,0 +1,43 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+    <title>新規依頼作成ページ</title>
+</head>
+
+<body>
+	<h1>依頼内容の入力</h1>
+    <form action="tmp.java" method="post">
+    	<!-- <input type="hidden" name="user_id" value="1"> -->
+        <p>店舗ID：<input type="number" name="store-id" min="0"></p> 
+ <!--    	<p>
+    		応募条件：
+    		<textarea name="condition" cols="60" rows="5"></textarea>
+    	</p> -->
+		<p>応募条件（任意）</p>
+			<p>
+				<input type="checkbox" name="condition[]" value="man"> 男性
+				<input type="checkbox" name="condition[]" value="woman"> 女性
+			</p>
+			<p>
+				<input type="checkbox" name="condition[]" value="junior-high-school"> 中学生
+				<input type="checkbox" name="condition[]" value="high-school"> 高校生
+				<input type="checkbox" name="condition[]" value="college"> 大学生
+				<input type="checkbox" name="condition[]" value="working"> 社会人
+			<p>
+				<input type="checkbox" name="condition[]" value="japanese"> 日本人
+				<input type="checkbox" name="condition[]" value="foreign-people"> 外国人
+			</p>
+<!-- 			<p>
+				<input type="checkbox" name="condition" value="no-condition" checked> 特になし
+			</p> -->
+    	<p>予算：<input type="number" name="cost" max="100000" min="0" step="100">円</p>
+    	<p>締切時刻：<input type="datetime-local" id="deadLine" name="deadline" step="300"></p>
+    	<p>到着時刻：<input type="datetime-local" id="arrivalTime" name="arrival-time" step="300"></p>
+    	<p><input type="submit" value="送信"></p>
+    </form>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/request.js"></script>
+</body>
+
+</html>
