@@ -132,7 +132,6 @@ public class RequestModel extends BaseModel{
 	private Request toRequest(Document document){
 		if(document == null)
 			return null;
-		Document condition = (Document)document.get("condition");
 		
 		return new Request(document.getInteger("id",0),
 				document.getString("shop"),
