@@ -155,10 +155,13 @@ var drawrecReqTable = () => {
 
 // ready...
 $(() => {
+    $("#recReqTable").tablesorter();
     drawrecReqTable();
 
+    flatpickr('#calendar');
+
     // button action(search)
-    $('#recReqFilterButton').click((e) => {
+    $('#search').keyup((e) => {
         let re = new RegExp($('#search').val());
         $.each($('#recReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
