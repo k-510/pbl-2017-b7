@@ -1,18 +1,20 @@
 package jp.enpit.lama.entities;
 
+import java.util.Collection;
 import java.util.Date;
 
+//import javax.json.JsonArray;
 import javax.xml.bind.annotation.XmlElement;
 
-public class Request {
+import org.bson.Document;
+
+public class Request{
 	@XmlElement(name="id")
 	private int id;
 	@XmlElement(name="time")
 	private Date time;
 	@XmlElement(name="shop")
 	private String shop;
-	@XmlElement(name="condition")
-	private String condition;
 	@XmlElement(name="due")
 	private Date due;
 	@XmlElement(name="clentID")
@@ -22,6 +24,12 @@ public class Request {
 	@XmlElement(name="status")
 	private String status;
 	
+		
+	//Document document = new Document();
+	
+	@XmlElement(name="condition")
+	private Condition condition = new Condition() ;
+
 	public Request(){
 		time = new Date();
 		due = new Date();
@@ -47,30 +55,38 @@ public class Request {
 		this.time = time;
 	}
 	
-	public Request(int id, String shop, String condition){
+	public Request(int id, String shop, Condition condition){
 		this(id, shop);
 		setCondition(condition);
 	}
 	
-	public Request(int id, String shop, String condition, Date due){
+	public Request(int id, String shop, Condition condition, Date due){
 		this(id, shop, condition);
 		this.due = due;
 	}
 	
-	public Request(int id, String shop, String condition, int clentID){
+	public Request(int id, String shop, Condition condition, int clentID){
 		this(id, shop, condition);
 		setClentID(clentID);
 	}
 	
-	public Request(int id, String shop, String condition, int clentID, int surrogateID){
+	public Request(int id, String shop, Condition condition, int clentID, int surrogateID){
 		this(id, shop, condition, clentID);
 		setSurrogateID(surrogateID);
 	}
 	
-	public Request(int id, String shop, String condition, int clentID, int surrogateID, String status){
-		this(id, shop, condition, clentID, surrogateID);
+	public Request(int id, String shop, Condition condition, int clentID, int surrogateID, String status){
+		this(id,shop,condition,clentID,surrogateID);
 		setStatus(status);
 	}
+	
+	
+	public Request(int id, String shop, Document condition, int clentID, int surrogateID, String status){
+		//Condition con = new Condition(condition);
+		this(id, shop, new Condition(condition), clentID,surrogateID,status);
+	}
+
+
 	public void setTime(Date time){
 		this.time = time;
 	}
@@ -97,13 +113,14 @@ public class Request {
 		return shop;
 	}
 	
-	public void setCondition(String condition){
-		this.condition = condition;
+	public void setCondition(Condition condition){
+		this.condition.setCondition(condition);
 	}
 	
-	public String condition(){
+	
+	public Condition condition(){
 		return condition;
-	}
+	}	
 
 	public void setClentID(int clentID){
 		this.clentID = clentID;

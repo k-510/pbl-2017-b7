@@ -19,6 +19,7 @@ import com.mongodb.client.MongoCollection;
 
 import jp.enpit.lama.entities.Request;
 import jp.enpit.lama.entities.Requests;
+import jp.enpit.lama.entities.Condition;
 
 public class RequestModel extends BaseModel{
 	private MongoCollection<Document> requests(){
@@ -121,7 +122,7 @@ public class RequestModel extends BaseModel{
 	private Document toDocument(Request request){
 		return new Document()
 				.append("id", request.id())
-				.append("shop",request.shop())
+				.append("shop", request.shop())
 				.append("condition", request.condition())
 				.append("clentID", request.clentID())
 				.append("surrogateID", request.surrogateID());
@@ -131,10 +132,11 @@ public class RequestModel extends BaseModel{
 	private Request toRequest(Document document){
 		if(document == null)
 			return null;
+		Document condition = (Document)document.get("condition");
 		
 		return new Request(document.getInteger("id",0),
 				document.getString("shop"),
-				document.getString("condition"),
+				(Document)document.get("condition"),
 				document.getInteger("clentID"),
 				document.getInteger("surrogateID"),
 				document.getString("status"));

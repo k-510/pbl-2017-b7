@@ -17,11 +17,11 @@ public class RequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Path("{clentID}")
-	public Response userRequest(@QueryParam("clientID") String clientID){
+	public Response userRequest(@QueryParam("type") String clientID){
 		try(RequestModel model = createModel()){
 			int cid = toInteger(clientID);
 			if(cid <= 0)
-				return errorMessage(400, "Bad request");
+				return errorMessage(400, "The request you sent contents an invalid parameter");
 			
 			Request request = model.findById(cid);
 			if(request == null)
@@ -32,6 +32,8 @@ public class RequestsRest {
 					.build();
 		}
 	}
+		
+	
 	
 	
 	
