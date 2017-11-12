@@ -1,6 +1,7 @@
 package jp.enpit.lama.rest;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -16,21 +17,9 @@ import jp.enpit.lama.model.RequestModel;
 public class RequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Path("{clentID}")
-	public Response userRequest(@QueryParam("type") String clientID){
-		try(RequestModel model = createModel()){
-			int cid = toInteger(clientID);
-			if(cid <= 0)
-				return errorMessage(400, "The request you sent contents an invalid parameter");
-			
-			Request request = model.findById(cid);
-			if(request == null)
-				return errorMessage(404, "Not found");
-			
-			return Response.status(200)
-					.entity(request)
-					.build();
-		}
+	public Response userRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String Authorization){
+		
+	
 	}
 		
 	

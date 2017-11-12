@@ -26,8 +26,8 @@ public class RequestModel extends BaseModel{
 		return super.collection("requests");
 	}
 	
-    public Request findById(int id){
-        Document document = requests().find(eq("id", id))
+    public Request findByClentId(int clentID){
+        Document document = requests().find(eq("clentID", clentID))
                 .limit(1).first();
         return toRequest(document);
     }
@@ -36,13 +36,15 @@ public class RequestModel extends BaseModel{
         requests().deleteOne(eq("id", id));
     }
 
-    //
-    //?????????????????????????????????????????????????????
-    //
+    
     private MongoCollection<Document> latestClentIds(){
         return super.collection("latestClentIDs");
     }
-
+    
+    
+    //
+    //使用できないはず
+    //
     public Request register(Request request ){
         request.setId(latestId() + 1);
         requests().insertOne(toDocument(request));
@@ -55,9 +57,9 @@ public class RequestModel extends BaseModel{
         if(cids.count() == 0L)
             return 0;
         return cids.find()
-                .sort(descending("cid"))
+                .sort(descending("id"))
                 .first()
-                .getInteger("cid", 0);
+                .getInteger("id", 0);
     }
 
     public Requests findRequests(){
