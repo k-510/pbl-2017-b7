@@ -18,4 +18,18 @@ $(function() {
 			}
 		}
 	});
+	/*	console.log($('form').serializeArray());
+	$('.condition').change(function() {	
+		console.log($('form').serializeArray());
+	});	*/
+	
+	// form値をJSONに変換
+	$('form').submit(function(){
+		$.ajax({
+			type: 'POST',
+			url: "/api/user/requests/",
+			dataType: 'json',
+			data: $('form').serializeArray()
+		});
+	});	
 });
