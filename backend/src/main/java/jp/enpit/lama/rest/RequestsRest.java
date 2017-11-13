@@ -10,19 +10,31 @@ import javax.ws.rs.core.Response;
 
 import jp.enpit.lama.entities.ErrorMessage;
 import jp.enpit.lama.entities.Request;
+import jp.enpit.lama.entities.User;
 import jp.enpit.lama.model.RequestModel;
+import jp.enpit.lama.model.UserModel;
 
 
 @Path("/user/requests")
 public class RequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response userRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String Authorization){
-		
+	public Response userRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String session){
+		UserModel usermodel = createUserModel();
+		User user = usermodel.findBySession(session);
+		if(user == null)
+			return errorMessage(400, "The request you sent contents an invalid parameter.");
+
+		int clentID = user.userID();
+		RequestModel requestmodel = createRequestModel();
+		Request request = requestmodel.findByClentId(clentID);
+		return Response.status(200)
+				.header("Content-Type", "application/json")
+				.entity(request)
+				.build();
 	
 	}
 		
-	
 	
 	
 	
@@ -73,6 +85,7 @@ public class RequestsRest {
 
     public Response errorMessage(int statusCode, String message){
         return Response.status(statusCode)
+        		.header("Content-Type","application/json")
                 .entity(new ErrorMessage(message))
                 .build();
     }
@@ -92,8 +105,13 @@ public class RequestsRest {
 		
 	}
 	
-	private RequestModel createModel(){
+	private RequestModel createRequestModel(){
 		return new RequestModel();
+	}
+	
+	
+	private UserModel createUserModel(){
+		return new UserModel();
 	}
 
 }

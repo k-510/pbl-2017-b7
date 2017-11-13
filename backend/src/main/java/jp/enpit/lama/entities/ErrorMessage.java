@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class ErrorMessage {
-    @XmlElement(name="message")
+    @XmlElement(name="error")
     private String message;
 
     public ErrorMessage(){
