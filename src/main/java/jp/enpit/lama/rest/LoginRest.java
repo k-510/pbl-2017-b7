@@ -17,6 +17,9 @@ public class LoginRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response login(@FormParam("user_id") int user_id, @FormParam("password") String plainPassword) {
+		if(user_id == 0 || plainPassword == null || plainPassword.trim().equals("")) {
+			return errorMessage(400, "The request you sent lacks a requied parameter.");
+		}
 		// 平文のパスワードをハッシュ化
 		String hashedPassword = "";
 		try {
