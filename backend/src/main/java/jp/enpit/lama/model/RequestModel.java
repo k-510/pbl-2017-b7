@@ -25,11 +25,25 @@ public class RequestModel extends BaseModel{
 	private MongoCollection<Document> requests(){
 		return super.collection("requests");
 	}
-	
     public Request findByClentId(int clentID){
         Document document = requests().find(eq("clentID", clentID))
                 .limit(1).first();
         return toRequest(document);
+    }
+	
+    
+    public Request findByUserId(String type, int ID){
+    	if(type == "clentID"){
+    		Document document = requests().find(eq("clentID", ID))
+    				.limit(1).first();
+    		return toRequest(document);
+    	}
+    	else if(type == "surrogateID"){
+    		Document document = requests().find(eq("surrogateID", ID))
+    				.limit(1).first();
+    		return toRequest(document);
+    	}
+    	else return null;
     }
 	
     public void deleteRequest(int id){
@@ -43,15 +57,16 @@ public class RequestModel extends BaseModel{
     
     
     //
-    //使用できないはず
     //
+    //
+    
     public Request register(Request request ){
         request.setId(latestId() + 1);
         requests().insertOne(toDocument(request));
         latestClentIds().insertOne(new Document("clentID", request.clentID()));
         return request;
     }
-
+     
     public int latestId(){
         MongoCollection<Document> cids = latestClentIds();
         if(cids.count() == 0L)
@@ -112,7 +127,7 @@ public class RequestModel extends BaseModel{
 
     private FindIterable<Document> list(){
         return requests().find()
-                .sort(ascending("clentID"));
+                .sort(ascending("id"));
     }
 	
     private FindIterable<Document> list(String filter){

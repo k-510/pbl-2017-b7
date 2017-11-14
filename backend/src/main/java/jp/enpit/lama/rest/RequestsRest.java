@@ -1,12 +1,17 @@
 package jp.enpit.lama.rest;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.bson.Document;
 
 import jp.enpit.lama.entities.ErrorMessage;
 import jp.enpit.lama.entities.Request;
@@ -19,28 +24,42 @@ import jp.enpit.lama.model.UserModel;
 public class RequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response userRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String session){
-		//session処理
-		//if(type == "registered"){
-			UserModel usermodel = createUserModel();                                                                                          
-			User user = usermodel.findBySession(session);
-			if(user == null)
-				//return errorMessage(400, "The request you sent contents an invalid parameter.");
-				return errorMessage(400, session);
-			
+	public Response getRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String session){
+		UserModel usermodel = createUserModel();                                                                                          
+		User user = usermodel.findBySession(session);
+		if(user == null)
+			return errorMessage(400, "[FOR DEBUG], canot find this user ");
+		
+		if(type.equals("registered")){
 			int clentID = user.userID();		
 			RequestModel requestmodel = createRequestModel();
-			Request request = requestmodel.findByClentId(clentID);
+			Request request = requestmodel.findByUserId("clentID", clentID);
 			return Response.status(200)
 					.header("Content-Type", "application/json")
 					.entity(request)
 					.build();
+		}
+		else if(type.equals("accepted")){
+			int surrogateID = user.userID();
+			RequestModel requestmodel = createRequestModel();
+			Request request = requestmodel.findByUserId("surrogateID", surrogateID);
+			return Response.status(200)
+					.header("Content-type", "application/json")
+					.entity(request)
+					.build();
+		}
 		
+		return errorMessage(400, "[FOR DEBUG] the type is wrong:"+type);		
 		
 	}
 		
-	
-	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response postRequest(@FormParam("shop_id") String body, @HeaderParam("Authorization") String session){
+		
+		//Request request = new Request();
+		return errorMessage(200,body);
+	}
 	
 	
 	
