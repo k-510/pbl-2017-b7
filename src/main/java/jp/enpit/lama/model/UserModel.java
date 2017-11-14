@@ -146,7 +146,7 @@ public class UserModel extends BaseModel{
 	 * @param userID 更新したいドキュメントの現在のユーザ ID
 	 * @param user 更新したい内容
 	 */
-	public void updateUserInDB(int userID, User user) {
+	public void updateUserDocument(int userID, User user) {
 		requests().findOneAndReplace(eq("userID", userID), toDocument(user));
 	}
 	

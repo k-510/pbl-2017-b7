@@ -44,7 +44,7 @@ public class LoginRest {
 		
 		// 新しいセッショントークンを DB に反映
 		user.setsession(sessionToken);
-		usermodel.updateUserInDB(user.userID(), user);
+		usermodel.updateUserDocument(user.userID(), user);
 		
 		// レスポンスデータの準備
 		SessionToken response = new SessionToken(sessionToken);
