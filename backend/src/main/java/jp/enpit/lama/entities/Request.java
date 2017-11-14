@@ -2,7 +2,6 @@ package jp.enpit.lama.entities;
 
 import java.util.Date;
 
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -147,7 +146,7 @@ public class Request{
 	public int surrogateID(){
 		return surrogateID;
 	}
-		
+	
 	public void setStatus(String status){
 		this.status = status;
 	}

@@ -31,6 +31,21 @@ public class RequestsRest {
                 .build();
     }
 
+    public Response getComment(@PathParam("cid") String idString){
+        RequestModel model = new RequestModel();
+        int cid = toInteger(idString);
+        if(cid <= 0)
+            return errorMessage(400, "Bad request");
+
+        Request request = model.findById(cid);
+        if(request == null)
+            return errorMessage(404, "Not found");
+
+        return Response.status(200)
+                .entity(request)
+                .build();
+    }
+
     public Response errorMessage(int statusCode, String message){
         return Response.status(statusCode)
                 .entity(new ErrorMessage(message))
