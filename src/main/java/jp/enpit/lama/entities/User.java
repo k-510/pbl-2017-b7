@@ -11,12 +11,14 @@ public class User {
 	private String hashedPassword;
 	
 	public User(){
+		setuserName("");
 		setuserID(-1);
 		setsession("");
 		sethashedPassword("");
 	}
 	public User(String userName, int userID, String hashedPassword, String session){
 		this();
+		setuserName(userName);
 		setuserID(userID);
 		setsession(session);
 		sethashedPassword(hashedPassword);
