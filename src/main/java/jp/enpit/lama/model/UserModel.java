@@ -126,6 +126,7 @@ public class UserModel extends BaseModel{
 		return new Document().append("userName", user.userName())
 		                     .append("userID", user.userID())
 		                     .append("pswd", user.hashedPassword())
+		                     .append("email", user.email())
 		                     .append("session", user.session());
 	}
 	
@@ -137,6 +138,7 @@ public class UserModel extends BaseModel{
 				document.getString("userName"),
 				document.getInteger("userID",0),
 				document.getString("pswd"),
+				document.getString("email"),
 				document.getString("session")
 		);
 	}

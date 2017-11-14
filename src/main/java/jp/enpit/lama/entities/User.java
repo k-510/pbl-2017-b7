@@ -8,19 +8,17 @@ public class User {
 	@XmlElement(name = "session")
 	private String session;
 	private String userName;
+	private String email;
 	private String hashedPassword;
 	
 	public User(){
-		setuserName("");
-		setuserID(-1);
-		setsession("");
-		sethashedPassword("");
+		this("", -1, "", "", "");
 	}
-	public User(String userName, int userID, String hashedPassword, String session){
-		this();
+	public User(String userName, int userID, String hashedPassword, String email, String session){
 		setuserName(userName);
 		setuserID(userID);
 		setsession(session);
+		setemail(email);
 		sethashedPassword(hashedPassword);
 	}
 	
@@ -43,6 +41,13 @@ public class User {
 	}
 	public void sethashedPassword(String hashedPassword){
 		this.hashedPassword = hashedPassword;
+	}
+	
+	public String email(){
+		return email;
+	}
+	public void setemail(String email){
+		this.email = email;
 	}
 	
 	public String session(){
