@@ -124,10 +124,13 @@ public class RequestModel extends BaseModel{
 	private Document toDocument(Request request){
 		return new Document()
 				.append("id", request.id())
+				.append("time", request.time())
 				.append("shop", request.shop())
 				.append("condition", request.condition())
+				.append("due", request.due())
 				.append("clentID", request.clentID())
-				.append("surrogateID", request.surrogateID());
+				.append("surrogateID", request.surrogateID())
+				.append("status", request.status());
 	}
 	
 	
@@ -136,8 +139,10 @@ public class RequestModel extends BaseModel{
 			return null;
 		
 		return new Request(document.getInteger("id",0),
+				document.getDate("time"),
 				document.getString("shop"),
 				(Document)document.get("condition"),
+				document.getDate("due"),
 				document.getInteger("clentID"),
 				document.getInteger("surrogateID"),
 				document.getString("status"));

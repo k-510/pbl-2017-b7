@@ -20,19 +20,23 @@ public class RequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response userRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String session){
-		UserModel usermodel = createUserModel();
-		User user = usermodel.findBySession(session);
-		if(user == null)
-			return errorMessage(400, "The request you sent contents an invalid parameter.");
-
-		int clentID = user.userID();
-		RequestModel requestmodel = createRequestModel();
-		Request request = requestmodel.findByClentId(clentID);
-		return Response.status(200)
-				.header("Content-Type", "application/json")
-				.entity(request)
-				.build();
-	
+		//session処理
+		//if(type == "registered"){
+			UserModel usermodel = createUserModel();                                                                                          
+			User user = usermodel.findBySession(session);
+			if(user == null)
+				//return errorMessage(400, "The request you sent contents an invalid parameter.");
+				return errorMessage(400, session);
+			
+			int clentID = user.userID();		
+			RequestModel requestmodel = createRequestModel();
+			Request request = requestmodel.findByClentId(clentID);
+			return Response.status(200)
+					.header("Content-Type", "application/json")
+					.entity(request)
+					.build();
+		
+		
 	}
 		
 	
