@@ -76,7 +76,24 @@ public class Request{
 		this(id, time, shop, new Condition(condition), due, clentID, surrogateID, status);
 	}
 	
-
+	public Request( Date time, String shop, Document condition, Date due, int clentID, int surrogateID, String status){
+		setTime(time);
+		setShop(shop);
+		new Condition(condition);
+		setDue(due);
+		setClentID(clentID);
+		setSurrogateID(surrogateID);
+		setStatus(status);
+	}
+	public Request(int id, int time, String shop, Condition condition, int due, int clentID, int surrogateID, String status){
+		setTime(time);
+		setShop(shop);
+		setCondition(condition);
+		setDue(due);
+		setClentID(clentID);
+		setSurrogateID(surrogateID);
+		setStatus(status);
+	}
 	
 	
 	///
@@ -91,6 +108,9 @@ public class Request{
 
 	public void setTime(Date time){
 		this.time = time;
+	}
+	public void setTime(int time){
+		this.time = new Date(time*1000);
 	}
 	public Date time(){
 		return time;
@@ -118,6 +138,9 @@ public class Request{
 	
 	public void setDue(Date due){
 		this.due = due;
+	}
+	public void setDue(int due){
+		this.due = new Date(due*1000);
 	}
 	public Date due(){
 		return due;

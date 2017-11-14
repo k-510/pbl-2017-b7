@@ -59,11 +59,13 @@ public class RequestModel extends BaseModel{
     //
     //
     //
-    
-    public Request register(Request request ){
+    //id,time,shop,condition,due,clentID,surrogateID,status
+    public Request register(int id, int time, String shop, ArrayList<Integer> tagID, String keyword, int due, int clentID, int surrogateID, String status){
+    	Request request = new Request(id,time,shop, new Condition(tagID, keyword),due,clentID,surrogateID,status);
+    	
         request.setId(latestId() + 1);
         requests().insertOne(toDocument(request));
-        latestClentIds().insertOne(new Document("clentID", request.clentID()));
+        latestClentIds().insertOne(new Document("id", request.id()));
         return request;
     }
      
