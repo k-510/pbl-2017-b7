@@ -57,8 +57,7 @@ var makerecReqHTMLTable = (dictArr) => {
         'datetime': '集合時間',
         'restaurantName': 'お店',
         'address': '場所',
-        'condition': '相手',
-        'deadline': '募集期限',
+        'condition': '条件',
         'budget': '予算',
     };
 
@@ -83,7 +82,6 @@ var makerecReqHTMLTable = (dictArr) => {
         'restaurantName',
         'address',
         'condition',
-        'deadline',
         'budget',
     ];
 
@@ -149,7 +147,7 @@ var makemyReqHTMLTable = (dictArr) => {
         'datetime': '集合時間',
         'restaurantName': 'お店',
         'address': '場所',
-        'condition': '相手',
+        'condition': '条件',
         'deadline': '募集期限',
         'budget': '予算',
     };
@@ -235,8 +233,8 @@ $(() => {
     if('gurunavi-key' in Cookies.get()){
         let gurunaviKey = Cookies.get('gurunavi-key');
         $('#keyid-textbox').val(gurunaviKey);
-        drawrecReqTable(gurunaviKey);
-        drawmyReqTable(gurunaviKey);
+        //drawrecReqTable(gurunaviKey);
+        //drawmyReqTable(gurunaviKey);
     }
 
     $('#keyid-button').click((e) => {
@@ -246,11 +244,37 @@ $(() => {
         drawmyReqTable(gurunaviKey);
     });
 
-    flatpickr('#calendar');
+    flatpickr('#recReqCalendar');
+    flatpickr('#myReqCalendar',{
+        dateFormat: 'Y/m/d',
+        onChange: (dateObj, dateStr) => {
+            let re = new RegExp($('#myReqCalendar').val());
+            $.each($('#myReqTable tbody tr'), (index, element) => {
+                let row_text = $(element).text();
+                if (row_text.match(re) != null) {
+                    $(element).css("display", "table-row");
+                }
+                else {
+                    $(element).css("display", "none");
+                }
+            });
+        }
+    });
 
-    $('#search').keyup((e) => {
-        let re = new RegExp($('#search').val());
-        $.each($('#recReqTable tbody tr'), (index, element) => {
+    $('#myReqClearButton').click((e) => {
+        $('.my-req-input-form').each((i,elem) => {
+            $(elem).val('');
+        });
+    })
+    $('#recReqClearButton').click((e) => {
+        $('.rec-req-input-form').each((i,elem) => {
+            $(elem).val('');
+        });
+    })
+
+    $('#myReqSearch').keyup((e) => {
+        let re = new RegExp($('#myReqSearch').val());
+        $.each($('#myReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
             if (row_text.match(re) != null) {
                 $(element).css("display", "table-row");
@@ -260,4 +284,7 @@ $(() => {
             }
         });
     });
+    $('#myReqCalendar').keyup((e) => {
+        console.log(e);
+    })
 });

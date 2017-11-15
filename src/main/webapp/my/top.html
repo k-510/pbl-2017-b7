@@ -32,26 +32,26 @@
         <b>あなたが受けた</b>
         <font size="5">依頼の一覧</font>
     </h3>
+    <button id="recReqClearButton" class="btn btn-outline-info">検索内容のクリア</button>
     <form>
         <ul class="input-forms">
             <li>
-                <span class="glyphicon glyphicon-search"></span>
                 <label><i class="fa fa-search" aria-hidden="true"></i> フリー検索 </label>
-                <input type="text" id="search">
+                <input type="text" id="recReqSearch" class="rec-req-input-form">
             </li>
             <details>
                 <summary>もっとくわしく！</summary>
                 <li>
                     <label> <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> 集合時間 </label>
-                    <input id="calendar" data-mindate=today type="text" />
+                    <input id="recReqCalendar" data-mindate=today type="text" class="rec-req-input-form"/>
                 </li>
                 <li>
                     <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最小)  </label>
-                    <input type="text" id="min-budget">
+                    <input type="text" id="recReqminBudget" class="rec-req-input-form">
                 </li>
                 <li>
                     <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最大)  </label>
-                    <input type="text" id="max-budget">
+                    <input type="text" id="recReqmaxBudget" class="rec-req-input-form">
                 </li>
             </details>
         </ul>
@@ -63,26 +63,26 @@
         <b>あなたが依頼した</b>
         <font size="5">依頼の一覧</font>
     </h3>
+    <button id="myReqClearButton" class="btn btn-outline-info">検索内容のクリア</button>
     <form>
         <ul class="input-forms">
             <li>
-                <span class="glyphicon glyphicon-search"></span>
-                <label><i class="fa fa-search" aria-hidden="true"></i> フリー検索 </label>
-                <input type="text" id="search">
+                <label><i class="fa fa-search " aria-hidden="true"></i> フリー検索 </label>
+                <input type="text" id="myReqSearch" class="my-req-input-form">
             </li>
             <details>
                 <summary>もっとくわしく！</summary>
                 <li>
-                    <label> <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> 集合時間 </label>
-                    <input id="calendar" data-mindate=today type="text" />
+                    <label> <i class="fa fa-calendar-minus-o " aria-hidden="true"></i> 集合時間 </label>
+                    <input id="myReqCalendar" data-mindate=today type="text" class="my-req-input-form">
                 </li>
                 <li>
-                    <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最小)  </label>
-                    <input type="text" id="min-budget">
+                    <label><i class="fa fa-money " aria-hidden="true"></i> 予算(最小)  </label>
+                    <input type="text" id="myReqMin-budget" class="my-req-input-form">
                 </li>
                 <li>
-                    <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最大)  </label>
-                    <input type="text" id="max-budget">
+                    <label><i class="fa fa-money " aria-hidden="true"></i> 予算(最大)  </label>
+                    <input type="text" id="myReqMax-budget" class="my-req-input-form">
                 </li>
             </details>
         </ul>
