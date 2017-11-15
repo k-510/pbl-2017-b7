@@ -58,66 +58,36 @@
     </form>
 
     <table id="recReqTable" class="table table-bordered tablesorter">
-        <thead>
-            <tr>
-                <th>集合時間</th>
-                <th>お店</th>
-                <th>場所</th>
-                <th>相手</th>
-                <th>募集期限</th>
-                <th>予算</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>2017-10-27 12:00</td>
-                <td>ご飯 kurenaif</td>
-                <td>
-                    <a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>
-                </td>
-                <td>相手のページヘのリンク</td>
-                <td>2017-10-25 12:00</td>
-                <td>&yen; 3000</td>
-            </tr>
-            <tr>
-                <td>2017-10-27 13:00</td>
-                <td>ご飯 kurenaifff</td>
-                <td>
-                    <a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>
-                </td>
-                <td>相手のページヘのリンク</td>
-                <td>2017-10-25 12:00</td>
-                <td>&yen; 3000</td>
-            </tr>
-        </tbody>
     </table>
     <h3>
         <b>あなたが依頼した</b>
         <font size="5">依頼の一覧</font>
     </h3>
-    <table id="myReq" class="table  table-bordered">
-        <tr>
-            <th>集合時間</th>
-            <th>お店</th>
-            <th>場所</th>
-            <th>募集条件</th>
-            <th>募集期限</th>
-            <th>予算</th>
-            <th>依頼を取り消す</th>
-            <th>依頼成立</th>
-        </tr>
-        <tr>
-            <td>2017-10-29 2:42</td>
-            <td>ご飯 fwarashi</td>
-            <td>
-                <a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>
-            </td>
-            <td>野菜ソムリエ 主婦</td>
-            <td>2017-10-25 12:00</td>
-            <td>&yen; 3000</td>
-            <td>依頼を取り消すボタン</td>
-            <td>✗</td>
-        </tr>
+    <form>
+        <ul class="input-forms">
+            <li>
+                <span class="glyphicon glyphicon-search"></span>
+                <label><i class="fa fa-search" aria-hidden="true"></i> フリー検索 </label>
+                <input type="text" id="search">
+            </li>
+            <details>
+                <summary>もっとくわしく！</summary>
+                <li>
+                    <label> <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> 集合時間 </label>
+                    <input id="calendar" data-mindate=today type="text" />
+                </li>
+                <li>
+                    <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最小)  </label>
+                    <input type="text" id="min-budget">
+                </li>
+                <li>
+                    <label><i class="fa fa-money" aria-hidden="true"></i> 予算(最大)  </label>
+                    <input type="text" id="max-budget">
+                </li>
+            </details>
+        </ul>
+    </form>
+    <table id="myReqTable" class="table  table-bordered">
     </table>
 
 

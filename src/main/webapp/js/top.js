@@ -92,6 +92,98 @@ var makerecReqHTMLTable = (dictArr) => {
 
 var drawrecReqTable = (gurunaviKey) => {
     $.ajax({
+        url: '../api/user/requests?type=accepted',
+        type: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: 'Session 45b287c4-8b68-483b-abba-b61acaf1ce76'
+        },
+    }).done((data, textStatus, jqXHR) => {
+        console.log(data);
+        dictArr = [];
+        let promises = [];
+        $.each(data.request, (index, reqDic) => {
+            let dic = {};
+            dic.datetime = new Date(reqDic.datetime);
+            dic.condition = reqDic.condition.keyword;
+            dic.deadline = new Date(reqDic.deadline);
+            dic.budget = reqDic.budget;
+            dic.state = reqDic.status;
+            dictArr.push(dic);
+            // Shop status
+            promises.push($.ajax({
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid='+gurunaviKey+'&format=json&id=' + reqDic.shop_id,
+                dataType: 'jsonp',
+                type: 'GET',
+                async: true,
+                context: { some: 'value' },
+            }));
+        });
+
+        Promise.all(promises).then((results) => {
+            $.each(results, (index, result) => {
+                if('error' in result){
+                    dictArr[index].address = "店舗idが見つかりません";
+                    dictArr[index].restaurantName = "店舗idが見つかりません";
+                }
+                else{
+                    dictArr[index].address = result.rest.address;
+                    dictArr[index].restaurantName = result.rest.name;
+                }
+            });
+            console.log(dictArr);
+            $("#recReqTable").html(makerecReqHTMLTable(dictArr));
+            $("#recReqTable").tablesorter();
+        });
+    });
+}
+
+/**
+ * format table content (object -> str)
+ * @param {Dict[Arr[object: str]]} dictArr javascript data table
+ * @return {Dict[Arr[str:str]]} dictArr html data table
+ */
+var makemyReqHTMLTable = (dictArr) => {
+    let title = {
+        'state': '状態',
+        'datetime': '集合時間',
+        'restaurantName': 'お店',
+        'address': '場所',
+        'condition': '相手',
+        'deadline': '募集期限',
+        'budget': '予算',
+    };
+
+    $.each(dictArr, (i, dict) => {
+        $.each(dict, (k, v) => {
+            if (k === 'datetime' || k === 'deadline') {
+                dict[k] = toLocaleString(v);
+            }
+            if (k === 'budget') {
+                dict[k] = '&yen; ' + v;
+            }
+            if (k === 'state'){
+                if(dict[k] === 'accepted') dict[k] = 'マッチング完了'
+                if(dict[k] === 'completed') dict[k] = '終了'
+            }
+        });
+    });
+
+    let order = [
+        'state',
+        'datetime',
+        'restaurantName',
+        'address',
+        'condition',
+        'deadline',
+        'budget',
+    ];
+
+    return dictArrayToHTMLTable(title, dictArr, order);
+}
+
+var drawmyReqTable = (gurunaviKey) => {
+    $.ajax({
         url: '../api/user/requests?type=registered',
         type: 'GET',
         headers: {
@@ -112,7 +204,6 @@ var drawrecReqTable = (gurunaviKey) => {
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
-                // temporary key id
                 url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid='+gurunaviKey+'&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
@@ -132,10 +223,9 @@ var drawrecReqTable = (gurunaviKey) => {
                     dictArr[index].restaurantName = result.rest.name;
                 }
             });
-            // dummy data
             console.log(dictArr);
-            $("#recReqTable").html(makerecReqHTMLTable(dictArr));
-            $("#recReqTable").tablesorter();
+            $("#myReqTable").html(makerecReqHTMLTable(dictArr));
+            $("#myReqTable").tablesorter();
         });
     });
 }
@@ -146,12 +236,14 @@ $(() => {
         let gurunaviKey = Cookies.get('gurunavi-key');
         $('#keyid-textbox').val(gurunaviKey);
         drawrecReqTable(gurunaviKey);
+        drawmyReqTable(gurunaviKey);
     }
 
     $('#keyid-button').click((e) => {
         let gurunaviKey = $('#keyid-textbox').val();
         Cookies.set('gurunavi-key', gurunaviKey);
         drawrecReqTable(gurunaviKey);
+        drawmyReqTable(gurunaviKey);
     });
 
     flatpickr('#calendar');
