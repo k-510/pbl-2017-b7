@@ -12,7 +12,15 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + datetime: `2017-11-01T12:00:00.000Z` (string) - 代行人に到着して欲しい時間
 
-+ condition: `テーブルマナーがある人` (string) - 募集する代行人の条件
++ condition (object)
+
+    + tag_id (array)
+
+        + 2 (number)
+
+        + 3 (number)
+
+    + keyword: `テーブルマナーがある人` (string) - 募集する代行人の条件
 
 + deadline: `2017-10-27T15:00:00.000Z` (string) - 代行人の募集期限
 
@@ -32,7 +40,14 @@ HOST: https://team2017-7.spiral.cloud/api
 ### 依頼一覧の取得 [GET]
 
 サービスに登録されているすべての依頼を取得します．
-代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
+
+レスポンス中の `status` は依頼の進捗状態を表します：
+
+| 状態 | `status` の値 |
+|-|-|
+| 代行人が決まっていない | `new` |
+| 代行人が決まっている | `accepted` |
+| 依頼が完了している | `completed` |
 
 + Request
 
@@ -50,7 +65,9 @@ HOST: https://team2017-7.spiral.cloud/api
 
             + client_id: 1 (number) - 依頼人のユーザ ID
 
-            + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+            + surrogate_id: 2 (number) - 代行人のユーザ ID
+
+            + status: `accepted` (string) - 依頼の進捗状態
 
 
 ## 単一の依頼リソース [/requests/{id}]
@@ -58,13 +75,20 @@ HOST: https://team2017-7.spiral.cloud/api
 ### 指定した依頼の取得 [GET]
 
 サービスに登録されている依頼のうち，`{id}` で指定した依頼を取得します．
-代行人がまだ存在しない場合，レスポンスの `surrogate_id` は `null` となります．
+
+レスポンス中の `status` は依頼の進捗状態を表します：
+
+| 状態 | `status` の値 |
+|-|-|
+| 代行人が決まっていない | `new` |
+| 代行人が決まっている | `accepted` |
+| 依頼が完了している | `completed` |
 
 + Parameters
 
     + id: 1 (number, required) - 依頼 ID
 
-+ Requests
++ Request
 
     + Headers
 
@@ -78,7 +102,9 @@ HOST: https://team2017-7.spiral.cloud/api
 
         + client_id: 1 (number) - 依頼人のユーザ ID
 
-        + surrogate_id: 2 (number, nullable) - 代行人のユーザ ID
+        + surrogate_id: 2 (number) - 代行人のユーザ ID
+
+        + status: `accepted` (string) - 依頼の進捗状態
 
 + Response 404 (application/json)
 
@@ -109,7 +135,7 @@ Authorization: Session {token}
 
 ログインユーザとして，サービスに依頼を新しく登録します．
 
-+ Request (application/json)
++ Request
 
     + Headers
 
@@ -339,7 +365,7 @@ Authorization: Session {token}
 
     + id: 1 (number, required) - 依頼 ID
 
-+ Request (application/json)
++ Request
 
     + Headers
 
@@ -389,7 +415,7 @@ Authorization: Session {token}
 
 当該ユーザに発行済みのセッショントークンが存在する場合は，発行済みのトークンは無効となり，以降は新しく発行するトークンが有効になります．
 
-+ Request (application/json)
++ Request
 
     + Headers
 
