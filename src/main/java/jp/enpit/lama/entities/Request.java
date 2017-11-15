@@ -14,7 +14,6 @@ public class Request {
 	// TODO: 各 XmlElement の name が API Docs と異なっています．
 	//       例: shop ではなくて shop_id
 	//
-	
 	@XmlElement(name="id")
 	private int id;
 	@XmlElement(name="time")

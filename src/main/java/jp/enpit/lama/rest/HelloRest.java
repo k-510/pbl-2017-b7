@@ -9,17 +9,19 @@ import javax.ws.rs.core.Response;
 
 @Path("/hello")
 public class HelloRest{
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response helloUser(@QueryParam("name") String name){
-    	String msg = "Hello,";
-        if("".equals(name))
-        	msg += "!";
-        else
-            msg += ", " + name + "!";
-        return Response.status(200)
-                .entity(msg)
-                .build();
-    }
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response helloUser(@QueryParam("name") String name){
+		String msg = "Hello,";
+		if (name == null) name = "anonymous";
+		if("".equals(name))
+			msg += "!";
+		else
+			msg += ", " + name + "!";
+		return Response.status(200)
+				.entity(msg)
+				.build();
+	}
 
 }

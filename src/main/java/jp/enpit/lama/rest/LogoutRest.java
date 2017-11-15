@@ -13,7 +13,7 @@ public class LogoutRest {
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response logout(@HeaderParam("Authorization") String sessionToken) {
-		
+
 		// Authorization ヘッダは Authorization: Session {token} の形式
 		// {token} の部分だけ切り出す
 		if (sessionToken == null) {

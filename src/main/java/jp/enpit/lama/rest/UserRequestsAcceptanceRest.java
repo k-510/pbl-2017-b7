@@ -63,7 +63,7 @@ public class UserRequestsAcceptanceRest {
 	}
 
 	// エラーメッセージを含むレスポンスデータの生成
-	private Response errorMessage(int statusCode, String message){
+	private Response errorMessage(int statusCode, String message) {
 		return Response.status(statusCode)
 		               .header("Content-Type", "application/json")
 		               .entity(new ErrorMessage(message))

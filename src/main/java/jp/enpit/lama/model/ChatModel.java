@@ -15,54 +15,55 @@ import com.mongodb.client.MongoCollection;
 import jp.enpit.lama.entities.Chat;
 import jp.enpit.lama.entities.Chats;
 
-public class ChatModel{
-	private MongoCollection<Document> chats(){
+public class ChatModel {
+
+	private MongoCollection<Document> chats() {
 		return MongoClientPool.getInstance()
 				.database().getCollection("chats");
 	}
-	
-	public Chat findOne(int id){
+
+	public Chat findOne(int id) {
 		Document document = chats().find(eq("requestID", id)).limit(1).first();
 		return toChat(document);
 	}
-	
-	public Chats findById(int id){
+
+	public Chats findById(int id) {
 		Iterable<Document> iterable = chats().find(eq("requestID", id));
 		return convertToChats(iterable);
 	}
-	
-	public Chats find(){
+
+	public Chats find() {
 		Iterable<Document> iterable = chats().find()
 				.sort(ascending("_id"));
 		return convertToChats(iterable);
 	}
 
-	private MongoCollection<Document> latestIds(){
+	private MongoCollection<Document> latestIds() {
 		return MongoClientPool.getInstance()
 				.database().getCollection("latestids");
 	}
-	
-	public Chat register(Chat chat){
+
+	public Chat register(Chat chat) {
 		chats().insertOne(toDocument(chat));
 		return chat;
 	}
-	
-	private Chats convertToChats(Iterable<Document> iterable){
+
+	private Chats convertToChats(Iterable<Document> iterable) {
 		List<Chat> list = new ArrayList<>();
-		for(Document document: iterable){
+		for(Document document: iterable) {
 			list.add(toChat(document));
 		}
 		return new Chats(list);
 	}
-	
-	private Document toDocument(Chat chat){
+
+	private Document toDocument(Chat chat) {
 		return new Document()
 				.append("requestID", chat.requestID())
 				.append("userID", chat.userID())
 				.append("message", chat.message());
 	}
-	
-	private Chat toChat(Document document){
+
+	private Chat toChat(Document document) {
 		if(document == null)
 			return null;
 		return new Chat(
@@ -71,4 +72,5 @@ public class ChatModel{
 				document.getString("message")
 				);
 	}
+
 }

@@ -10,29 +10,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Chats {
-	@XmlElement(name="chats")
+	@XmlElement(name = "chats")
 	private List<Chat> list = new ArrayList<>();
 
-	public Chats(){
+	public Chats() {
 	}
-	
-	public Chats(List<Chat> ChatsList){
+
+	public Chats(List<Chat> ChatsList) {
 		list.addAll(ChatsList);
 	}
-	
-	public List<Chat> chats(){
+
+	public List<Chat> chats() {
 		return Collections.unmodifiableList(list);
 	}
-	
-	public int size(){
+
+	public int size() {
 		return list.size();
 	}
-	
-	public Iterator<Chat> iterator(){
+
+	public Iterator<Chat> iterator() {
 		return list.iterator();
 	}
-	
-	public Chat[] toArray(){
+
+	public Chat[] toArray() {
 		return list.toArray(new Chat[size()]);
 	}
+
 }
