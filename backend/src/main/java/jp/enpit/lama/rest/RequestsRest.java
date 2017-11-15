@@ -68,6 +68,10 @@ public class RequestsRest {
 		
 	}
 		
+	//
+	//ちょっとへんなコードになってしまいましたが、curlコマンドを以下のようにたたいてください
+	// [curl localhost:8080/pbl-2017-b7/api/user/requests -X POST -H 'Accept: application/json' -H 'Authorization: aaa' -d "time"=1510665895 -d "shop"="k742133" -d "tagID"="2,3" -d "keyword"="women" -d "due"=1510665895 -d "surrogateID"=10000]
+	//
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postRequest(@FormParam("time") int time, @FormParam("shop") String shop, @FormParam("tagID") String tag, @FormParam("keyword") String keyword, @FormParam ("due") int due, @FormParam("surrogateID") int surrogateID, @HeaderParam("Authorization") String session){
