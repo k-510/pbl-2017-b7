@@ -8,7 +8,7 @@ import org.bson.Document;
 
 public class Condition {
 
-	@XmlElement(name = "tagID")
+	@XmlElement(name = "tag_id")
 	private ArrayList<Integer> tagID;
 	@XmlElement(name = "keyword")
 	private String keyword;

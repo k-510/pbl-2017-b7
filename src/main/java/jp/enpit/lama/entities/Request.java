@@ -10,19 +10,15 @@ import org.bson.Document;
 @XmlRootElement
 public class Request {
 
-	//
-	// TODO: 各 XmlElement の name が API Docs と異なっています．
-	//       例: shop ではなくて shop_id
-	//
-	@XmlElement(name="id")
+	@XmlElement(name="request_id")
 	private int id;
-	@XmlElement(name="time")
+	@XmlElement(name="datetime")
 	private Date time;
-	@XmlElement(name="shop")
+	@XmlElement(name="shop_id")
 	private String shop;
 	@XmlElement(name="condition")
 	private Condition condition = new Condition();
-	@XmlElement(name="due")
+	@XmlElement(name="deadline")
 	private Date due;
 	@XmlElement(name="budget")
 	private int budget;	
