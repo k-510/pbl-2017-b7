@@ -2,6 +2,7 @@ package jp.enpit.lama.rest;
 
 import java.util.ArrayList;
 
+import javax.validation.constraints.Null;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -26,7 +27,13 @@ public class UserRequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String sessionToken) {
-
+		//
+		// TODO: リクエストにパラメータが欠けていたときの例外処理が必要です
+		//       例: ?type を忘れて GET して来たときなど
+		if(type == null)
+			return errorMessage(403, "You don't have type parameter");
+		
+		
 		// Authorization ヘッダは Authorization: Session {token} の形式
 		// {token} の部分だけ切り出す
 		if (sessionToken == null) {
@@ -47,10 +54,7 @@ public class UserRequestsRest {
 			return errorMessage(403, "No such session token.");
 		}
 
-		//
-		// TODO: リクエストにパラメータが欠けていたときの例外処理が必要です
-		//       例: ?type を忘れて GET して来たときなど
-		//
+
 
 		String idtype;
 		if(type.equals("registered")) idtype = "clentID";
@@ -75,12 +79,13 @@ public class UserRequestsRest {
 	//
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postRequest(@FormParam("datetime") int datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") String tag, @FormParam("condition") String keyword, @FormParam ("deadline") int deadline, @FormParam ("budget") int budget, @HeaderParam("Authorization") String sessionToken) {
+	public Response postRequest(@FormParam("datetime") Integer datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") String tag, @FormParam("condition") String keyword, @FormParam ("deadline") Integer deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) {
 
 		int id = 0;
 
-		//time はintでないと受け取れなくて
-
+		//パラメータがかけている場合の例外処理
+		if((datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(deadline==null)||(budget==null)))
+			return errorMessage(403, "Parameters Missing");
 		String[] tagstring = tag.split(",");
 
 		ArrayList<Integer> tagID = new ArrayList<Integer>();
