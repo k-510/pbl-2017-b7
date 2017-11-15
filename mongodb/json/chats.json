@@ -1,0 +1,8 @@
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215733"},"requestID":1,"userID":2,"time":"2017-09-30T10:00:00.000Z","message":"初めまして，よろしくお願いします!!"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215734"},"requestID":1,"userID":3,"time":"2017-09-30T10:30:23.000Z","message":"現地で待ってます"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215735"},"requestID":1,"userID":2,"time":"2017-10-01T02:30:23.000Z","message":"すみません少し遅れます．"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215736"},"requestID":1,"userID":3,"time":"2017-10-01T02:55:33.000Z","message":"了解しました．"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215737"},"requestID":13,"userID":2,"time":"2017-10-23T12:10:26.000Z","message":"よろしくお願いします!!"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215738"},"requestID":13,"userID":4,"time":"2017-10-24T14:11:00.000Z","message":"何食べます?"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d215739"},"requestID":13,"userID":2,"time":"2017-10-24T15:23:50.000Z","message":"店入ってから決めますか．"}
+{"_id":{"$oid":"5a0b4b247a7cfbc05d21573a"},"requestID":13,"userID":4,"time":"2017-10-24T16:03:10.000Z","message":"分かりました!!"}
