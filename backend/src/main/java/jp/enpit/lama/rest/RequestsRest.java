@@ -30,6 +30,7 @@ import org.glassfish.grizzly.InputSource;
 import jp.enpit.lama.entities.Condition;
 import jp.enpit.lama.entities.ErrorMessage;
 import jp.enpit.lama.entities.Request;
+import jp.enpit.lama.entities.Requests;
 import jp.enpit.lama.entities.User;
 import jp.enpit.lama.model.RequestModel;
 import jp.enpit.lama.model.UserModel;
@@ -44,28 +45,21 @@ public class RequestsRest {
 		User user = usermodel.findBySession(session);
 		if(user == null)
 			return errorMessage(400, "[FOR DEBUG], canot find this user ");
+		String idtype;
+		if(type.equals("registered")) idtype = "clentID";
+		else if(type.equals("accepted")) idtype = "surrogateID";
+		else
+			return errorMessage(400, "[FOR DEBUG] type is wrong");
 		
-		if(type.equals("registered")){
-			int clentID = user.userID();		
-			RequestModel requestmodel = createRequestModel();
-			Request request = requestmodel.findByUserId("clentID", clentID);
-			return Response.status(200)
-					.header("Content-Type", "application/json")
-					.entity(request)
-					.build();
-		}
-		else if(type.equals("accepted")){
-			int surrogateID = user.userID();
-			RequestModel requestmodel = createRequestModel();
-			Request request = requestmodel.findByUserId("surrogateID", surrogateID);
-			return Response.status(200)
-					.header("Content-type", "application/json")
-					.entity(request)
-					.build();
-		}
-		
-		return errorMessage(400, "[FOR DEBUG] the type is wrong:"+type);		
-		
+		int clentID = user.userID();		
+		RequestModel model = createRequestModel();
+		Requests requests = model.findByUserID(idtype,clentID);		
+		return Response.status(200)
+				.header("Content-Type", "application/json")
+				.entity(requests)
+				.build();
+					
+			
 	}
 		
 	//
@@ -155,6 +149,15 @@ public class RequestsRest {
                 .build();
     }
 	
+
+    private Response findRequestsWithFilter(RequestModel model, String filter){
+    	if(filter.trim().equals(""))
+    		return errorMessage(400,"Empty filter");
+    	return Response.status(200)
+    			.entity(model.findWithFilter(filter))
+    			.build();
+    }
+    
 	private Response findRequestList(RequestModel model){
 		return Response.status(200)
 				.entity(model.findRequests())
