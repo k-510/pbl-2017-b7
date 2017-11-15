@@ -12,7 +12,15 @@ HOST: https://team2017-7.spiral.cloud/api
 
 + datetime: `2017-11-01T12:00:00.000Z` (string) - 代行人に到着して欲しい時間
 
-+ condition: `テーブルマナーがある人` (string) - 募集する代行人の条件
++ condition (object)
+
+    + tag_id (array)
+
+        + 2 (number)
+
+        + 3 (number)
+
+    + keyword: `テーブルマナーがある人` (string) - 募集する代行人の条件
 
 + deadline: `2017-10-27T15:00:00.000Z` (string) - 代行人の募集期限
 
