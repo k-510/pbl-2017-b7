@@ -142,9 +142,15 @@ var drawrecReqTable = (gurunaviKey) => {
 
 // ready...
 $(() => {
+    if('gurunavi-key' in Cookies.get()){
+        let gurunaviKey = Cookies.get('gurunavi-key');
+        $('#keyid-textbox').val(gurunaviKey);
+        drawrecReqTable(gurunaviKey);
+    }
 
     $('#keyid-button').click((e) => {
         let gurunaviKey = $('#keyid-textbox').val();
+        Cookies.set('gurunavi-key', gurunaviKey);
         drawrecReqTable(gurunaviKey);
     });
 
