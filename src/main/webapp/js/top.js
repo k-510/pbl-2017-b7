@@ -265,10 +265,16 @@ $(() => {
         $('.my-req-input-form').each((i,elem) => {
             $(elem).val('');
         });
+        $.each($('#myReqTable tbody tr'), (index, element) => {
+                $(element).css("display", "table-row");
+        });
     })
     $('#recReqClearButton').click((e) => {
         $('.rec-req-input-form').each((i,elem) => {
             $(elem).val('');
+        });
+        $.each($('#recReqTable tbody tr'), (index, element) => {
+                $(element).css("display", "table-row");
         });
     })
 
