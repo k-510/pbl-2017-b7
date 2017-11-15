@@ -69,9 +69,9 @@ var makerecReqHTMLTable = (dictArr) => {
             if (k === 'budget') {
                 dict[k] = '&yen; ' + v;
             }
-            if (k === 'state'){
-                if(dict[k] === 'accepted') dict[k] = 'マッチング完了'
-                if(dict[k] === 'completed') dict[k] = '終了'
+            if (k === 'state') {
+                if (dict[k] === 'accepted') dict[k] = 'マッチング完了'
+                if (dict[k] === 'completed') dict[k] = '終了'
             }
         });
     });
@@ -110,7 +110,7 @@ var drawrecReqTable = (gurunaviKey) => {
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
-                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid='+gurunaviKey+'&format=json&id=' + reqDic.shop_id,
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=' + gurunaviKey + '&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
                 async: true,
@@ -120,11 +120,11 @@ var drawrecReqTable = (gurunaviKey) => {
 
         Promise.all(promises).then((results) => {
             $.each(results, (index, result) => {
-                if('error' in result){
+                if ('error' in result) {
                     dictArr[index].address = "店舗idが見つかりません";
                     dictArr[index].restaurantName = "店舗idが見つかりません";
                 }
-                else{
+                else {
                     dictArr[index].address = result.rest.address;
                     dictArr[index].restaurantName = result.rest.name;
                 }
@@ -160,9 +160,9 @@ var makemyReqHTMLTable = (dictArr) => {
             if (k === 'budget') {
                 dict[k] = '&yen; ' + v;
             }
-            if (k === 'state'){
-                if(dict[k] === 'accepted') dict[k] = 'マッチング完了'
-                if(dict[k] === 'completed') dict[k] = '終了'
+            if (k === 'state') {
+                if (dict[k] === 'accepted') dict[k] = 'マッチング完了'
+                if (dict[k] === 'completed') dict[k] = '終了'
             }
         });
     });
@@ -202,7 +202,7 @@ var drawmyReqTable = (gurunaviKey) => {
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
-                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid='+gurunaviKey+'&format=json&id=' + reqDic.shop_id,
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=' + gurunaviKey + '&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
                 async: true,
@@ -212,11 +212,11 @@ var drawmyReqTable = (gurunaviKey) => {
 
         Promise.all(promises).then((results) => {
             $.each(results, (index, result) => {
-                if('error' in result){
+                if ('error' in result) {
                     dictArr[index].address = "店舗idが見つかりません";
                     dictArr[index].restaurantName = "店舗idが見つかりません";
                 }
-                else{
+                else {
                     dictArr[index].address = result.rest.address;
                     dictArr[index].restaurantName = result.rest.name;
                 }
@@ -230,7 +230,7 @@ var drawmyReqTable = (gurunaviKey) => {
 
 // ready...
 $(() => {
-    if('gurunavi-key' in Cookies.get()){
+    if ('gurunavi-key' in Cookies.get()) {
         let gurunaviKey = Cookies.get('gurunavi-key');
         $('#keyid-textbox').val(gurunaviKey);
         //drawrecReqTable(gurunaviKey);
@@ -244,44 +244,48 @@ $(() => {
         drawmyReqTable(gurunaviKey);
     });
 
-    flatpickr('#recReqCalendar');
-    flatpickr('#myReqCalendar',{
-        dateFormat: 'Y/m/d',
-        onChange: (dateObj, dateStr) => {
-            let re = new RegExp($('#myReqCalendar').val());
-            $.each($('#myReqTable tbody tr'), (index, element) => {
-                let row_text = $(element).text();
-                if (row_text.match(re) != null) {
-                    $(element).css("display", "table-row");
-                }
-                else {
-                    $(element).css("display", "none");
-                }
+    let tableIds = ['#myReq', '#recReq'];
+    $.each(tableIds, (i, tableId) => {
+        flatpickr(tableId + 'Calendar', {
+            dateFormat: 'Y/m/d',
+            onChange: (dateObj, dateStr) => {
+                let re = new RegExp($(tableId + 'Calendar').val());
+                $.each($(tableId + 'Table tbody tr'), (index, element) => {
+                    let row_text = $(element).text();
+                    if (row_text.match(re) != null) {
+                        $(element).css("display", "table-row");
+                    }
+                    else {
+                        $(element).css("display", "none");
+                    }
+                });
+            }
+        });
+        $('#myReqClearButton').click((e) => {
+            $('.my-req-input-form').each((i, elem) => {
+                $(elem).val('');
             });
-        }
+            $.each($('#myReqTable tbody tr'), (index, element) => {
+                $(element).css("display", "table-row");
+            });
+        })
     });
 
-    $('#myReqClearButton').click((e) => {
-        $('.my-req-input-form').each((i,elem) => {
-            $(elem).val('');
-        });
-        $.each($('#myReqTable tbody tr'), (index, element) => {
-                $(element).css("display", "table-row");
-        });
-    })
     $('#recReqClearButton').click((e) => {
-        $('.rec-req-input-form').each((i,elem) => {
+        $('.rec-req-input-form').each((i, elem) => {
             $(elem).val('');
         });
         $.each($('#recReqTable tbody tr'), (index, element) => {
-                $(element).css("display", "table-row");
+            $(element).css("display", "table-row");
         });
     })
 
-    $('#myReqSearch').keyup((e) => {
+    $('.my-req-input-form').keyup((e) => {
         let re = new RegExp($('#myReqSearch').val());
         $.each($('#myReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
+            console.log($(element));
+            console.log($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
             if (row_text.match(re) != null) {
                 $(element).css("display", "table-row");
             }
@@ -290,7 +294,4 @@ $(() => {
             }
         });
     });
-    $('#myReqCalendar').keyup((e) => {
-        console.log(e);
-    })
 });
