@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 public class MongoClientPool {
+
 	/** 唯一のインスタンス． */
 	private static final MongoClientPool INSTANCE = new MongoClientPool();
 
@@ -25,7 +26,7 @@ public class MongoClientPool {
 		String host = Properties.instance().property(Properties.Key.HOST_NAME);
 		int port = Integer.parseInt(Properties.instance().property(Properties.Key.PORT_NUMBER));
 		String dbname = Properties.instance().property(Properties.Key.DATEBASE_NAME);
-		
+
 		this.client = new MongoClient(host, port);
 		this.database = this.client.getDatabase(dbname);
 
@@ -36,18 +37,18 @@ public class MongoClientPool {
 	public MongoCollection<Document> collection(String name) {
 		return database.getCollection(name);
 	}
-	
+
 	public MongoDatabase database() {
 		return database;
 	}
 
 	private void closeOnExit() {
-	    Runtime.getRuntime().addShutdownHook(new Thread() {
-	        public void run() {
-	            if(client != null) {
-	                client.close();
-	            }
-	        }
-	    });
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				if(client != null) {
+					client.close();
+				}
+			}
+		});
 	}
 }

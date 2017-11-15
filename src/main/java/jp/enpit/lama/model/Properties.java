@@ -4,38 +4,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Properties {
-    public static enum Key{
-        DATEBASE_NAME,
-        HOST_NAME,
-        PORT_NUMBER;
-    };
-    private static Properties INSTANCE = new Properties();
 
-    private Map<Key, String> properties = new HashMap<>();
+	public static enum Key {
+		DATEBASE_NAME,
+		HOST_NAME,
+		PORT_NUMBER;
+	};
 
-    public static final Properties instance(){
-        return INSTANCE;
-    }
+	private static Properties INSTANCE = new Properties();
 
-    private Properties(){
-        properties.put(Key.DATEBASE_NAME, "team7");
-        properties.put(Key.HOST_NAME, "localhost");
-        properties.put(Key.PORT_NUMBER, "27017");
-    }
+	private Map<Key, String> properties = new HashMap<>();
 
-    public String property(Key key){
-        return properties.get(key);
-    }
+	public static final Properties instance() {
+		return INSTANCE;
+	}
 
-    public String property(Key key, String defaultValue){
-        return properties.getOrDefault(key, defaultValue);
-    }
+	private Properties() {
+		properties.put(Key.DATEBASE_NAME, "team7"    );
+		properties.put(Key.HOST_NAME,     "localhost");
+		properties.put(Key.PORT_NUMBER,   "27017"    );
+	}
 
-    public int propertyAsInt(Key key){
-        return Integer.parseInt(property(key));
-    }
+	public String property(Key key) {
+		return properties.get(key);
+	}
 
-    public void put(Key key, String value){
-        properties.put(key, value);
-    }
+	public String property(Key key, String defaultValue) {
+		return properties.getOrDefault(key, defaultValue);
+	}
+
+	public int propertyAsInt(Key key) {
+		return Integer.parseInt(property(key));
+	}
+
+	public void put(Key key, String value) {
+		properties.put(key, value);
+	}
+
 }

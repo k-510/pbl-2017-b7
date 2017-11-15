@@ -43,7 +43,7 @@ public class LoginRest {
 		String sessionToken = UUID.randomUUID().toString();
 		
 		// 新しいセッショントークンを DB に反映
-		user.setsession(sessionToken);
+		user.setSession(sessionToken);
 		usermodel.updateUserDocument(user.userID(), user);
 		
 		// レスポンスデータの準備

@@ -16,6 +16,9 @@ public class LogoutRest {
 		
 		// Authorization ヘッダは Authorization: Session {token} の形式
 		// {token} の部分だけ切り出す
+		if (sessionToken == null) {
+			return errorMessage(403, "Your request contains no session tokens.");
+		}
 		int index = sessionToken.indexOf("Session ");
 		if (index != 0) {
 			return errorMessage(403, "Your request contains no session tokens.");
@@ -32,7 +35,7 @@ public class LogoutRest {
 		}
 		
 		// セッショントークンを削除して DB に反映
-		user.setsession("");
+		user.setSession("");
 		usermodel.updateUserDocument(user.userID(), user);
 
 		return Response.status(204).build();

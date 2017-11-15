@@ -47,7 +47,7 @@ public class UserModel extends BaseModel{
     //これは使うにはなにかしらしないといけない。
     //
     public User register(User user ){
-        user.setuserID(latestId() + 1);
+        user.setUserID(latestId() + 1);
         requests().insertOne(toDocument(user));
         latestClentIds().insertOne(new Document("clentID", user.userID()));
         return user;

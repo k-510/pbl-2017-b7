@@ -11,28 +11,28 @@ public class Users {
 
 	@XmlElement(name = "users")
 	private List<User> list = new ArrayList<>();
-	
-	public Users(){
-		
+
+	public Users() {
 	}
-	
-	public Users(List<User> Userlist){
+
+	public Users(List<User> Userlist) {
 		list.addAll(Userlist);
 	}
-	
-	public List<User> user(){
+
+	public List<User> user() {
 		return Collections.unmodifiableList(list);
 	}
-	
-	public int size(){
+
+	public int size() {
 		return list.size();
 	}
-	
-	public Iterator<User> iterator(){
+
+	public Iterator<User> iterator() {
 		return list.iterator();
 	}
-	
-	public Users[] toArray(){
+
+	public Users[] toArray() {
 		return list.toArray(new Users[size()]);
 	}
+
 }

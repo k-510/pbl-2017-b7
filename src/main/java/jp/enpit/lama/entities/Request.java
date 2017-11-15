@@ -2,13 +2,19 @@ package jp.enpit.lama.entities;
 
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.bson.Document;
 
 @XmlRootElement
-public class Request{
+public class Request {
+
+	//
+	// TODO: 各 XmlElement の name が API Docs と異なっています．
+	//       例: shop ではなくて shop_id
+	//
+	
 	@XmlElement(name="id")
 	private int id;
 	@XmlElement(name="time")
@@ -27,97 +33,118 @@ public class Request{
 	private int surrogateID;
 	@XmlElement(name="status")
 	private String status;
-	
-	  public Request(){
-	  }
 
-	  public Request(int id, Date time, String shop, Condition condition, Date due, int budget, int clentID, int surrogateID, String status){
-	    setId(id);
-	    setTime(time);
-	    setShop(shop);
-	    setCondition(condition);
-	    setDue(due);
-	    setBudget(budget);
-	    setClentID(clentID);
-	    setSurrogateID(surrogateID);
-	    setStatus(status);
-	  }
+	public Request() {
+		time = new Date();
+		due  = new Date();
+	}
 
-	public Request(int id, Date time, String shop, Document condition, Date due, int budget, int clentID, int surrogateID, String status){
+	public Request(int id, Date time, String shop, Condition condition, Date due, int budget, int clentID, int surrogateID, String status) {
+		setId(id);
+		setTime(time);
+		setShop(shop);
+		setCondition(condition);
+		setDue(due);
+		setBudget(budget);
+		setClentID(clentID);
+		setSurrogateID(surrogateID);
+		setStatus(status);
+	 }
+
+	public Request(int id, Date time, String shop, Document condition, Date due, int budget, int clentID, int surrogateID, String status) {
 		this(id, time, shop, new Condition(condition), due, budget, clentID, surrogateID, status);
 	}
 	
-	public void setTime(Date time){
-		this.time = time;
+	public Request(int id, int time, String shop, Condition condition, int due, int budget, int clentID, int surrogateID, String status) {
+		this(id, new Date(time*1000), shop, condition, new Date(due*1000), budget, clentID, surrogateID, status);
 	}
 	
-	public Date time(){
-		return time;
+	public Request(int id, int time, String shop, Document condition, int due, int budget, int clentID, int surrogateID, String status) {
+		this(id, new Date(time*1000), shop, new Condition(condition), new Date(due*1000), budget, clentID, surrogateID, status);
 	}
-	
-	public void setId(int id){
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public int id(){
+
+	public int id() {
 		return id;
 	}
-	
-	public void setShop(String shop){
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
+	public void setTime(int time) {
+		this.time = new Date(time*1000);
+	}
+
+	public Date time() {
+		return time;
+	}
+
+	public void setShop(String shop) {
 		if(shop == null)
 			throw new NullPointerException();
 		this.shop = shop;
 	}
-	
-	public String shop(){
+
+	public String shop() {
 		return shop;
 	}
-	
-	public void setCondition(Condition condition){	
+
+	public void setCondition(Condition condition) {	
 		this.condition.setCondition(condition);
 	}
-	
-	public Condition condition(){
-		return condition;
+
+	public Document condition() {
+		return new Document()
+				.append("tagID", condition.tagID())
+				.append("keyword",condition.keyword());
 	}
-	
-	public void setDue(Date due){
+
+	public void setDue(Date due) {
 		this.due = due;
 	}
-	
-	public Date due(){
+
+	public void setDue(int due) {
+		this.due = new Date(due*1000);
+	}
+
+	public Date due() {
 		return due;
 	}
-	
-	public void setBudget(int budget){
+
+	public void setBudget(int budget) {
 		this.budget = budget;
 	}
-	
-	public int budget(){
+
+	public int budget() {
 		return budget;
 	}
 
-	public void setClentID(int clentID){
+	public void setClentID(int clentID) {
 		this.clentID = clentID;
 	}
-	
-	public int clentID(){
+
+	public int clentID() {
 		return clentID;
 	}
-	
-	public void setSurrogateID(int surrogateID){
+
+	public void setSurrogateID(int surrogateID) {
 		this.surrogateID = surrogateID;
 	}
-	
-	public int surrogateID(){
+
+	public int surrogateID() {
 		return surrogateID;
 	}
-	
-	public void setStatus(String status){
+
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	public String status() {
 		return status;
 	}
+
 }
