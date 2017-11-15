@@ -62,7 +62,7 @@ public class RequestModel extends BaseModel{
     public Request register(Request request){
         request.setId(latestId() + 1);
         requests().insertOne(toDocument(request));
-        latestClentIds().insertOne(new Document("id", request.id()));
+        //latestClentIds().insertOne(new Document("id", request.id()));
         return request;
     }
      
