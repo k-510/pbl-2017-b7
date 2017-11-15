@@ -73,7 +73,9 @@ public class RequestsRest {
 	public Response postRequest(@FormParam("time") int time, @FormParam("shop") String shop, @FormParam("tagID") String tag, @FormParam("keyword") String keyword, @FormParam ("due") int due, @FormParam("surrogateID") int surrogateID, @HeaderParam("Authorization") String session){
 		
 		int id = 0;
+				
 		//time はintでないと受け取れなくて
+		
 		String[] tagstring = tag.split(",");
 		
 		ArrayList<Integer> tagID = new ArrayList<Integer>();
@@ -88,12 +90,13 @@ public class RequestsRest {
 		int clentID = user.userID();
 		
 		String status = "new";//新規のため
-		try(RequestModel model = createRequestModel()){
-			Request request = model.register(id,time,shop,tagID,keyword,due,clentID,surrogateID,status);
-			return Response.status(200)
-					.entity(request)
-					.build();
-		}
+		Request request = new Request(-1,time,shop,new Condition(tagID,keyword),due,clentID,surrogateID,status);
+		RequestModel model = createRequestModel();
+		request = model.register(request);
+		
+		return Response.status(200).entity(request).build();
+		
+		
 	}
 	
 	

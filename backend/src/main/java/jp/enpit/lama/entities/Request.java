@@ -131,8 +131,10 @@ public class Request{
 	public void setCondition(Condition condition){
 		this.condition.setCondition(condition);
 	}
-	public Condition condition(){
-		return condition;
+	public Document condition(){
+		return new Document()
+				.append("tagID", condition.tagID())
+				.append("keyword",condition.keyword());
 	}	
 
 	

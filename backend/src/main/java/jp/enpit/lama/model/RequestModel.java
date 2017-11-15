@@ -52,17 +52,14 @@ public class RequestModel extends BaseModel{
 
     
     private MongoCollection<Document> latestClentIds(){
-        return super.collection("latestClentIDs");
+        return super.collection("requests");
     }
     
     
     //
     //
     //
-    //id,time,shop,condition,due,clentID,surrogateID,status
-    public Request register(int id, int time, String shop, ArrayList<Integer> tagID, String keyword, int due, int clentID, int surrogateID, String status){
-    	Request request = new Request(id,time,shop, new Condition(tagID, keyword),due,clentID,surrogateID,status);
-    	
+    public Request register(Request request){
         request.setId(latestId() + 1);
         requests().insertOne(toDocument(request));
         latestClentIds().insertOne(new Document("id", request.id()));
@@ -143,7 +140,7 @@ public class RequestModel extends BaseModel{
 				.append("id", request.id())
 				.append("time", request.time())
 				.append("shop", request.shop())
-				.append("condition", request.condition())
+				.append("condition", new Document(request.condition()))
 				.append("due", request.due())
 				.append("clentID", request.clentID())
 				.append("surrogateID", request.surrogateID())
