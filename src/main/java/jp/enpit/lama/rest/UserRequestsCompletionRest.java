@@ -17,6 +17,9 @@ public class UserRequestsCompletionRest {
 
 		// Authorization ヘッダは Authorization: Session {token} の形式
 		// {token} の部分だけ切り出す
+		if (sessionToken == null) {
+			return errorMessage(403, "Your request contains no session tokens.");
+		}
 		int index = sessionToken.indexOf("Session ");
 		if (index != 0) {
 			return errorMessage(403, "Your request contains no session tokens.");
