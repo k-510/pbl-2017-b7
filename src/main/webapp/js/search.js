@@ -138,7 +138,7 @@ var drawReqTable = (gurunaviKey) => {
                 }
             });
             //console.log(dictArr);
-            $("#reqTable").html(makeReqHTMLTable(dictArr));
+            $("#reqTable").html(makeReqHTMLTable(dictArr.filter((el) => {return el.state === 'new'})));
             $("#reqTable").tablesorter();
         });
     });
