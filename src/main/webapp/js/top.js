@@ -254,7 +254,7 @@ $(() => {
     let tableIds = ['#myReq', '#recReq'];
     $.each(tableIds, (i, tableId) => {
         flatpickr(tableId + 'Calendar', {
-            dateFormat: 'Y/m/d',
+            dateFormat: 'Y/n/j',
             onChange: (dateObj, dateStr) => {
                 let re = new RegExp($(tableId + 'Calendar').val());
                 $.each($(tableId + 'Table tbody tr'), (index, element) => {
