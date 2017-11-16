@@ -4,16 +4,53 @@
 <head>
 	<meta charset="utf-8">
 	<title>ログイン</title>
+	<link rel="stylesheet" type="text/css" href="/pbl-2017-b7/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/pbl-2017-b7/css/bootstrap.css">
+	<link rel="icon" type="image/png" href="/pbl-2017-b7/images/favicon.png">
 </head>
 
 <body>
-	<input id="email" type="text" placeholder="メールアドレス"><br>
-	<input id="password" type="text" placeholder="パスワード"><br>
-	<input id="login" type="button" value="ログイン">
-	<br>
-	
-	<a href="register.html">新規登録はこちら</a>
-	
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-0 col-md-3"></div>
+
+			<div class="col-12 col-md-6">
+
+				<h1 id="title">ログイン</h1>
+
+				<div id="invalid-feedback-message" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+				<div>
+					<div class="form-group">
+						<label for="userID">ユーザ ID</label>
+						<input class="form-control" id="userID" aria-describedby="exampleUserID" placeholder="ユーザ ID">
+						<small id="exampleUserID" class="form-text text-muted">テスト用: 「1」でログインできます</small>
+						<div id="invalid-feedback-userID" class="invalid-feedback"></div>
+					</div>
+					<div class="form-group">
+						<label for="password">パスワード</label>
+						<input type="password" class="form-control" id="password" aria-describedby="examplePassword" placeholder="パスワード">
+						<small id="examplePassword" class="form-text text-muted">テスト用: 「AaAaAa」でログインできます</small>
+						<div id="invalid-feedback-password" class="invalid-feedback"></div>
+					</div>
+					<button id="submit" class="btn btn-primary btn-lg">ログイン</button>
+				</div>
+
+				<!-- <a href="register.html">新規登録はこちら</a> -->
+
+				<img id="main-logo" src="/pbl-2017-b7/images/logo-main.png">
+
+			</div> <!-- /.col-12.col-md-6 -->
+
+			<div class="col-0 col-md-3"></div>
+
+		</div>
+
+	</div> <!-- /.container -->
+
 	<script src="js/jquery.min.js"></script>
 	<script src="js/index.js"></script>
 </body>
