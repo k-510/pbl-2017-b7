@@ -6,12 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Chat {
 
-	//
-	// TODO: API Docs とちがう．userID ではなく user_id．
-	//
 	@XmlElement(name = "requestID")
 	private int requestID;
-	@XmlElement(name = "userID")
+	@XmlElement(name = "user_id")
 	private int userID;
 	@XmlElement(name = "message")
 	private String message;
