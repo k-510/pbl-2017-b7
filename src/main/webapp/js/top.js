@@ -53,6 +53,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
  */
 var makerecReqHTMLTable = (dictArr) => {
     let title = {
+        'id': '待ち合わせする',
         'state': '状態',
         'datetime': '集合時間',
         'restaurantName': 'お店',
@@ -63,6 +64,9 @@ var makerecReqHTMLTable = (dictArr) => {
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
+            if (k === 'id'){
+                dict[k] = '<a href="../appointment.html?user_id='+dict[k]+'" class="btn btn-outline-info" role="button">待ち合わせする</a>';
+            }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
             }
@@ -78,6 +82,7 @@ var makerecReqHTMLTable = (dictArr) => {
 
     let order = [
         'state',
+        'id',
         'datetime',
         'restaurantName',
         'address',
@@ -107,6 +112,7 @@ var drawrecReqTable = (gurunaviKey) => {
             dic.deadline = new Date(reqDic.deadline);
             dic.budget = reqDic.budget;
             dic.state = reqDic.status;
+            dic.id = reqDic.request_id;
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
@@ -143,7 +149,6 @@ var drawrecReqTable = (gurunaviKey) => {
  */
 var makemyReqHTMLTable = (dictArr) => {
     let title = {
-        'id': '待ち合わせする',
         'state': '状態',
         'datetime': '集合時間',
         'restaurantName': 'お店',
@@ -224,7 +229,7 @@ var drawmyReqTable = (gurunaviKey) => {
                 }
             });
             console.log(dictArr);
-            $("#myReqTable").html(makerecReqHTMLTable(dictArr));
+            $("#myReqTable").html(makemyReqHTMLTable(dictArr));
             $("#myReqTable").tablesorter();
         });
     });
@@ -281,6 +286,11 @@ $(() => {
             $(element).css("display", "table-row");
         });
     })
+
+    $('.confluence-btn').click(function(e){
+        alert('push');
+        console.log(this);
+    });
 
     $('.my-req-input-form').keyup((e) => {
         let re = new RegExp($('#myReqSearch').val());
