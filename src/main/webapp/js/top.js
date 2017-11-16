@@ -240,8 +240,8 @@ $(() => {
     if ('gurunavi-key' in Cookies.get()) {
         let gurunaviKey = Cookies.get('gurunavi-key');
         $('#keyid-textbox').val(gurunaviKey);
-        //drawrecReqTable(gurunaviKey);
-        //drawmyReqTable(gurunaviKey);
+        drawrecReqTable(gurunaviKey);
+        drawmyReqTable(gurunaviKey);
     }
 
     $('#keyid-button').click((e) => {
@@ -268,15 +268,16 @@ $(() => {
                 });
             }
         });
-        $('#myReqClearButton').click((e) => {
-            $('.my-req-input-form').each((i, elem) => {
-                $(elem).val('');
-            });
-            $.each($('#myReqTable tbody tr'), (index, element) => {
-                $(element).css("display", "table-row");
-            });
-        })
     });
+
+    $('#myReqClearButton').click((e) => {
+        $('.my-req-input-form').each((i, elem) => {
+            $(elem).val('');
+        });
+        $.each($('#myReqTable tbody tr'), (index, element) => {
+            $(element).css("display", "table-row");
+        });
+    })
 
     $('#recReqClearButton').click((e) => {
         $('.rec-req-input-form').each((i, elem) => {
@@ -287,9 +288,25 @@ $(() => {
         });
     })
 
-    $('.confluence-btn').click(function(e){
-        alert('push');
-        console.log(this);
+    $('.rec-req-input-form').keyup((e) => {
+        let re = new RegExp($('#recReqSearch').val());
+        let minBudget = $('#recReqMinBudget').val();
+        let maxBudget = $('#recReqMaxBudget').val();
+        if(minBudget === '') minBudget = 0;
+        else minBudget = parseInt(minBudget);
+        if(maxBudget === '') maxBudget = Infinity;
+        else maxBudget = parseInt(maxBudget);
+        $.each($('#recReqTable tbody tr'), (index, element) => {
+            let row_text = $(element).text();
+            console.log($(element));
+            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
+            if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
+                $(element).css("display", "table-row");
+            }
+            else {
+                $(element).css("display", "none");
+            }
+        });
     });
 
     $('.my-req-input-form').keyup((e) => {
