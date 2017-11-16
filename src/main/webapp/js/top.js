@@ -99,7 +99,7 @@ var drawrecReqTable = (gurunaviKey) => {
         type: 'GET',
         headers: {
             Accept: 'application/json',
-            Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
+            Authorization: 'Session ' + Cookies.get('kuishiro-session')
         },
     }).done((data, textStatus, jqXHR) => {
         //console.log(data);
@@ -192,7 +192,7 @@ var drawmyReqTable = (gurunaviKey) => {
         type: 'GET',
         headers: {
             Accept: 'application/json',
-            Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
+            Authorization: 'Session ' + Cookies.get('kuishiro-session')
         },
     }).done((data, textStatus, jqXHR) => {
         //console.log(data);
@@ -237,12 +237,14 @@ var drawmyReqTable = (gurunaviKey) => {
 
 // ready...
 $(() => {
+    let sessionId = Cookies.get('kuishiro-session');
     if ('gurunavi-key' in Cookies.get()) {
         let gurunaviKey = Cookies.get('gurunavi-key');
         $('#keyid-textbox').val(gurunaviKey);
         drawrecReqTable(gurunaviKey);
         drawmyReqTable(gurunaviKey);
     }
+
 
     $('#keyid-button').click((e) => {
         let gurunaviKey = $('#keyid-textbox').val();

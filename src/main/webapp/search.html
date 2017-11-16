@@ -1,72 +1,68 @@
 <html>
 
 <head>
+    <meta charset="utf-8"/>
     <title>依頼を検索する</title>
+
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/tablesorter.css">
+    <link rel="stylesheet" href="css/flatpickr.min.css">
     <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Raleway" />
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/animsition.min.css">
 </head>
 
 <body>
+    <label> <i class="fa fa-key" aria-hidden="true"></i> ぐるナビkeyid </label>
+    <div class="input-group">
+        <span class="input-group-btn">
+          <button id ="keyid-button" class="btn btn-secondary" type="button">Go!</button>
+        </span>
+        <input id="keyid-textbox" type="text" class="form-control" placeholder="ぐるナビのkeyid">
+    </div>
+
     <h3>
         <b>検索</b>
     </h3>
 
-    <ul class="input-forms">
-        <li>
-            <label>
-                <i class="fa fa-search" aria-hidden="true"></i> フリー検索 </label>
-            <input type="text" id="search">
-        </li>
-        <details>
-            <summary>もっとくわしく！</summary>
+
+    <button id="clearButton" class="btn btn-outline-info">検索内容のクリア</button>
+    <form>
+        <ul class="input-forms">
             <li>
-                <label>
-                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i> 集合時間 </label>
-                <input id="calendar" data-mindate=today type="text" />
+                <label><i class="fa fa-search " aria-hidden="true"></i> フリー検索 </label>
+                <input type="text" id="search" class="req-input-form">
             </li>
-            <li>
-                <label>
-                    <i class="fa fa-money" aria-hidden="true"></i> 予算(最小) </label>
-                <input type="text" id="min-budget">
-            </li>
-            <li>
-                <label>
-                    <i class="fa fa-money" aria-hidden="true"></i> 予算(最大) </label>
-                <input type="text" id="max-budget">
-            </li>
-        </details>
-    </ul>
-    <table class="table" id="searchTable">
-        <tr>
-            <th>集合時間</th>
-            <th>お店</th>
-            <th>場所</th>
-            <th>依頼主</th>
-            <th>募集期限</th>
-            <th>予算</th>
-        </tr>
-        <tr>
-            <td>2017-10-27 12:00</td>
-            <td>ご飯 kurenaif</td>
-            <td>
-                <a href="https://www.google.co.jp/maps/place/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>
-            </td>
-            <td>相手のページヘのリンク</td>
-            <td>2017-10-25 12:00</td>
-            <td>&yen; 3000</td>
-        </tr>
+            <details>
+                <summary>もっとくわしく！</summary>
+                <li>
+                    <label> <i class="fa fa-calendar-minus-o " aria-hidden="true"></i> 集合時間 </label>
+                    <input id="calendar" data-mindate=today type="text" class="req-input-form flatpickr">
+                </li>
+                <li>
+                    <label><i class="fa fa-money " aria-hidden="true"></i> 予算(最小)  </label>
+                    <input type="number" id="minBudget" class="req-input-form">
+                </li>
+                <li>
+                    <label><i class="fa fa-money " aria-hidden="true"></i> 予算(最大)  </label>
+                    <input type="number" id="axBudget" class="req-input-form">
+                </li>
+            </details>
+        </ul>
+    </form>
+    <table id="reqTable" class="table table-bordered tablesorter">
     </table>
 
-
     <script src="js/jquery.min.js"></script>
-    <script src="js/search.js"></script>
+    <script src="js/jquery.tablesorter.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/flatpickr.min.js"></script>
+    <script src="js/js.cookie.js"></script>
     <script src="js/animsition.min.js"></script>
+    <script src="js/search.js"></script>
 </body>
 
 </html>
