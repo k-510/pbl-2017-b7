@@ -3,16 +3,29 @@
 <head>
 	<meta charset="utf-8">
 	<title>待ち合わせページ</title>
+    <link rel="stylesheet" href="css/common.css">
+	<style>
+		#map {
+    		width: 80%;
+    		height: 80%;
+		}
+	</style>
 </head>
 
 <body>
+	<h2>チャット</h2>
 	<input id="message" type="text" placeholder="チャット">
 	<input id="submit" type="button" value="投稿">
 	
-	<div id="board"></div>
+	<div id="board" style="margin-bottom:5em;"></div>
 	
+	<h2>お店の場所</h2>
+	<div id="map"></div>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCegNhRlW9t6v3NTqTZjdfKfvIXuV2xkH8"></script>		
 	<script src="js/jquery.min.js"></script>
     <script src="js/appointment.js"></script>
+
 </body>
 
 </html>
