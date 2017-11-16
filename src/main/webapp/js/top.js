@@ -294,11 +294,17 @@ $(() => {
 
     $('.my-req-input-form').keyup((e) => {
         let re = new RegExp($('#myReqSearch').val());
+        let minBudget = $('#myReqMinBudget').val();
+        let maxBudget = $('#myReqMaxBudget').val();
+        if(minBudget === '') minBudget = 0;
+        else minBudget = parseInt(minBudget);
+        if(maxBudget === '') maxBudget = Infinity;
+        else maxBudget = parseInt(maxBudget);
         $.each($('#myReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
             console.log($(element));
-            console.log($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
-            if (row_text.match(re) != null) {
+            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
+            if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
                 $(element).css("display", "table-row");
             }
             else {
