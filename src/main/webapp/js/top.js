@@ -4,7 +4,7 @@
  * @return {str} parsed string object (yyyy/MM/dd hh:mm:ss style)
  */
 function toLocaleString(date) {
-    console.log(date);
+    //console.log(date);
     return [
         date.getFullYear(),
         date.getMonth() + 1,
@@ -102,7 +102,7 @@ var drawrecReqTable = (gurunaviKey) => {
             Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
         },
     }).done((data, textStatus, jqXHR) => {
-        console.log(data);
+        //console.log(data);
         let dictArr = [];
         let promises = [];
         $.each(data.request, (index, reqDic) => {
@@ -135,7 +135,7 @@ var drawrecReqTable = (gurunaviKey) => {
                     dictArr[index].restaurantName = result.rest.name;
                 }
             });
-            console.log(dictArr);
+            //console.log(dictArr);
             $("#recReqTable").html(makerecReqHTMLTable(dictArr));
             $("#recReqTable").tablesorter();
         });
@@ -195,7 +195,7 @@ var drawmyReqTable = (gurunaviKey) => {
             Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
         },
     }).done((data, textStatus, jqXHR) => {
-        console.log(data);
+        //console.log(data);
         let dictArr = [];
         let promises = [];
         $.each(data.request, (index, reqDic) => {
@@ -228,7 +228,7 @@ var drawmyReqTable = (gurunaviKey) => {
                     dictArr[index].restaurantName = result.rest.name;
                 }
             });
-            console.log(dictArr);
+            //console.log(dictArr);
             $("#myReqTable").html(makemyReqHTMLTable(dictArr));
             $("#myReqTable").tablesorter();
         });
@@ -298,7 +298,7 @@ $(() => {
         else maxBudget = parseInt(maxBudget);
         $.each($('#recReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
-            console.log($(element));
+            //console.log($(element));
             let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
             if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
                 $(element).css("display", "table-row");
@@ -319,7 +319,7 @@ $(() => {
         else maxBudget = parseInt(maxBudget);
         $.each($('#myReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
-            console.log($(element));
+            //console.log($(element));
             let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
             if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
                 $(element).css("display", "table-row");
