@@ -18,13 +18,15 @@ function toLocaleString(date) {
  * @param {str} id request id
  */
 var CompleteRequest = (id) => {
-    $.ajax({
-        url: '/pbl-2017-b7/api/user/requests/'+id+'/completion',
-        type: 'PUT',
-        headers: {
-            Authorization: 'Session ' + Cookies.get('kuishiro-session')
-        },
-    });
+    if (window.confirm('依頼を完了しますか')) {
+        $.ajax({
+            url: '/pbl-2017-b7/api/user/requests/' + id + '/completion',
+            type: 'PUT',
+            headers: {
+                Authorization: 'Session ' + Cookies.get('kuishiro-session')
+            },
+        });
+    }
 }
 
 /**
@@ -68,7 +70,6 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
 var makerecReqHTMLTable = (dictArr) => {
     let title = {
         'id': '待ち合わせする',
-        'id2': '依頼を完了する',
         'state': '状態',
         'datetime': '集合時間',
         'restaurantName': 'お店',
@@ -79,11 +80,8 @@ var makerecReqHTMLTable = (dictArr) => {
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
-            if (k === 'id'){
-                dict[k] = '<a href="/pbl-2017-b7/appointment.html?user_id='+dict[k]+'" class="btn btn-outline-info" role="button">待ち合わせする</a>';
-            }
-            if (k === 'id2'){
-                dict[k] = '<button type=button class="btn btn-outline-info" onclick="CompleteRequest(' + dict[k] + ')">完了</button>';
+            if (k === 'id') {
+                dict[k] = '<a href="/pbl-2017-b7/appointment.html?user_id=' + dict[k] + '" class="btn btn-outline-info" role="button">待ち合わせする</a>';
             }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
@@ -101,7 +99,6 @@ var makerecReqHTMLTable = (dictArr) => {
     let order = [
         'state',
         'id',
-        'id2',
         'datetime',
         'restaurantName',
         'address',
@@ -176,10 +173,14 @@ var makemyReqHTMLTable = (dictArr) => {
         'condition': '条件',
         'deadline': '募集期限',
         'budget': '予算',
+        'id': '依頼を完了する',
     };
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
+            if (k === 'id') {
+                dict[k] = '<button type=button class="btn btn-outline-info" onclick="CompleteRequest(' + dict[k] + ')">完了</button>';
+            }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
             }
@@ -195,6 +196,7 @@ var makemyReqHTMLTable = (dictArr) => {
 
     let order = [
         'state',
+        'id',
         'datetime',
         'restaurantName',
         'address',
@@ -314,14 +316,14 @@ $(() => {
         let re = new RegExp($('#recReqSearch').val());
         let minBudget = $('#recReqMinBudget').val();
         let maxBudget = $('#recReqMaxBudget').val();
-        if(minBudget === '') minBudget = 0;
+        if (minBudget === '') minBudget = 0;
         else minBudget = parseInt(minBudget);
-        if(maxBudget === '') maxBudget = Infinity;
+        if (maxBudget === '') maxBudget = Infinity;
         else maxBudget = parseInt(maxBudget);
         $.each($('#recReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
             //console.log($(element));
-            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
+            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length - 1].outerText.replace(/[^0-9]/g, ''));
             if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
                 $(element).css("display", "table-row");
             }
@@ -335,14 +337,14 @@ $(() => {
         let re = new RegExp($('#myReqSearch').val());
         let minBudget = $('#myReqMinBudget').val();
         let maxBudget = $('#myReqMaxBudget').val();
-        if(minBudget === '') minBudget = 0;
+        if (minBudget === '') minBudget = 0;
         else minBudget = parseInt(minBudget);
-        if(maxBudget === '') maxBudget = Infinity;
+        if (maxBudget === '') maxBudget = Infinity;
         else maxBudget = parseInt(maxBudget);
         $.each($('#myReqTable tbody tr'), (index, element) => {
             let row_text = $(element).text();
             //console.log($(element));
-            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
+            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length - 1].outerText.replace(/[^0-9]/g, ''));
             if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
                 $(element).css("display", "table-row");
             }
