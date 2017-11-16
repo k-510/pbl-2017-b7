@@ -15,6 +15,23 @@ function toLocaleString(date) {
 }
 
 /**
+ * Accept Request
+ * @param {str} request id
+ */
+var AcceptRequest = (id) => {
+    if(window.confirm('依頼を受けますか')){
+        $.ajax({
+            url: 'api/user/requests/'+id+'/acceptance',
+            type: 'PUT',
+            headers: {
+                Authorization: 'Session ' + Cookies.get('kuishiro-session')
+            },
+        });
+        drawReqTable(Cookies.get('gurunavi-key'));
+    }
+}
+
+/**
  * javascript array[dict(name: value)] -> HTML table style
  * @param {array[dict[str:str]]} dictArr name: value dictionary Array
  * @param {array[str]} order table title order
@@ -59,7 +76,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
  */
 var makeReqHTMLTable = (dictArr) => {
     let title = {
-        'state': '状態',
+        'id': '依頼を受ける',
         'datetime': '集合時間',
         'restaurantName': 'お店',
         'address': '場所',
@@ -70,6 +87,9 @@ var makeReqHTMLTable = (dictArr) => {
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
+            if (k === 'id'){
+                dict[k] = '<button type=button class="btn btn-outline-info" onclick="AcceptRequest(' + dict[k] + ')">受諾</button>';
+            }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
             }
@@ -84,7 +104,7 @@ var makeReqHTMLTable = (dictArr) => {
     });
 
     let order = [
-        'state',
+        'id',
         'datetime',
         'restaurantName',
         'address',
