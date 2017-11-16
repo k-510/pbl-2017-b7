@@ -1,6 +1,7 @@
 package jp.enpit.lama.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Null;
 import javax.ws.rs.FormParam;
@@ -26,7 +27,8 @@ import jp.enpit.lama.model.UserModel;
 public class UserRequestsRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getRequest(@QueryParam("type") String type, @HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String sessionToken) {
+	public Response getRequest(@QueryParam("type") String type,@HeaderParam("Accept") String Accept, @HeaderParam("Authorization") String sessionToken) {
+		
 		//
 		// TODO: リクエストにパラメータが欠けていたときの例外処理が必要です
 		//       例: ?type を忘れて GET して来たときなど
@@ -77,20 +79,22 @@ public class UserRequestsRest {
 	//       tag_id も [2, 3] ではなく 2,3 と書かなければならない．
 	//       また，GET と同様，パラメータが欠けていた際の例外処理をしっかりやろう．
 	//
+	// List問題解決
+	// 要素を渡すときは、-d tag_id=1 -d tag_id=2 -d tag_id=3のように要素数の分渡すのが一般
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postRequest(@FormParam("datetime") Integer datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") String tag, @FormParam("condition") String keyword, @FormParam ("deadline") Integer deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) {
-
+	public Response postRequest(@FormParam("datetime") Integer datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") Integer deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) {
+		
 		int id = 0;
-
-		//パラメータがかけている場合の例外処理
+		
+		//パラメータが欠けている場合の例外処理
 		if((datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(deadline==null)||(budget==null)))
 			return errorMessage(403, "Parameters Missing");
-		String[] tagstring = tag.split(",");
 
+		//tagIDを変換
 		ArrayList<Integer> tagID = new ArrayList<Integer>();
-		for(String a : tagstring) {
-			tagID.add(Integer.valueOf(a));
+		for(int elem : tag){
+			tagID.add(elem);
 		}
 
 		// Authorization ヘッダは Authorization: Session {token} の形式
