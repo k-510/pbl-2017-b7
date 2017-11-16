@@ -69,7 +69,7 @@ $(document).ready(function () {
       location.href = '/pbl-2017-b7/my/top.html';
     }).fail(function (jqXHR, textStatus, errorThrown) {
       if (jqXHR.status === 403) {
-        showAlertMessage('ユーザ名またはパスワードが違います．');
+        showAlertMessage('ユーザ ID またはパスワードが違います．');
       } else {
         showAlertMessage('エラーが発生しました．');
         console.error(jqXHR);
