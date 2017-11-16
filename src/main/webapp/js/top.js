@@ -94,11 +94,11 @@ var drawrecReqTable = (gurunaviKey) => {
         type: 'GET',
         headers: {
             Accept: 'application/json',
-            Authorization: 'Session 45b287c4-8b68-483b-abba-b61acaf1ce76'
+            Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
         },
     }).done((data, textStatus, jqXHR) => {
         console.log(data);
-        dictArr = [];
+        let dictArr = [];
         let promises = [];
         $.each(data.request, (index, reqDic) => {
             let dic = {};
@@ -143,6 +143,7 @@ var drawrecReqTable = (gurunaviKey) => {
  */
 var makemyReqHTMLTable = (dictArr) => {
     let title = {
+        'id': '待ち合わせする',
         'state': '状態',
         'datetime': '集合時間',
         'restaurantName': 'お店',
@@ -186,11 +187,11 @@ var drawmyReqTable = (gurunaviKey) => {
         type: 'GET',
         headers: {
             Accept: 'application/json',
-            Authorization: 'Session 45b287c4-8b68-483b-abba-b61acaf1ce76'
+            Authorization: 'Session 8b89fb2f-8797-400b-9fba-3a7ed07511da'
         },
     }).done((data, textStatus, jqXHR) => {
         console.log(data);
-        dictArr = [];
+        let dictArr = [];
         let promises = [];
         $.each(data.request, (index, reqDic) => {
             let dic = {};
@@ -199,6 +200,7 @@ var drawmyReqTable = (gurunaviKey) => {
             dic.deadline = new Date(reqDic.deadline);
             dic.budget = reqDic.budget;
             dic.state = reqDic.status;
+            dic.id = reqDic.request_id;
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
