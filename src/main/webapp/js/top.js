@@ -26,6 +26,7 @@ var CompleteRequest = (id) => {
                 Authorization: 'Session ' + Cookies.get('kuishiro-session')
             },
         });
+        location.reload();
     }
 }
 
@@ -174,12 +175,16 @@ var makemyReqHTMLTable = (dictArr) => {
         'deadline': '募集期限',
         'budget': '予算',
         'id': '依頼を完了する',
+        'id2': '待ち合わせする',
     };
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
             if (k === 'id') {
                 dict[k] = '<button type=button class="btn btn-outline-info" onclick="CompleteRequest(' + dict[k] + ')">完了</button>';
+            }
+            if (k === 'id2') {
+                dict[k] = '<a href="/pbl-2017-b7/appointment.html?user_id=' + dict[k] + '" class="btn btn-outline-info" role="button">待ち合わせする</a>';
             }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
@@ -197,6 +202,7 @@ var makemyReqHTMLTable = (dictArr) => {
     let order = [
         'state',
         'id',
+        'id2',
         'datetime',
         'restaurantName',
         'address',
@@ -228,6 +234,7 @@ var drawmyReqTable = (gurunaviKey) => {
             dic.budget = reqDic.budget;
             dic.state = reqDic.status;
             dic.id = reqDic.request_id;
+            dic.id2 = reqDic.request_id;
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({

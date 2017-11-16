@@ -27,7 +27,7 @@ var AcceptRequest = (id) => {
                 Authorization: 'Session ' + Cookies.get('kuishiro-session')
             },
         });
-        drawReqTable(Cookies.get('gurunavi-key'));
+        location.reload();
     }
 }
 
