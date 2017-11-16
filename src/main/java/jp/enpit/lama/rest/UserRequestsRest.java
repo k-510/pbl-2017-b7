@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Null;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -92,9 +91,7 @@ public class UserRequestsRest {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response postRequest(@FormParam("datetime") String str_datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") String str_deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) throws ParseException {
-	
-		int id = 0;
-		
+			
 		//パラメータが欠けている場合の例外処理
 		if((str_datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(str_deadline==null)||(budget==null)))
 			return errorMessage(403, "Parameters Missing");
