@@ -143,7 +143,27 @@ Authorization: Session {token}
 
             Authorization: Session {token}
 
-    + Attributes (RequestBase)
+    + Attributes
+
+        + shop_id: `k682891` (string) - ぐるナビの店舗ID
+
+        + datetime: `2017-11-01 12:00:00` (string) - 代行人に到着して欲しい時間
+
+        + tag_id (array)
+
+            + 2 (number)
+
+            + 3 (number)
+
+        + keyword: `テーブルマナーがある人` (string) - 募集する代行人の条件
+
+        + deadline: `2017-10-27 15:00:00` (string) - 代行人の募集期限
+
+        + budget: 1000 (number) - 予算
+
+        + request_id: 1 (number) - 依頼 ID
+
+        + client_id: 1 (number) - 依頼人のユーザ ID
 
 + Response 201 (application/json)
 
