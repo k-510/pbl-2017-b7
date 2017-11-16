@@ -196,7 +196,7 @@ $(() => {
         }
     });
 
-    $('#reqClearButton').click((e) => {
+    $('#clearButton').click((e) => {
         $('.req-input-form').each((i, elem) => {
             $(elem).val('');
         });
@@ -206,9 +206,9 @@ $(() => {
     })
 
     $('.req-input-form').keyup((e) => {
-        let re = new RegExp($('#ReqSearch').val());
-        let minBudget = $('#ReqMinBudget').val();
-        let maxBudget = $('#ReqMaxBudget').val();
+        let re = new RegExp($('#search').val());
+        let minBudget = $('#minBudget').val();
+        let maxBudget = $('#maxBudget').val();
         if(minBudget === '') minBudget = 0;
         else minBudget = parseInt(minBudget);
         if(maxBudget === '') maxBudget = Infinity;
