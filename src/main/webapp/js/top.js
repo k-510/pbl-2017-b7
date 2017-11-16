@@ -14,6 +14,20 @@ function toLocaleString(date) {
 }
 
 /**
+ * complete request
+ * @param {str} id request id
+ */
+var CompleteRequest = (id) => {
+    $.ajax({
+        url: '/pbl-2017-b7/api/user/requests/'+id+'/completion',
+        type: 'PUT',
+        headers: {
+            Authorization: 'Session ' + Cookies.get('kuishiro-session')
+        },
+    });
+}
+
+/**
  * javascript array[dict(name: value)] -> HTML table style
  * @param {array[dict[str:str]]} dictArr name: value dictionary Array
  * @param {array[str]} order table title order
@@ -54,6 +68,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
 var makerecReqHTMLTable = (dictArr) => {
     let title = {
         'id': '待ち合わせする',
+        'id2': '依頼を完了する',
         'state': '状態',
         'datetime': '集合時間',
         'restaurantName': 'お店',
@@ -65,7 +80,10 @@ var makerecReqHTMLTable = (dictArr) => {
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
             if (k === 'id'){
-                dict[k] = '<a href="../appointment.html?user_id='+dict[k]+'" class="btn btn-outline-info" role="button">待ち合わせする</a>';
+                dict[k] = '<a href="/pbl-2017-b7/appointment.html?user_id='+dict[k]+'" class="btn btn-outline-info" role="button">待ち合わせする</a>';
+            }
+            if (k === 'id2'){
+                dict[k] = '<button type=button class="btn btn-outline-info" onclick="CompleteRequest(' + dict[k] + ')">完了</button>';
             }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
@@ -83,6 +101,7 @@ var makerecReqHTMLTable = (dictArr) => {
     let order = [
         'state',
         'id',
+        'id2',
         'datetime',
         'restaurantName',
         'address',
@@ -95,7 +114,7 @@ var makerecReqHTMLTable = (dictArr) => {
 
 var drawrecReqTable = (gurunaviKey) => {
     $.ajax({
-        url: '../api/user/requests?type=accepted',
+        url: '/pbl-2017-b7/api/user/requests?type=accepted',
         type: 'GET',
         headers: {
             Accept: 'application/json',
@@ -113,6 +132,7 @@ var drawrecReqTable = (gurunaviKey) => {
             dic.budget = reqDic.budget;
             dic.state = reqDic.status;
             dic.id = reqDic.request_id;
+            dic.id2 = reqDic.request_id;
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
@@ -188,7 +208,7 @@ var makemyReqHTMLTable = (dictArr) => {
 
 var drawmyReqTable = (gurunaviKey) => {
     $.ajax({
-        url: '../api/user/requests?type=registered',
+        url: '/pbl-2017-b7/api/user/requests?type=registered',
         type: 'GET',
         headers: {
             Accept: 'application/json',

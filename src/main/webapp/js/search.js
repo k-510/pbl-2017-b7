@@ -21,7 +21,7 @@ function toLocaleString(date) {
 var AcceptRequest = (id) => {
     if(window.confirm('依頼を受けますか')){
         $.ajax({
-            url: 'api/user/requests/'+id+'/acceptance',
+            url: '/pbl-2017-b7/api/user/requests/'+id+'/acceptance',
             type: 'PUT',
             headers: {
                 Authorization: 'Session ' + Cookies.get('kuishiro-session')
@@ -118,7 +118,7 @@ var makeReqHTMLTable = (dictArr) => {
 
 var drawReqTable = (gurunaviKey) => {
     $.ajax({
-        url: 'api/requests',
+        url: '/pbl-2017-b7/api/requests',
         type: 'GET',
         headers: {
             Accept: 'application/json',
