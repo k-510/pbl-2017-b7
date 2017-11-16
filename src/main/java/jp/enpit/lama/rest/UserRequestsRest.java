@@ -1,6 +1,9 @@
 package jp.enpit.lama.rest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.Null;
@@ -81,14 +84,19 @@ public class UserRequestsRest {
 	//
 	// List問題解決
 	// 要素を渡すときは、-d tag_id=1 -d tag_id=2 -d tag_id=3のように要素数の分渡すのが一般
+	
+	
+	// date型無理ですが、dateには日にちと時間の間に空白があるため、ダブルクォーテーションで括るのが一般
+	//　よって、Stringにして処理をしている。
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postRequest(@FormParam("datetime") Integer datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") Integer deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) {
-		
+	public Response postRequest(@FormParam("datetime") String str_datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") String str_deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) throws ParseException {
+	
 		int id = 0;
 		
 		//パラメータが欠けている場合の例外処理
-		if((datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(deadline==null)||(budget==null)))
+		if((str_datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(str_deadline==null)||(budget==null)))
 			return errorMessage(403, "Parameters Missing");
 
 		//tagIDを変換
@@ -116,9 +124,14 @@ public class UserRequestsRest {
 		if (user == null) {
 			return errorMessage(403, "No such session token.");
 		}
-
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date datetime = sdf.parse(str_datetime);
+		Date deadline = sdf.parse(str_deadline);
+		
 		int clentID = user.userID();
 		String status = "new";//新規のため
+		
 		Request request = new Request(-1,datetime,shopID,new Condition(tagID,keyword),deadline,budget,clentID,-1,status);
 		RequestModel model = createRequestModel();
 		request = model.register(request);

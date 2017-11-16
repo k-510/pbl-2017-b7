@@ -58,6 +58,7 @@ public class Request {
 		this(id, new Date(time*1000), shop, new Condition(condition), new Date(due*1000), budget, clentID, surrogateID, status);
 	}
 
+	
 	public void setId(int id) {
 		this.id = id;
 	}
