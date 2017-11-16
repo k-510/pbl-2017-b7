@@ -90,7 +90,7 @@ public class UserRequestsRest {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response postRequest(@FormParam("datetime") String str_datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") String str_deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) throws ParseException {
+	public Response postRequest(@FormParam("datetime") String str_datetime, @FormParam("shop_id") String shopID, @FormParam("tag_id") List<Integer> tag, @FormParam("condition") String keyword, @FormParam ("deadline") String str_deadline, @FormParam ("budget") Integer budget, @HeaderParam("Authorization") String sessionToken) {
 			
 		//パラメータが欠けている場合の例外処理
 		if((str_datetime==null)||(shopID==null||(tag==null)||(keyword==null)||(str_deadline==null)||(budget==null)))
@@ -123,8 +123,15 @@ public class UserRequestsRest {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date datetime = sdf.parse(str_datetime);
-		Date deadline = sdf.parse(str_deadline);
+		Date datetime;
+		Date deadline;
+		try {
+			datetime = sdf.parse(str_datetime);
+			deadline = sdf.parse(str_deadline);
+		} catch (ParseException e) {
+			// TODO 自動生成された catch ブロック
+			return errorMessage(403, "The type for date is incorrect");
+		}
 		
 		int clentID = user.userID();
 		String status = "new";//新規のため
