@@ -1,4 +1,3 @@
-var loc = "http://192.168.119.131:3000"
 
 /**
  * Date -> Str method
@@ -6,13 +5,30 @@ var loc = "http://192.168.119.131:3000"
  * @return {str} parsed string object (yyyy/MM/dd hh:mm:ss style)
  */
 function toLocaleString(date) {
-    console.log(date);
+    //console.log(date);
     return [
         date.getFullYear(),
         date.getMonth() + 1,
         date.getDate()
     ].join('/') + ' '
         + date.toLocaleTimeString();
+}
+
+/**
+ * Accept Request
+ * @param {str} request id
+ */
+var AcceptRequest = (id) => {
+    if(window.confirm('依頼を受けますか')){
+        $.ajax({
+            url: '/pbl-2017-b7/api/user/requests/'+id+'/acceptance',
+            type: 'PUT',
+            headers: {
+                Authorization: 'Session ' + Cookies.get('kuishiro-session')
+            },
+        });
+        location.reload();
+    }
 }
 
 /**
@@ -24,12 +40,20 @@ function toLocaleString(date) {
 var dictArrayToHTMLTable = (title, dictArr, order) => {
     let res = '';
 
+    res += '<thead>'
     res += '<tr>'
     $.each(order, (j) => {
-        res += '<th>' + title[order[j]] + '</th>';
+        if(order[j]  === 'datetime'){
+            res += '<th class="sorter-date-range-ymd">' + title[order[j]] + '</th>';
+        }
+        else{
+            res += '<th>' + title[order[j]] + '</th>';
+        }
     });
     res += '</tr>'
+    res += '</thead>'
 
+    res += '<tbody>'
     $.each(dictArr, (i) => {
         //header
 
@@ -41,6 +65,7 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
         });
         res += '</tr>'
     });
+    res += '</tbody>'
     return res;
 };
 
@@ -49,87 +74,71 @@ var dictArrayToHTMLTable = (title, dictArr, order) => {
  * @param {Dict[Arr[object: str]]} dictArr javascript data table
  * @return {Dict[Arr[str:str]]} dictArr html data table
  */
-var makerecReqHTMLTable = (dictArr) => {
+var makeReqHTMLTable = (dictArr) => {
     let title = {
+        'id': '依頼を受ける',
         'datetime': '集合時間',
         'restaurantName': 'お店',
         'address': '場所',
-        'condition': '相手',
+        'condition': '条件',
         'deadline': '募集期限',
         'budget': '予算',
-        'cancel': '受けた依頼を取り消す'
     };
 
     $.each(dictArr, (i, dict) => {
         $.each(dict, (k, v) => {
+            if (k === 'id'){
+                dict[k] = '<button type=button class="btn btn-outline-info" onclick="AcceptRequest(' + dict[k] + ')">受諾</button>';
+            }
             if (k === 'datetime' || k === 'deadline') {
                 dict[k] = toLocaleString(v);
             }
             if (k === 'budget') {
                 dict[k] = '&yen; ' + v;
             }
+            if (k === 'state') {
+                if (dict[k] === 'accepted') dict[k] = 'マッチング完了'
+                if (dict[k] === 'completed') dict[k] = '終了'
+            }
         });
     });
 
     let order = [
+        'id',
         'datetime',
         'restaurantName',
         'address',
         'condition',
         'deadline',
         'budget',
-        'cancel',
     ];
 
     return dictArrayToHTMLTable(title, dictArr, order);
 }
 
-// ready...
-$(() => {
-    let sampleDictArr = [
-        {
-            'datetime': new Date(2017, 10, 27, 12, 0, 0),
-            'restaurantName': '寿司',
-            'address': '<a href="https://www.google.co.jp/maps/address/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
-            'condition': '相手のページへのリンク',
-            'deadline': new Date(2017, 10, 25, 12, 0, 0),
-            'budget': 3000,
-            'cancel': 2
-        },
-        {
-            'datetime': new Date(2017, 10, 27, 12, 0, 0),
-            'restaurantName': '寿司',
-            'address': '<a href="https://www.google.co.jp/maps/address/%E5%A4%A7%E9%98%AA%E5%A4%A7%E5%AD%A6%E4%B8%AD%E4%B9%8B%E5%B3%B6%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC/@34.6927198,135.4882802,17z/data=!3m1!4b1!4m5!3m4!1s0x6000e6f427728823:0xd361d2a346f79d9c!8m2!3d34.6927154!4d135.4904689">大阪大学　中之島センター</a>',
-            'condition': '相手のページへのリンク',
-            'deadline': new Date(2017, 10, 25, 12, 0, 0),
-            'budget': 3000,
-            'cancel': 3
-        }
-    ];
-
-    let reqDictArr = sampleDictArr;
-
-    // [TODO] ?type=registerdでするべきなのだが、うまくいかない requestsで仮実装
+var drawReqTable = (gurunaviKey) => {
     $.ajax({
-        url: loc+'/requests',
+        url: '/pbl-2017-b7/api/requests',
         type: 'GET',
         headers: {
             Accept: 'application/json',
         },
     }).done((data, textStatus, jqXHR) => {
-        dictArr = [];
+        //console.log(data);
+        let dictArr = [];
         let promises = [];
-        $.each(data, (index, reqDic) => {
+        $.each(data.request, (index, reqDic) => {
             let dic = {};
             dic.datetime = new Date(reqDic.datetime);
-            dic.condition = reqDic.condition;
+            dic.condition = reqDic.condition.keyword;
             dic.deadline = new Date(reqDic.deadline);
-            dic.cancel = reqDic.request_id;
-            dic.budget = 3000;
+            dic.budget = reqDic.budget;
+            dic.state = reqDic.status;
+            dic.id = reqDic.request_id;
             dictArr.push(dic);
             // Shop status
             promises.push($.ajax({
-                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=67e6b7e34aa668ccfe41d6d637e6450b&format=json&id=' + reqDic.shop_id,
+                url: 'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=' + gurunaviKey + '&format=json&id=' + reqDic.shop_id,
                 dataType: 'jsonp',
                 type: 'GET',
                 async: true,
@@ -139,14 +148,81 @@ $(() => {
 
         Promise.all(promises).then((results) => {
             $.each(results, (index, result) => {
-                dictArr[index].address = result.rest.address;
-                dictArr[index].restaurantName = result.rest.name;
+                if ('error' in result) {
+                    dictArr[index].address = "店舗idが見つかりません";
+                    dictArr[index].restaurantName = "店舗idが見つかりません";
+                }
+                else {
+                    dictArr[index].address = result.rest.address;
+                    dictArr[index].restaurantName = result.rest.name;
+                }
             });
-            // dummy data
-            dictArr.push(sampleDictArr[0]);
-            dictArr.push(sampleDictArr[1]);
-            console.log(dictArr);
-            $("#searchTable").html(makerecReqHTMLTable(dictArr));
+            //console.log(dictArr);
+            $("#reqTable").html(makeReqHTMLTable(dictArr.filter((el) => {return el.state === 'new'})));
+            $("#reqTable").tablesorter();
+        });
+    });
+}
+
+// ready...
+$(() => {
+    let sessionId = Cookies.get('kuishiro-session');
+    if ('gurunavi-key' in Cookies.get()) {
+        let gurunaviKey = Cookies.get('gurunavi-key');
+        $('#keyid-textbox').val(gurunaviKey);
+        drawReqTable(gurunaviKey);
+    }
+
+
+    $('#keyid-button').click((e) => {
+        let gurunaviKey = $('#keyid-textbox').val();
+        Cookies.set('gurunavi-key', gurunaviKey);
+        drawReqTable(gurunaviKey);
+    });
+
+    flatpickr('#calendar', {
+        dateFormat: 'Y/n/j',
+        onChange: (dateObj, dateStr) => {
+            let re = new RegExp($('#calendar').val());
+            $.each($('#reqTable tbody tr'), (index, element) => {
+                let row_text = $(element).text();
+                if (row_text.match(re) != null) {
+                    $(element).css("display", "table-row");
+                }
+                else {
+                    $(element).css("display", "none");
+                }
+            });
+        }
+    });
+
+    $('#clearButton').click((e) => {
+        $('.req-input-form').each((i, elem) => {
+            $(elem).val('');
+        });
+        $.each($('#ReqTable tbody tr'), (index, element) => {
+            $(element).css("display", "table-row");
+        });
+    })
+
+    $('.req-input-form').keyup((e) => {
+        let re = new RegExp($('#search').val());
+        let minBudget = $('#minBudget').val();
+        let maxBudget = $('#maxBudget').val();
+        if(minBudget === '') minBudget = 0;
+        else minBudget = parseInt(minBudget);
+        if(maxBudget === '') maxBudget = Infinity;
+        else maxBudget = parseInt(maxBudget);
+        $.each($('#ReqTable tbody tr'), (index, element) => {
+            let row_text = $(element).text();
+            //console.log($(element));
+            let budget = parseInt($(element)[0].childNodes[$(element)[0].childNodes.length-1].outerText.replace(/[^0-9]/g, ''));
+            if (row_text.match(re) != null && minBudget <= budget && budget <= maxBudget) {
+                $(element).css("display", "table-row");
+            }
+            else {
+                $(element).css("display", "none");
+            }
         });
     });
 });
