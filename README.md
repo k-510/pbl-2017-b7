@@ -1,5 +1,7 @@
 # 食代（くいしろ）
 
+<img src="https://github.com/Cloud-Spiral/pbl-2017-b7/blob/master/src/main/webapp/images/logo-main.png?raw=true" width="200px">
+
 食事代行サービスです．
 
 * インスタ映えする写真を撮ったけどご飯食べきれない！
