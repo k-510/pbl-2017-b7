@@ -10,7 +10,7 @@
 そんなアナタ．うまくマッチングすれば，希望が叶うかもしれません．
 
 
-## サービス利用方法
+## サービスへのアクセス
 
 AWS 上にデプロイしています．以下の URL にアクセスしてください：
 
@@ -20,14 +20,11 @@ Cloud Spiral の授業が終了し，AWS のインスタンスが削除された
 後述の[ローカル環境へのデプロイ](#ローカル環境へのデプロイ)に従ってお手元でお楽しみください．
 
 
-### 画面写真など
+### 使い方
 
-hogehoge
+[<img src="https://github.com/Cloud-Spiral/pbl-2017-b7/blob/master/screenshots/my-top.png?raw=true" width="500px">](https://github.com/Cloud-Spiral/pbl-2017-b7/wiki/%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9)
 
-
-### 画面遷移の説明など
-
-fugafuga
+**詳しいサービスの利用方法は，[Wiki のサービスの使い方](https://github.com/Cloud-Spiral/pbl-2017-b7/wiki/%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%AE%E4%BD%BF%E3%81%84%E6%96%B9)をご覧ください．**
 
 
 ## ローカル環境へのデプロイ
