@@ -155,16 +155,16 @@
 <div id="ユーザ依存リソース-ユーザの依頼リソース" class="resource"><h3 class="resource-heading">ユーザの依頼リソース <a href="#ユーザ依存リソース-ユーザの依頼リソース" class="permalink">&nbsp;&para;</a></h3><div id="ユーザ依存リソース-ユーザの依頼リソース-post" class="action post"><h4 class="action-heading"><div class="name">依頼の登録</div><a href="#ユーザ依存リソース-ユーザの依頼リソース-post" class="method post">POST</a><code class="uri">/user/requests</code></h4><p>ログインユーザとして，サービスに依頼を新しく登録します．</p>
 <h4>Example URI</h4><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/user/requests</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">shop_id</span>": <span class="hljs-value"><span class="hljs-string">"k682891"</span></span>,
-  "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01T12:00:00.000Z"</span></span>,
-  "<span class="hljs-attribute">condition</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">tag_id</span>": <span class="hljs-value">[
-      <span class="hljs-number">2</span>,
-      <span class="hljs-number">3</span>
-    ]</span>,
-    "<span class="hljs-attribute">keyword</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27T15:00:00.000Z"</span></span>,
-  "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">1000</span>
+  "<span class="hljs-attribute">datetime</span>": <span class="hljs-value"><span class="hljs-string">"2017-11-01 12:00:00"</span></span>,
+  "<span class="hljs-attribute">tag_id</span>": <span class="hljs-value">[
+    <span class="hljs-number">2</span>,
+    <span class="hljs-number">3</span>
+  ]</span>,
+  "<span class="hljs-attribute">keyword</span>": <span class="hljs-value"><span class="hljs-string">"テーブルマナーがある人"</span></span>,
+  "<span class="hljs-attribute">deadline</span>": <span class="hljs-value"><span class="hljs-string">"2017-10-27 15:00:00"</span></span>,
+  "<span class="hljs-attribute">budget</span>": <span class="hljs-value"><span class="hljs-number">1000</span></span>,
+  "<span class="hljs-attribute">request_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">client_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
@@ -176,20 +176,15 @@
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"代行人に到着して欲しい時間"</span>
     </span>}</span>,
-    "<span class="hljs-attribute">condition</span>": <span class="hljs-value">{
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
-      "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">tag_id</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
-          "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
-            "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
-          </span>}
-        </span>}</span>,
-        "<span class="hljs-attribute">keyword</span>": <span class="hljs-value">{
-          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
-          "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"募集する代行人の条件"</span>
-        </span>}
+    "<span class="hljs-attribute">tag_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"array"</span></span>,
+      "<span class="hljs-attribute">items</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
       </span>}
+    </span>}</span>,
+    "<span class="hljs-attribute">keyword</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"募集する代行人の条件"</span>
     </span>}</span>,
     "<span class="hljs-attribute">deadline</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span></span>,
@@ -198,6 +193,14 @@
     "<span class="hljs-attribute">budget</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
       "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"予算"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">request_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼 ID"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">client_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span></span>,
+      "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"依頼人のユーザ ID"</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span>
@@ -516,7 +519,7 @@
   </span>}
 </span>}</code></pre><div style="height: 1px;"></div></div></div></div></div><div id="セッション管理リソース-ログアウトリソース" class="resource"><h3 class="resource-heading">ログアウトリソース <a href="#セッション管理リソース-ログアウトリソース" class="permalink">&nbsp;&para;</a></h3><div id="セッション管理リソース-ログアウトリソース-delete" class="action delete"><h4 class="action-heading"><div class="name">ログアウトする</div><a href="#セッション管理リソース-ログアウトリソース-delete" class="method delete">DELETE</a><code class="uri">/logout</code></h4><p>明示的にログアウトし，セッションを破棄します．</p>
 <h4>Example URI</h4><div class="definition"><span class="method delete">DELETE</span>&nbsp;<span class="uri"><span class="hostname">https://team2017-7.spiral.cloud/api</span>/logout</span></div><div class="title"><strong>Request</strong><div class="collapse-button"><span class="close">Hide</span><span class="open">Show</span></div></div><div class="collapse-content"><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Session {token}</span></code></pre><div style="height: 1px;"></div></div></div><div class="title"><strong>Response&nbsp;&nbsp;<code>204</code></strong></div></div></div></section><section id="サーバエラー発生時" class="resource-group"><h2 class="group-heading">サーバエラー発生時 <a href="#サーバエラー発生時" class="permalink">&para;</a></h2><p>すべての API について，サーバ側でエラーが発生した場合，<code>500 Internal Server Error</code> を返します．</p>
-</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 15 Nov 2017</p><script>/* eslint-env browser */
+</section></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 17 Nov 2017</p><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
