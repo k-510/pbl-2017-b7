@@ -1,7 +1,7 @@
-$(function() {
-	$('#deadLine').change(function() {
-		var arrivalTime = $('input[name="arrivalTime"]').val();
-		var deadLine = $('input[name="deadLine"]').val();
+//$(function() {
+	$('#limit').change(function() {
+		var arrivalTime = $('input[name="datetime"]').val();
+		var deadLine = $('input[name="deadline"]').val();
 		if(deadLine != '' && arrivalTime !== ''){
 			if(arrivalTime < deadLine) {
 				alert('締切時刻≦到着時刻に設定してください！');
@@ -10,26 +10,38 @@ $(function() {
 	});
 
 	$('#arrivalTime').change(function() {
-		var arrivalTime = $('input[name="arrivalTime"]').val();
-		var deadLine = $('input[name="deadLine"]').val();
+		var arrivalTime = $('input[name="datetime"]').val();
+		var deadLine = $('input[name="deadline"]').val();
 		if(deadLine != '' && arrivalTime != ''){
 			if(arrivalTime < deadLine) {
 				alert('締切時刻≦到着時刻に設定してください！');
 			}
 		}
 	});
-	/*	console.log($('form').serializeArray());
-	$('.condition').change(function() {	
-		console.log($('form').serializeArray());
-	});	*/
 	
-	// form値をJSONに変換
-	$('form').submit(function(){
+	// form値のPOST
+	$(':submit').click(function(){
+
+		tags = []
+		$("[name=checkbox]:checked").each(function() {
+			tags.push($(this).val());
+		});
+		
 		$.ajax({
 			type: 'POST',
-			url: "/api/user/requests/",
-			dataType: 'json',
-			data: $('form').serializeArray()
+			  url: '/pbl-2017-b7/api/user/requests/',
+			  headers: {
+			    'Authorization': 'Session ' + Cookies.get('kuishiro-session'),
+			  },
+			  traditional: true,
+			  data: {
+			    deadline: $('#limit').val().replace("T"," ") + ":00",
+			    datetime: $('#arrivalTime').val().replace("T"," ") + ":00",
+			    shop_id: $('#shopId').val(),
+			    budget: Number($('#cost').val()),
+			    tag_id: tags,
+			    keyword: ""
+			  }
 		});
 	});	
-});
+//});
