@@ -48,38 +48,76 @@ $.ajax({
 	url:'/pbl-2017-b7/api/requests/' + request_id,
 	success: function(json){
 		var shop_id = json.shop_id;
-		$.ajax({
-			type: 'GET',
-//			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=2a35bca1f2e78679ef339c42db623e71&format=json&id=' + shop_id,
-			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=fde3270e5860146ec7cf1874df0de278&format=json&id=' + shop_id,			
-			dataType: 'jsonp',
-			success: function(json){
-				//店舗の住所の取得
-				var address = json.rest.address;
-				var geocoder = new google.maps.Geocoder();
-				geocoder.geocode({
-					'address': address
-				}, function(result, status){
-					if(status == google.maps.GeocoderStatus.OK){
-				//住所→緯度経度へ変換
-						var latlng = result[0].geometry.location;
-						var options = {
-								zoom: 17,
-								center: latlng,
-								mapTypeId: google.maps.MapTypeId.ROADMAP
-						};
-				//mapの表示
-						var map = new google.maps.Map(document.getElementById('map'), options);
-				//マーカーの表示
-						var marker = new google.maps.Marker({
-							position: latlng,
-							map: map
-						});
-					} else {
-						alert('エラーです！')
-					}
-				});
-			}
-		})
+		var tmp = document.location.protocol
+		if(tmp == "http:"){
+			$.ajax({
+				type: 'GET',
+	//			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=2a35bca1f2e78679ef339c42db623e71&format=json&id=' + shop_id,
+				url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=fde3270e5860146ec7cf1874df0de278&format=json&id=' + shop_id,			
+				dataType: 'jsonp',
+				success: function(json){
+					//店舗の住所の取得
+					var address = json.rest.address;
+					var geocoder = new google.maps.Geocoder();
+					geocoder.geocode({
+						'address': address
+					}, function(result, status){
+						if(status == google.maps.GeocoderStatus.OK){
+					//住所→緯度経度へ変換
+							var latlng = result[0].geometry.location;
+							var options = {
+									zoom: 17,
+									center: latlng,
+									mapTypeId: google.maps.MapTypeId.ROADMAP
+							};
+					//mapの表示
+							var map = new google.maps.Map(document.getElementById('map'), options);
+					//マーカーの表示
+							var marker = new google.maps.Marker({
+								position: latlng,
+								map: map
+							});
+						} else {
+							alert('エラーです！')
+						}
+					});
+				}
+			})
+		}
+		else if(tmp == "https:"){
+			$.ajax({
+				type: 'GET',
+	//			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=2a35bca1f2e78679ef339c42db623e71&format=json&id=' + shop_id,
+				url:'https://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=fde3270e5860146ec7cf1874df0de278&format=json&id=' + shop_id,			
+				dataType: 'jsonp',
+				success: function(json){
+					//店舗の住所の取得
+					var address = json.rest.address;
+					var geocoder = new google.maps.Geocoder();
+					geocoder.geocode({
+						'address': address
+					}, function(result, status){
+						if(status == google.maps.GeocoderStatus.OK){
+					//住所→緯度経度へ変換
+							var latlng = result[0].geometry.location;
+							var options = {
+									zoom: 17,
+									center: latlng,
+									mapTypeId: google.maps.MapTypeId.ROADMAP
+							};
+					//mapの表示
+							var map = new google.maps.Map(document.getElementById('map'), options);
+					//マーカーの表示
+							var marker = new google.maps.Marker({
+								position: latlng,
+								map: map
+							});
+						} else {
+							alert('エラーです！')
+						}
+					});
+				}
+			})
+		}
 	}
 })
