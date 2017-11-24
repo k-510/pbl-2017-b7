@@ -21,7 +21,6 @@
 	
 	// form値のPOST
 	$(':submit').click(function(){
-
 		tags = []
 		$("[name=checkbox]:checked").each(function() {
 			tags.push($(this).val());
@@ -29,7 +28,7 @@
 		
 		$.ajax({
 			type: 'POST',
-			  url: '/pbl-2017-b7/api/user/requests/',
+			 url: '/pbl-2017-b7/api/user/requests/',
 			  headers: {
 			    'Authorization': 'Session ' + Cookies.get('kuishiro-session'),
 			  },
@@ -41,7 +40,9 @@
 			    budget: Number($('#cost').val()),
 			    tag_id: tags,
 			    keyword: ""
-			  }
+			  }	
+		}).done(function(data, status, xhr) {
+			location.href = "my/top.html";
 		});
 	});	
 //});

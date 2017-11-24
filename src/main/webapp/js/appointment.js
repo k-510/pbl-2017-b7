@@ -50,7 +50,8 @@ $.ajax({
 		var shop_id = json.shop_id;
 		$.ajax({
 			type: 'GET',
-			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=2a35bca1f2e78679ef339c42db623e71&format=json&id=' + shop_id,
+//			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=2a35bca1f2e78679ef339c42db623e71&format=json&id=' + shop_id,
+			url:'http://api.gnavi.co.jp/RestSearchAPI/20150630/?keyid=fde3270e5860146ec7cf1874df0de278&format=json&id=' + shop_id,			
 			dataType: 'jsonp',
 			success: function(json){
 				//店舗の住所の取得
